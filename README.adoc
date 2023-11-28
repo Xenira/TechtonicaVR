@@ -1,0 +1,72 @@
+= Techtonica VR Mod
+v.0.1.0
+:toclevels: 2
+:toc: left
+:icons: font
+:source-highlighter: highlightjs
+
+This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
+
+CAUTION: This mod is still in early development and *will* contain bugs. Use at your own risk. Only tested with the Valve Index and Knuckles controllers.
+
+== Prerequisites
+
+* Current version of the game. As the game is still in early access, this mod may not work with future versions of the game. If you encounter any issues, please create an https://github.com/xenira/techtonicavr/issues[Issue].
+* https://github.com/BepInEx/BepInEx[BepInEx] version BepInEx Version
+
+== Setup
+
+=== BepInEx
+. Download the latest 5.x release of BepInEx from the https://github.com/BepInEx/BepInEx/releases[Releases] page.
+. Extract the downloaded archive into the game's installation directory.
+. Run the game once. BepInEx should be installed automatically.
+
+=== VR Mod
+. Download the latest release of this mod from the https://github.com/xenira/techtonicavr/releases[Releases] page.
+. Extract the downloaded archive.
+. Copy the extracted files to the `BepInEx/plugins` folder in your game's installation directory.
+. Run the game. The mod should be loaded automatically by BepInEx.
+
+=== Disabling the Mod
+To disable the mod either remove the mod's files from the `BepInEx/plugins` folder or rename the `BepInEx/plugins/techtonica_vr.dll` file to something else not ending in `.dll`.
+
+This will be improved in the future.
+
+== Current State
+While the mod is in a playable state, it is still in early development. Some features are still missing and there are some known issues. Other things might be a little yanky or not work as expected.
+
+=== Working
+- Rendering of the game world with 6DOF Tracking
+- Tracking of the player's head and hands
+- Movement
+- Basic controller bindings (Although they might not be optimal)
+- Controller haptics
+
+=== Missing
+- Gesture support (e.g. Mining using pickaxe motion)
+- Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now.
+- Model for the player's body and hands
+- Default bindings for VR controllers other than the Valve Index Controllers
+- Configuration options
+
+=== Known Issues
+- Object outlines are not rendered correctly when hovering over them.
+- Main menu is not rendered correctly. Use the Flatscreen version to start the game and then switch to VR.
+- Loading screens are not rendered correctly. Use the Flatscreen version to start the game and then switch to VR.
+- The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things.
+- Some UI elements might be outside of the players field of view or scaled incorrectly.
+- Button prompts are not for VR controllers.
+- Targeting is bound to the player's head.
+- Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
+- When gathering it goes into auto mode and won't stop until you mine something.
+
+=== Cool stuff to try
+- Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)
+
+== Troubleshooting
+
+If you encounter any issues while using this mod, please check the BepInEx console for any error messages. You can also report issues on the https://github.com/xenira/techtonicavr/issues[Issues] page of this repository.
+
+== License
+
+This mod is licensed under the GNU General Public License v3.0 (GPL-3.0).
