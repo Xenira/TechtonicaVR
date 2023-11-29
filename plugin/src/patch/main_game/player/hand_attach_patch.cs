@@ -1,7 +1,7 @@
 using Plugin.Input;
 using UnityEngine;
 
-namespace TechtonicaVR.Patches.Player;
+namespace TechtonicaVR.Patches.MainGame.Player;
 
 public class RightHandAttachPatch : GameObjectPatch
 {

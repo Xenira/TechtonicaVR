@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TechtonicaVR.Patches.UI;
+namespace TechtonicaVR.Patches.MainGame.UI;
 
 class DialoguePopupPatch : GameComponentPatch<DialogueEntryPopupUI>
 

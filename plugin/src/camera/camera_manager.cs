@@ -121,7 +121,7 @@ public class VRCameraManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        PatchBehaviour.Create();
+        MainGamePatch.Create();
         yield break;
     }
 
