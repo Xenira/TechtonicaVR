@@ -58,7 +58,7 @@ class InputPatches
     [HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.Move))]
     static void Move(PlayerFirstPersonController __instance)
     {
-        if (!__instance.m_IsGrounded)
+        if (!__instance.m_IsGrounded || InputHandler.instance.playerInputBlocked || InputHandler.instance.playerInputBlockedOverride)
         {
             return;
         }
