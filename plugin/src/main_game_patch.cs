@@ -48,7 +48,7 @@ public class MainGamePatch : MonoBehaviour
             new DisableComponentPatch<OutlinePostProcess>(),
         ]).ToArray();
 
-        Debug.Log("Hello World!");
+        Plugin.Logger.LogDebug("Hello World!");
     }
 
     void Update()

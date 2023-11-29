@@ -37,7 +37,7 @@ public static class ApplicationManifestHelper
             var error = OpenVR.Applications.AddApplicationManifest(manifestPath, false);
             if (error != EVRApplicationError.None)
             {
-                Debug.LogError("Failed to set AppManifest " + error);
+                Plugin.Logger.LogError("Failed to set AppManifest " + error);
             }
 
             var processId = System.Diagnostics.Process.GetCurrentProcess().Id;
@@ -45,12 +45,12 @@ public static class ApplicationManifestHelper
             var applicationIdentifyErr = OpenVR.Applications.IdentifyApplication((uint)processId, appKey);
             if (applicationIdentifyErr != EVRApplicationError.None)
             {
-                Debug.LogError("Error identifying application: " + applicationIdentifyErr);
+                Plugin.Logger.LogError("Error identifying application: " + applicationIdentifyErr);
             }
         }
         catch (Exception exception)
         {
-            Debug.LogError("Error updating AppManifest: " + exception);
+            Plugin.Logger.LogError("Error updating AppManifest: " + exception);
         }
     }
 

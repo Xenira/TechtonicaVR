@@ -82,6 +82,11 @@ public class Plugin : BaseUnityPlugin
             Logger.LogInfo("Scene is MainMenu, creating MainMenuPatch...");
             MainMenuPatch.Create();
         }
+        else if (scene.name == "Loading")
+        {
+            Logger.LogInfo("Scene is LoadingScreen, creating LoadingScreenPatch...");
+            LoadingScreenPatch.Create();
+        }
     }
 
     public static System.Collections.IEnumerator InitVRLoader()
