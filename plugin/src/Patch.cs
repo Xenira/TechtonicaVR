@@ -48,6 +48,7 @@ public class PatchBehaviour : MonoBehaviour
             new QuestTaskListPatch(),
             new InventoryAndCraftingPatch(),
             new DialoguePopupPatch(),
+            new DisableComponentPatch<OutlinePostProcess>(),
         ]).ToArray();
 
         Debug.Log("Hello World!");
