@@ -14,6 +14,7 @@ using TechtonicaVR.VRCamera;
 using TechtonicaVR.Util;
 using Plugin.Input;
 using TechtonicaVR.Assets;
+using UnityEngine.SceneManagement;
 
 namespace TechtonicaVR;
 
@@ -67,6 +68,20 @@ public class Plugin : BaseUnityPlugin
         new AssetLoader();
 
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+
+        // Add listener for scene change
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Handle scene change logic here
+        Logger.LogInfo($"Scene {scene.name} loaded!");
+        if (scene.name == "Main Menu")
+        {
+            Logger.LogInfo("Scene is MainMenu, creating MainMenuPatch...");
+            MainMenuPatch.Create();
+        }
     }
 
     public static System.Collections.IEnumerator InitVRLoader()

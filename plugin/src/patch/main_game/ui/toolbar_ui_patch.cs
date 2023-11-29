@@ -1,7 +1,7 @@
 using TechtonicaVR.Patches.Universal;
 using UnityEngine;
 
-namespace TechtonicaVR.Patches.UI;
+namespace TechtonicaVR.Patches.MainGame.UI;
 
 class ToolbarUiPatch : GameComponentPatch<ToolbarUI>
 

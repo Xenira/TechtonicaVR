@@ -1,11 +1,9 @@
-using System;
 using System.Linq;
 using TechtonicaVR.Patches;
-using TechtonicaVR.Patches.Player;
-using TechtonicaVR.Patches.UI;
+using TechtonicaVR.Patches.MainGame.Player;
+using TechtonicaVR.Patches.MainGame.UI;
 using TechtonicaVR.Patches.Universal;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TechtonicaVR;
 
@@ -15,7 +13,7 @@ public interface IPatch
     bool IsApplied();
 }
 
-public class PatchBehaviour : MonoBehaviour
+public class MainGamePatch : MonoBehaviour
 {
 
     private IPatch[] playerSpringPatches = [
@@ -25,16 +23,15 @@ public class PatchBehaviour : MonoBehaviour
         new SetDefaultLayerPatch("Scanner", true),
         new SetDefaultLayerPatch("Spectral Cube (Sparks)", true),
         new SetDefaultLayerPatch("Spectral Cube (Paladin)", true),
-        // new AimTransformPatch(),
     ];
 
     IPatch[] patches = [];
 
     private float startTime = Time.time;
 
-    public static PatchBehaviour Create()
+    public static MainGamePatch Create()
     {
-        var instance = new GameObject(nameof(PatchBehaviour)).AddComponent<PatchBehaviour>();
+        var instance = new GameObject(nameof(MainGamePatch)).AddComponent<MainGamePatch>();
 
         return instance;
     }

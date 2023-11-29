@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TechtonicaVR.Patches.UI;
+namespace TechtonicaVR.Patches.MainGame.UI;
 
 public class InventoryAndCraftingPatch : GameObjectPatch
 {
