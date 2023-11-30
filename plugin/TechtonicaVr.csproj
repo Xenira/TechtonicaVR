@@ -74,6 +74,9 @@
     <Reference Include="UnityEngine.UIModule">
       <HintPath>..\strip-dll\UnityEngine.UIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\strip-dll\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">

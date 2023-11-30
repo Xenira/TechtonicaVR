@@ -28,7 +28,13 @@ CAUTION: This mod is still in early development and *will* contain bugs. Use at 
 . Run the game. The mod should be loaded automatically by BepInEx.
 
 === Disabling the Mod
-To disable the mod either remove the mod's files from the `BepInEx/plugins` folder or rename the `BepInEx/plugins/techtonica_vr.dll` file to something else not ending in `.dll`.
+To disable the mod change the `Enabled` under `[General]` value in the `de.xenira.techtonica.cfg` file in the `BepInEx/config` folder to `false`.`
+
+=== Uninstalling the Mod
+To uninstall the mod remove the mod's files from the `BepInEx/plugins` folder. This should be the following files:
+- `techtonica_vr.dll`
+- 'techtonica_vr' folder
+
 
 This will be improved in the future.
 
@@ -50,12 +56,13 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Default bindings for VR controllers other than the Valve Index Controllers
 - Configuration options
 - Object outlines. Disabled for now as the shader is broken in VR.
+- Finger tracking
+- Ability to yeet paladin down the waterfall
 
 === Known Issues
 - The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things.
 - Some UI elements might be outside of the players field of view or scaled incorrectly.
 - Button prompts are not for VR controllers.
-- Targeting is bound to the player's head.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
 - When gathering it goes into auto mode and won't stop until you mine something.
 - Performance needs improvement
