@@ -13,9 +13,11 @@ class AssetLoader
 
     public AssetLoader()
     {
-        var bundle = LoadBundle("steamvr");
-        LeftHandBase = LoadAsset<GameObject>(bundle, "SteamVR/Prefabs/vr_glove_left_model_slim.prefab");
-        RightHandBase = LoadAsset<GameObject>(bundle, "SteamVR/Prefabs/vr_glove_right_model_slim.prefab");
+        var bundle = LoadBundle("player");
+        LeftHandBase = LoadAsset<GameObject>(bundle, "hands/left_hand.prefab");
+        RightHandBase = LoadAsset<GameObject>(bundle, "hands/right_hand.prefab");
+        // LeftHandBase = LoadAsset<GameObject>(bundle, "SteamVR/Prefabs/vr_glove_left_model_slim.prefab");
+        // RightHandBase = LoadAsset<GameObject>(bundle, "SteamVR/Prefabs/vr_glove_right_model_slim.prefab");
 
     }
 

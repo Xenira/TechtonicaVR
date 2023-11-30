@@ -57,13 +57,13 @@
       <HintPath>..\libs\Managed\UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\libs\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\strip-dll\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\libs\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\strip-dll\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubsystemsModule">
-      <HintPath>..\libs\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
+      <HintPath>..\strip-dll\UnityEngine.SubsystemsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>..\libs\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
