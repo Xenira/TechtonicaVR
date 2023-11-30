@@ -36,29 +36,29 @@ This will be improved in the future.
 While the mod is in a playable state, it is still in early development. Some features are still missing and there are some known issues. Other things might be a little yanky or not work as expected.
 
 === Working
-- Rendering of the game world with 6DOF Tracking
-- Tracking of the player's head and hands
-- Movement
-- Basic controller bindings (Although they might not be optimal)
-- Controller haptics
+- :earth_americas: Rendering of the game world with 6DOF Tracking
+- :raised_hands: Tracking of the player's head and hands
+- :walking: Movement
+- :gamepad: Basic controller bindings (Although they might not be optimal)
+- :vibration_mode: Controller haptics
+- :arrows_counterclockwise: Smooth turning
 
 === Missing
-- Gesture support (e.g. Mining using pickaxe motion)
+- Gesture support (e.g. Mining =1using pickaxe motion)
 - Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now.
-- Model for the player's body and hands
+- Model for the player's body. Currently not a priority as this requires IK.
 - Default bindings for VR controllers other than the Valve Index Controllers
 - Configuration options
+- Object outlines. Disabled for now as the shader is broken in VR.
 
 === Known Issues
-- Object outlines are not rendered correctly when hovering over them.
-- Main menu is not rendered correctly. Use the Flatscreen version to start the game and then switch to VR.
-- Loading screens are not rendered correctly. Use the Flatscreen version to start the game and then switch to VR.
 - The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things.
 - Some UI elements might be outside of the players field of view or scaled incorrectly.
 - Button prompts are not for VR controllers.
 - Targeting is bound to the player's head.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
 - When gathering it goes into auto mode and won't stop until you mine something.
+- Performance needs improvement
 
 === Cool stuff to try
 - Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)

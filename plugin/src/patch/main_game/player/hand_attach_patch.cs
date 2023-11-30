@@ -16,8 +16,8 @@ public class RightHandAttachPatch : GameObjectPatch
             return false;
         }
         gameObject.transform.parent = SteamVRInputMapper.rightHandObject.transform;
-        gameObject.transform.localPosition = Vector3.zero;
-        gameObject.transform.localRotation = Quaternion.identity;
+        gameObject.transform.localPosition = new Vector3(0.0016f, 0.0749f, -0.0961f);
+        gameObject.transform.localRotation = Quaternion.Euler(345.2184f, 358.572f, 280.9678f);
         return true;
     }
 }

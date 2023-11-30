@@ -7,7 +7,7 @@ mkdir -p libs/Managed
 cp -r unity/build/unity_Data/Plugins libs
 cp -r unity/build/unity_Data/StreamingAssets libs
 cp -r unity/build/unity_Data/UnitySubsystems libs
-cp -r unity/build/unity_Data/Managed/{SteamVR*,Unity.XR.*,UnityEngine.XR*,UnityEngine.VR*,Valve*,UnityEngine.dll,UnityEngine.CoreModule.dll,UnityEngine.SubsystemsModule.dll,UnityEngine.AssetBundleModule.dll} libs/Managed
+cp -r unity/build/unity_Data/Managed/{SteamVR*.dll,Unity.XR.*.dll,UnityEngine.XR*.dll,UnityEngine.VR*.dll,Valve*.dll,UnityEngine.SubsystemsModule.dll,UnityEngine.AssetBundleModule.dll} libs/Managed
 
 # Build the project
 echo "Building the project..."

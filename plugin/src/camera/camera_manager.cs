@@ -129,12 +129,17 @@ public class VRCameraManager : MonoBehaviour
     {
         SteamVRInputMapper.rightHandObject = new GameObject("RightHand");
         SteamVRInputMapper.rightHandObject.transform.parent = vrRoot;
-        // var rightHandModel = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zero, Quaternion.identity, SteamVRInputMapper.rightHandObject.transform);
+        var rightHandModel = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zero, Quaternion.identity, SteamVRInputMapper.rightHandObject.transform);
+        rightHandModel.transform.localPosition = new Vector3(0, 0.01f, -0.09f);
+        rightHandModel.transform.localRotation = Quaternion.Euler(358.4256f, 103.2413f, 240.2217f);
         // rightHandModel.GetComponent<Renderer>().enabled = true;
 
         SteamVRInputMapper.leftHandObject = new GameObject("LeftHand");
         SteamVRInputMapper.leftHandObject.transform.parent = vrRoot;
-        // var leftHandModel = GameObject.Instantiate(AssetLoader.LeftHandBase, Vector3.zero, Quaternion.identity, SteamVRInputMapper.leftHandObject.transform);
+        var leftHandModel = GameObject.Instantiate(AssetLoader.LeftHandBase, Vector3.zero, Quaternion.identity, SteamVRInputMapper.leftHandObject.transform);
+        leftHandModel.transform.localPosition = new Vector3(0, 0.01f, -0.09f);
+        leftHandModel.transform.localRotation = Quaternion.Euler(335.2912f, 256.7355f, 116.7813f);
+
         // leftHandModel.GetComponent<Renderer>().enabled = true;
     }
 
