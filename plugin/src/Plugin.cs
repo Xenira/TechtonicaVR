@@ -48,9 +48,17 @@ public class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
+        ModConfig.Init(Config);
+
         // Plugin startup logic
         Logger = base.Logger;
         Logger.LogInfo($"Loading plugin {MyPluginInfo.PLUGIN_GUID} version {MyPluginInfo.PLUGIN_VERSION}...");
+
+        if (!ModConfig.ModEnabled())
+        {
+            Logger.LogInfo("Mod is disabled, skipping...");
+            return;
+        }
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 

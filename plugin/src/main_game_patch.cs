@@ -46,6 +46,7 @@ public class MainGamePatch : MonoBehaviour
             new InventoryAndCraftingPatch(),
             new DialoguePopupPatch(),
             new DisableComponentPatch<OutlinePostProcess>(),
+            new CursorCanvasPatch(),
         ]).ToArray();
 
         Plugin.Logger.LogDebug("Hello World!");
