@@ -18,7 +18,7 @@ public class TargetRaycastPatch
         var forward = right_hand_transform.forward;
 
         // Rotate the forward vector 45 degrees down
-        var rotation = Quaternion.Euler(45f, 0f, 0f);
+        var rotation = Quaternion.Euler(60f, 0f, 0f);
         forward = rotation * forward;
 
         __instance._hasCamHit = Physics.Raycast(new Ray(right_hand_transform.position, forward), out __instance._camHit, __instance.cam.farClipPlane, __instance.aimLayer, QueryTriggerInteraction.Collide);

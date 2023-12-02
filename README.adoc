@@ -50,7 +50,7 @@ While the mod is in a playable state, it is still in early development. Some fea
 - :arrows_counterclockwise: Smooth turning
 
 === Missing
-- Gesture support (e.g. Mining =1using pickaxe motion)
+- Gesture support (e.g. Mining using pickaxe motion)
 - Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now.
 - Model for the player's body. Currently not a priority as this requires IK.
 - Default bindings for VR controllers other than the Valve Index Controllers
@@ -64,7 +64,6 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Some UI elements might be outside of the players field of view or scaled incorrectly.
 - Button prompts are not for VR controllers.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
-- When gathering it goes into auto mode and won't stop until you mine something.
 - Performance needs improvement
 
 === Cool stuff to try

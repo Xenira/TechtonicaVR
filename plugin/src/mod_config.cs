@@ -7,6 +7,12 @@ public class ModConfig
     // General
     public static ConfigEntry<bool> modEnabled;
 
+    // Input
+    public static ConfigEntry<int> smoothTurnSpeed;
+
+    // Buttons
+    public static ConfigEntry<float> longPressTime;
+
     // Debug
     public static ConfigEntry<bool> debugMode;
     public static ConfigEntry<bool> debugLineEnabled;
@@ -15,6 +21,12 @@ public class ModConfig
     {
         // General
         modEnabled = config.Bind("General", "Enabled", true, "Enable mod");
+
+        // Input
+        smoothTurnSpeed = config.Bind("Input", "Smooth Turn Speed", 90, "Speed of smooth turning");
+
+        // Buttons
+        longPressTime = config.Bind("Buttons", "Long Press Time", 1f, "Time to hold button for long press");
 
         // Debug
         debugMode = config.Bind("Debug", "Debug Mode", false, "Enable debug mode");

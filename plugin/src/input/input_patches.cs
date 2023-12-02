@@ -64,7 +64,7 @@ class InputPatches
         }
 
         var delta = Time.deltaTime;
-        var horizontalRotation = SteamVRInputMapper.TurnAxis * delta * 64f;
+        var horizontalRotation = SteamVRInputMapper.TurnAxis * delta * ModConfig.smoothTurnSpeed.Value;
         __instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
     }
 
@@ -124,6 +124,20 @@ class InputPatches
         if (state != null)
         {
             __result = state.IsTimedPress(time);
+            return false;
+        }
+
+        return true;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(Rewired.Player), nameof(Rewired.Player.GetButtonLongPressDown), [typeof(int)])]
+    static bool GetButtonLongPressDown(ref bool __result, int actionId)
+    {
+        var state = MapButtonState(actionId);
+        if (state != null)
+        {
+            __result = state.IsTimedPressDown(ModConfig.longPressTime.Value);
             return false;
         }
 
