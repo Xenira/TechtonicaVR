@@ -158,6 +158,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/ToggleErase",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -261,7 +265,8 @@
       "/actions/default/in/UIPageLeftSecondary": "UI Page Left Secondary",
       "/actions/default/in/ToggleMenu": "ToggleMenu",
       "/actions/default/in/UISubmit": "UI Submit",
-      "/actions/default/in/UICancel": "UI Cancel"
+      "/actions/default/in/UICancel": "UI Cancel",
+      "/actions/default/in/ToggleErase": "Toggle Erase"
     }
   ]
 }
