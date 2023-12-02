@@ -44,6 +44,7 @@ public static class SteamVRInputMapper
     public static Button cycleHotbarRight = new Button(SteamVR_Actions._default.CycleHotbarRight);
     public static Button rotateLeft = new Button(SteamVR_Actions._default.RotateBuildingLeft);
     public static Button rotateRight = new Button(SteamVR_Actions._default.RotoateBuildingRight);
+    public static Button toggleErase = new Button(SteamVR_Actions._default.ToggleErase);
 
     public static void MapActions()
     {

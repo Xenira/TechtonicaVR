@@ -290,6 +290,8 @@ class InputPatches
                 return SteamVRInputMapper.rotateRight;
             case RewiredConsts.Action.Crafting_Menu:
                 return SteamVRInputMapper.Inventory;
+            case RewiredConsts.Action.Toggle_Erase:
+                return SteamVRInputMapper.toggleErase;
             case RewiredConsts.Action.Cycle_Hotbar_Left:
                 return SteamVRInputMapper.cycleHotbarLeft;
             case RewiredConsts.Action.UIPageLeft:
