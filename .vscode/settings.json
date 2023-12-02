@@ -1,0 +1,8 @@
+{
+    "conventionalCommits.scopes": [
+        "input",
+        "render",
+        "ui",
+        "player"
+    ]
+}

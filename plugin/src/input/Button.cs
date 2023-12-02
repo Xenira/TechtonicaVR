@@ -9,8 +9,8 @@ public class Button
 {
     bool currentState;
     bool previousState;
-    float lastChangeTime = UnityEngine.Time.time;
-    float lastDuration = 0f;
+    float lastChangeTime;
+    float lastDuration;
 
     public Button(SteamVR_Action_Boolean action)
     {
@@ -52,7 +52,7 @@ public class Button
 
     public bool IsTimedPress(float min)
     {
-        return currentState && lastChangeTime + min >= UnityEngine.Time.time;
+        return currentState && UnityEngine.Time.time - lastChangeTime >= min;
     }
 
     public bool IsTimedPressUp(float min)
@@ -67,7 +67,7 @@ public class Button
 
     public bool IsTimedPressDown(float min)
     {
-        return currentState && lastChangeTime + min >= UnityEngine.Time.time;
+        return currentState && UnityEngine.Time.time - lastChangeTime >= min;
     }
 
     public bool IsTimedPressDown(float min, float max)
