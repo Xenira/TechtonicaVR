@@ -1,7 +1,9 @@
 on:
-    push:
-      branches:
-        - master
+    workflow_run:
+      workflows: [".Net"]
+      branches: ["master"]
+      types:
+        - completed
   
 permissions:
     contents: write
@@ -27,11 +29,11 @@ jobs:
           if: ${{ steps.release.outputs.release_created }}
           uses: dawidd6/action-download-artifact@v2
           with:
-            workflow: dotnet.yml
+            workflow: ".Net"
             name: release-artifact
             path: techtonica_vr.tar.gz
         - name: Upload release artifact
-          if: ${{ steps.release.outputs.release_created }}}
+          if: ${{ steps.release.outputs.release_created }}
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
