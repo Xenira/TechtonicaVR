@@ -1,0 +1,39 @@
+on:
+    push:
+      branches:
+        - master
+  
+permissions:
+    contents: write
+    pull-requests: write
+  
+name: release-please
+  
+jobs:
+    release-please:
+      runs-on: ubuntu-latest
+      steps:
+        - id: release
+          uses: google-github-actions/release-please-action@v4
+          with:
+            # this assumes that you have created a personal access token
+            # (PAT) and configured it as a GitHub action secret named
+            # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
+            token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+            # this is a built-in strategy in release-please, see "Action Inputs"
+            # for more options
+            release-type: simple
+        - name: Download release artifact
+          if: ${{ steps.release.outputs.release_created }}
+          uses: dawidd6/action-download-artifact@v2
+          with:
+            workflow: dotnet.yml
+            name: release-artifact
+            path: techtonica_vr.tar.gz
+        - name: Upload release artifact
+          if: ${{ steps.release.outputs.release_created }}}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            mv techtonica_vr.tar.gz techtonica_vr-${{ steps.release.outputs.tag_name }}.tar.gz
+            gh release upload ${{ steps.release.outputs.tag }} techtonica_vr-${{ steps.release.outputs.tag_name }}.tar.gz
