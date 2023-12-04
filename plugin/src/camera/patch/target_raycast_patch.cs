@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Plugin.Input;
+using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.VRCamera.Patch;
@@ -15,11 +16,11 @@ public class TargetRaycastPatch
     public static bool Postfix(PlayerFirstPersonController __instance)
     {
         var right_hand_transform = SteamVRInputMapper.rightHandObject.transform;
-        var forward = right_hand_transform.forward;
+        var forward = -right_hand_transform.up;
 
-        // Rotate the forward vector 45 degrees down
-        var rotation = Quaternion.Euler(60f, 0f, 0f);
-        forward = rotation * forward;
+        // // Rotate the forward vector 45 degrees down
+        // var rotation = Quaternion.Euler(60f, 0f, 0f);
+        // forward = rotation * forward;
 
         __instance._hasCamHit = Physics.Raycast(new Ray(right_hand_transform.position, forward), out __instance._camHit, __instance.cam.farClipPlane, __instance.aimLayer, QueryTriggerInteraction.Collide);
         if (__instance.hasCamHit)
@@ -42,12 +43,10 @@ public class TargetRaycastPatch
     [HarmonyPatch(typeof(CursorDotUI), nameof(PlayerFirstPersonController.LateUpdate))]
     public static void Postfix(CursorDotUI __instance)
     {
-        if (cursorTlc != null && Player.instance.fpcontroller.hasCamHit)
+        if (cursorTlc != null && Player.instance.fpcontroller.hasCamHit && VRCameraManager.mainCamera != null)
         {
             var camHit = Player.instance.fpcontroller.camHit;
-            Vector3 screenPoint = Player.instance.fpcontroller.cam.WorldToScreenPoint(camHit.point);
-            Vector3 canvasPoint = cursorTlc.parent.GetComponent<Canvas>().worldCamera.ScreenToWorldPoint(screenPoint);
-            cursorTlc.position = canvasPoint;
+            MathyStuff.PositionCanvasInWorld(VRCameraManager.mainCamera, camHit.point, cursorTlc.gameObject);
         }
     }
 }

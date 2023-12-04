@@ -16,11 +16,6 @@ public class CursorCanvasPatch : GameObjectPatch
         var tlc = gameObject.transform.GetChild(0);
         TargetRaycastPatch.cursorTlc = tlc;
 
-        // Debug
-        var line = tlc.gameObject.AddComponent<DebugLine>();
-        line.start = tlc;
-        line.end = SteamVRInputMapper.rightHandObject.transform;
-
         return true;
     }
 }

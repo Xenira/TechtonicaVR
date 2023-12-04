@@ -57,6 +57,7 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Configuration options
 - Object outlines. Disabled for now as the shader is broken in VR.
 - Finger tracking
+- Ability to switch primary hand
 - Ability to yeet paladin down the waterfall
 
 === Known Issues

@@ -15,6 +15,7 @@ public class ModConfig
 
     // Debug
     public static ConfigEntry<bool> debugMode;
+    public static ConfigEntry<bool> gizmoEnabled;
     public static ConfigEntry<bool> debugLineEnabled;
 
     public static void Init(ConfigFile config)
@@ -30,12 +31,18 @@ public class ModConfig
 
         // Debug
         debugMode = config.Bind("Debug", "Debug Mode", false, "Enable debug mode");
+        gizmoEnabled = config.Bind("Debug", "Gizmo Enabled", false, "Enable gizmos");
         debugLineEnabled = config.Bind("Debug", "Debug Line Enabled", false, "Enable debug lines");
     }
 
     public static bool ModEnabled()
     {
         return modEnabled.Value;
+    }
+
+    public static bool GizmoEnabled()
+    {
+        return debugMode.Value && gizmoEnabled.Value;
     }
 
     public static bool DebugLineEnabled()

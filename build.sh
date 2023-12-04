@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Copy the vr dlls to the libs folder
 echo "Copying the vr dlls to the libs folder..."
@@ -29,6 +28,3 @@ echo "Copying the assets to the game folder..."
 rm -rf /c/Program\ Files\ \(x86\)/Steam/steamapps/common/Techtonica/BepInEx/plugins/techtonica_vr/assets
 mkdir -p /c/Program\ Files\ \(x86\)/Steam/steamapps/common/Techtonica/BepInEx/plugins/techtonica_vr/assets
 cp -r ./unity/AssetBundles/StandaloneWindows/* /c/Program\ Files\ \(x86\)/Steam/steamapps/common/Techtonica/BepInEx/plugins/techtonica_vr/assets
-
-echo "Done!"
-read -p "Press enter to continue"
