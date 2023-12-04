@@ -11,6 +11,9 @@ class HandTrackedCanvas : MonoBehaviour
 	public Vector3 showDirection;
 	public Canvas canvas;
 	public RectTransform rectTransform;
+	public Transform rectTransformOverride;
+	public Vector3 transformOverride = Vector3.zero;
+	public bool noTransform = false;
 	public float showDistance;
 
 	private void Start()
@@ -19,7 +22,7 @@ class HandTrackedCanvas : MonoBehaviour
 		anchor.transform.parent = hand;
 		anchor.transform.localPosition = offset;
 
-		canvas = gameObject.transform.parent.GetComponent<Canvas>();
+		canvas = gameObject.transform.parent.GetComponentInParent<Canvas>();
 		canvas.renderMode = RenderMode.WorldSpace;
 		canvas.gameObject.layer = 0;
 
@@ -42,10 +45,17 @@ class HandTrackedCanvas : MonoBehaviour
 		}
 
 		canvas.enabled = true;
+		canvas.gameObject.transform.LookAt(VRCameraManager.mainCamera.transform);
+
+		if (noTransform)
+		{
+			return;
+		}
 
 		var rect = rectTransform.rect;
-		rectTransform.transform.localPosition = new Vector3(-rect.width / 2, rect.height, 0);
-		canvas.gameObject.transform.LookAt(VRCameraManager.mainCamera.transform);
+		var transform = rectTransformOverride != null ? rectTransformOverride : rectTransform.transform;
+		var localPosition = transformOverride != Vector3.zero ? transformOverride : new Vector3(-rect.width / 2, rect.height, 0);
+		transform.localPosition = localPosition;
 	}
 
 	private bool ShouldShow()
