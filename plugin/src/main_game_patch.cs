@@ -19,10 +19,8 @@ public class MainGamePatch : MonoBehaviour
 	private IPatch[] playerSpringPatches = [
 			new LeftHandAttachPatch(),
 				new RightHandAttachPatch(),
-				new SetDefaultLayerPatch("Pickaxe", true),
-				new SetDefaultLayerPatch("Scanner", true),
-				new SetDefaultLayerPatch("Spectral Cube (Sparks)", true),
-				new SetDefaultLayerPatch("Spectral Cube (Paladin)", true),
+				new SetDefaultLayerPatch("Right Hand Attach", true),
+				new SetDefaultLayerPatch("Left Hand Attach", true),
 		];
 
 	IPatch[] patches = [];
