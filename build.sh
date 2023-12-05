@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Copy the vr dlls to the libs folder
 echo "Copying the vr dlls to the libs folder..."

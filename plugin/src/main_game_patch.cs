@@ -43,7 +43,6 @@ public class MainGamePatch : MonoBehaviour
 						new NotificationCanvasPatche(),
 						new ToolbarUiPatch(),
 						new QuestTaskListPatch(),
-						new InventoryAndCraftingPatch(),
 						new DialoguePopupPatch(),
 						new DisableComponentPatch<OutlinePostProcess>(),
 						new CursorCanvasPatch(),
