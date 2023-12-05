@@ -9,56 +9,55 @@ namespace TechtonicaVR;
 
 public interface IPatch
 {
-    bool Apply();
-    bool IsApplied();
+	bool Apply();
+	bool IsApplied();
 }
 
 public class MainGamePatch : MonoBehaviour
 {
 
-    private IPatch[] playerSpringPatches = [
-        new LeftHandAttachPatch(),
-        new RightHandAttachPatch(),
-        new SetDefaultLayerPatch("Pickaxe", true),
-        new SetDefaultLayerPatch("Scanner", true),
-        new SetDefaultLayerPatch("Spectral Cube (Sparks)", true),
-        new SetDefaultLayerPatch("Spectral Cube (Paladin)", true),
-    ];
+	private IPatch[] playerSpringPatches = [
+			new LeftHandAttachPatch(),
+				new RightHandAttachPatch(),
+				new SetDefaultLayerPatch("Right Hand Attach", true),
+				new SetDefaultLayerPatch("Left Hand Attach", true),
+		];
 
-    IPatch[] patches = [];
+	IPatch[] patches = [];
 
-    private float startTime = Time.time;
+	private float startTime = Time.time;
 
-    public static MainGamePatch Create()
-    {
-        var instance = new GameObject(nameof(MainGamePatch)).AddComponent<MainGamePatch>();
+	public static MainGamePatch Create()
+	{
+		var instance = new GameObject(nameof(MainGamePatch)).AddComponent<MainGamePatch>();
 
-        return instance;
-    }
+		return instance;
+	}
 
-    void Start()
-    {
-        patches = playerSpringPatches.Concat([
-            new ExecuteAfterPatch(new DisableByNamePatch("Astronaut_LP_ArmsTorso"), playerSpringPatches),
-            new NotificationCanvasPatche(),
-            new ToolbarUiPatch(),
-            new QuestTaskListPatch(),
-            new InventoryAndCraftingPatch(),
-            new DialoguePopupPatch(),
-            new DisableComponentPatch<OutlinePostProcess>(),
-            new CursorCanvasPatch(),
-        ]).ToArray();
+	void Start()
+	{
+		patches = playerSpringPatches.Concat([
+				new ExecuteAfterPatch(new DisableByNamePatch("Astronaut_LP_ArmsTorso"), playerSpringPatches),
+						new NotificationCanvasPatche(),
+						new ToolbarUiPatch(),
+						new QuestTaskListPatch(),
+						new DialoguePopupPatch(),
+						new DisableComponentPatch<OutlinePostProcess>(),
+						new CursorCanvasPatch(),
+						new CompassPatch(),
+						new MapPatch(),
+				]).ToArray();
 
-        Plugin.Logger.LogDebug("Hello World!");
-    }
+		Plugin.Logger.LogDebug("Hello World!");
+	}
 
-    void Update()
-    {
-        patches = patches.Where(p => !p.Apply()).ToArray();
+	void Update()
+	{
+		patches = patches.Where(p => !p.Apply()).ToArray();
 
-        if (!patches.Any())
-        {
-            gameObject.SetActive(false);
-        }
-    }
+		if (!patches.Any())
+		{
+			gameObject.SetActive(false);
+		}
+	}
 }

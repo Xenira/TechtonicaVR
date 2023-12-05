@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;
 
-class NotificationCanvasPatche : GameComponentPatch<NotificationUI>
+class CompassPatch : GameComponentPatch<CompassUI>
 
 {
-	protected override bool Apply(NotificationUI component)
+	protected override bool Apply(CompassUI component)
 	{
 		var tlc = component.gameObject.transform.GetChild(0);
 		if (tlc == null)
@@ -16,10 +16,10 @@ class NotificationCanvasPatche : GameComponentPatch<NotificationUI>
 		}
 
 		var trackedCanvas = tlc.gameObject.AddComponent<HandTrackedCanvas>();
-		trackedCanvas.hand = SteamVRInputMapper.leftHandObject.transform;
+		trackedCanvas.hand = SteamVRInputMapper.rightHandObject.transform;
 		trackedCanvas.showDirection = Vector3.right;
 		trackedCanvas.offset = new Vector3(0.08f, -0.03f, -0.1f);
-		trackedCanvas.showDistance = 0.2f;
+		trackedCanvas.showDistance = 0.3f;
 		trackedCanvas.rectTransform = tlc.GetChild(0).GetComponent<RectTransform>();
 
 		tlc.localScale = new Vector3(-0.1f, 0.1f, 0.1f);

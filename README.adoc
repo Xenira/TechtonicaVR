@@ -42,29 +42,38 @@ This will be improved in the future.
 While the mod is in a playable state, it is still in early development. Some features are still missing and there are some known issues. Other things might be a little yanky or not work as expected.
 
 === Working
-- :earth_americas: Rendering of the game world with 6DOF Tracking
-- :raised_hands: Tracking of the player's head and hands
-- :walking: Movement
-- :gamepad: Basic controller bindings (Although they might not be optimal)
-- :vibration_mode: Controller haptics
-- :arrows_counterclockwise: Smooth turning
+- Rendering of the game world with 6DOF Tracking
+- Tracking of the player's head and hands
+- Movement
+- Basic controller bindings (Although they might not be optimal)
+- Controller haptics
+- Smooth turning
+- UI
 
 === Missing
 - Gesture support (e.g. Mining using pickaxe motion)
 - Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now.
 - Model for the player's body. Currently not a priority as this requires IK.
 - Default bindings for VR controllers other than the Valve Index Controllers
-- Configuration options
 - Object outlines. Disabled for now as the shader is broken in VR.
 - Finger tracking
+- Ability to switch primary hand
 - Ability to yeet paladin down the waterfall
 
 === Known Issues
 - The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things.
-- Some UI elements might be outside of the players field of view or scaled incorrectly.
 - Button prompts are not for VR controllers.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
-- Performance needs improvement
+
+== Q&A
+[qanda]
+Why is my framerate locked to 60fps?::
+The game is locked to x fps when running in Windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
+// AI generated below :P::
+Why is the mod not open source?::
+It is. You are looking at the source right now (duh!).
+Why is the mod not on NexusMods?::
+I don't like NexusMods. I don't like their ToS and I don't like their mod manager. I don't want to support them.
 
 === Cool stuff to try
 - Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)
