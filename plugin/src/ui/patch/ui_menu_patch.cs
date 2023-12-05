@@ -27,10 +27,16 @@ public class UIMenuPatch
 			destroyBlur(blur);
 		}
 
-		tlc.transform.localScale = ModConfig.menuScale.Value;
-
 		var tracked_menu = tlc.AddComponent<WorldPositionedCanvas>();
 		tracked_menu.menu = __instance;
+		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
+		{
+			tracked_menu.scale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
+		}
+		else
+		{
+			tracked_menu.scale = ModConfig.menuScale.Value;
+		}
 
 		cache[__instance] = tracked_menu;
 	}
@@ -47,14 +53,7 @@ public class UIMenuPatch
 			return;
 		}
 
-		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
-		{
-			tracked_menu.transform.localScale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
-		}
-		else
-		{
-			tracked_menu.transform.localScale = ModConfig.menuScale.Value;
-		}
+		tracked_menu.transform.localScale = tracked_menu.scale;
 
 		// Do not update if menu is part of carousel
 		if (UIManager._instance.carouselUI.isOpen && lastPosition != Vector3.zero)
@@ -90,6 +89,7 @@ public class UIMenuPatch
 		}
 
 		tracked_menu.target = Vector3.zero;
+		tracked_menu.playerInventoryUI = null;
 		lastPosition = Vector3.zero;
 		lastCamOrigin = Vector3.zero;
 	}
@@ -99,6 +99,24 @@ public class UIMenuPatch
 	public static bool ToggleAlphaPrefix(CanvasGroup me, bool isOn)
 	{
 		return me != null;
+	}
+
+	[HarmonyPatch(typeof(PlayerInventoryUI), nameof(PlayerInventoryUI.Open))]
+	[HarmonyPostfix]
+	public static void PlayerInventoryUIOpenPostfix(PlayerInventoryUI __instance, RectTransform playerInventoryRefXfm, bool shouldCycle)
+	{
+		Plugin.Logger.LogInfo($"PlayerInventoryUI.OpenPostfix: {__instance.name}");
+		var worldPositionedCanvas = playerInventoryRefXfm.GetComponentInParent<WorldPositionedCanvas>();
+		if (worldPositionedCanvas == null)
+		{
+			Plugin.Logger.LogError($"PlayerInventoryUI.OpenPostfix: worldPositionedCanvas is null");
+			return;
+		}
+
+		var tlc = __instance.gameObject.transform.GetChild(0);
+		tlc.transform.localScale = worldPositionedCanvas.scale;
+
+		worldPositionedCanvas.playerInventoryUI = __instance;
 	}
 
 	private static void destroyBlur(GameObject blur)

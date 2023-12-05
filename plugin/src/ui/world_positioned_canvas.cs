@@ -7,9 +7,11 @@ namespace TechtonicaVR.UI;
 public class WorldPositionedCanvas : MonoBehaviour
 {
 	public UIMenu menu;
+	public PlayerInventoryUI playerInventoryUI;
 
 	public Vector3 target;
 	public Vector3 camOrigin;
+	public Vector3 scale;
 
 	private void Start()
 	{
@@ -27,9 +29,15 @@ public class WorldPositionedCanvas : MonoBehaviour
 			return;
 		}
 
-		menu.myCanvas.renderMode = RenderMode.ScreenSpaceCamera;
-
 		var cam = VRCameraManager.mainCamera;
-		MathyStuff.PositionCanvasInWorld(gameObject, cam, target, camOrigin);
+		if (menu.isOpen)
+		{
+			MathyStuff.PositionCanvasInWorld(gameObject, cam, target, camOrigin);
+		}
+
+		if (playerInventoryUI != null && playerInventoryUI.isOpen)
+		{
+			MathyStuff.PositionCanvasInWorld(playerInventoryUI.gameObject.transform.GetChild(0).gameObject, cam, target, camOrigin);
+		}
 	}
 }
