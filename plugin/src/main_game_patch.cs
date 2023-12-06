@@ -21,6 +21,7 @@ public class MainGamePatch : MonoBehaviour
 				new RightHandAttachPatch(),
 				new SetDefaultLayerPatch("Right Hand Attach", true),
 				new SetDefaultLayerPatch("Left Hand Attach", true),
+				new SetDefaultLayerPatch("Terrain Manipulator Black Hole", true),
 		];
 
 	IPatch[] patches = [];
