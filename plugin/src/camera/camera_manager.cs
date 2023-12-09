@@ -72,7 +72,6 @@ public class VRCameraManager : MonoBehaviour
 		{
 			vrRoot = PlayerFirstPersonController.instance.transform;
 
-
 			mainCamera.transform.parent = vrRoot;
 			foreach (var a in ReInput.mapping.Actions)
 			{
