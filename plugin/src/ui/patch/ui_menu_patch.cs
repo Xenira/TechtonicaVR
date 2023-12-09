@@ -79,7 +79,7 @@ public class UIMenuPatch
 		WorldPositionedCanvas tracked_menu;
 		if (!cache.TryGetValue(__instance, out tracked_menu))
 		{
-			Plugin.Logger.LogError($"UIMenu.OnClosePostfix: tracked_menu is null");
+			Plugin.Logger.LogWarning($"UIMenu.OnClosePostfix: tracked_menu is null (Can be ignored on game start)");
 			return;
 		}
 

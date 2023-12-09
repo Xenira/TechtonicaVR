@@ -1,9 +1,11 @@
 = Techtonica VR Mod
 v.0.1.0
 :toclevels: 2
+:sectnums:
 :toc: left
 :icons: font
 :source-highlighter: highlightjs
+:game-version: 0.1.2a
 
 This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
 
@@ -11,7 +13,7 @@ CAUTION: This mod is still in early development and *will* contain bugs. Use at 
 
 == Prerequisites
 
-* Current version of the game. As the game is still in early access, this mod may not work with future versions of the game. If you encounter any issues, please create an https://github.com/xenira/techtonicavr/issues[Issue].
+* Version {game-version} of the game. As the game is still in early access, this mod may not work with future versions of the game. If you encounter any issues, please create an https://github.com/xenira/techtonicavr/issues[Issue].
 * https://github.com/BepInEx/BepInEx[BepInEx] version BepInEx Version
 
 == Setup
@@ -32,11 +34,11 @@ To disable the mod change the `Enabled` under `[General]` value in the `de.xenir
 
 === Uninstalling the Mod
 To uninstall the mod remove the mod's files from the `BepInEx/plugins` folder. This should be the following files:
+
 - `techtonica_vr.dll`
 - 'techtonica_vr' folder
 
-
-This will be improved in the future.
+There will be some leftover files in the `Techtonica_Data` folder. To clean those up, delete the folder and verify the game's files in Steam. This will redownload the game's files and remove any leftover files.
 
 == Current State
 While the mod is in a playable state, it is still in early development. Some features are still missing and there are some known issues. Other things might be a little yanky or not work as expected.
@@ -64,16 +66,9 @@ While the mod is in a playable state, it is still in early development. Some fea
 - The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things.
 - Button prompts are not for VR controllers.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
-
-== Q&A
-[qanda]
-Why is my framerate locked to 60fps?::
-The game is locked to x fps when running in Windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
-// AI generated below :P::
-Why is the mod not open source?::
-It is. You are looking at the source right now (duh!).
-Why is the mod not on NexusMods?::
-I don't like NexusMods. I don't like their ToS and I don't like their mod manager. I don't want to support them.
+- Use and interact buttons are mapped to the same button. This might cause issues when interacting with objects.
+- The manual crank button is not mapped to a button on the controller.
+- Building and erasing uses head rotation instead of hand rotation for targeting.
 
 === Cool stuff to try
 - Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)
@@ -81,6 +76,16 @@ I don't like NexusMods. I don't like their ToS and I don't like their mod manage
 == Troubleshooting
 
 If you encounter any issues while using this mod, please check the BepInEx console for any error messages. You can also report issues on the https://github.com/xenira/techtonicavr/issues[Issues] page of this repository.
+
+=== Q&A
+[qanda]
+Why is my framerate locked to 60fps?::
+The game is locked to x fps when running in Windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
+// AI generated below :P
+Why is the mod not open source?::
+It is. You are looking at the source right now (duh!).
+Why is the mod not on NexusMods?::
+I don't like NexusMods. I don't like their ToS and I don't like their mod manager. I don't want to support them.
 
 == License
 
