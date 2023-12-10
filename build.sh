@@ -18,7 +18,7 @@ cd ..
 
 # Copy the mod dll to the mods folder
 echo "Copying the mod dll to the mods folder..."
-cp ./plugin/bin/Debug/netstandard2.1/techtonica_vr.dll /c/Program\ Files\ \(x86\)/Steam/steamapps/common/Techtonica/BepInEx/plugins/techtonica_vr.dll
+cp ./plugin/bin/Debug/netstandard2.1/techtonica_vr.dll /c/Program\ Files\ \(x86\)/Steam/steamapps/common/Techtonica/BepInEx/plugins/techtonica_vr.*
 
 # Copy the vr dlls to the game folder
 echo "Copying the vr dlls to the game folder..."

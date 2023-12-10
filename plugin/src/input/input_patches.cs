@@ -248,8 +248,9 @@ class InputPatches
 		{
 			case RewiredConsts.Action.Jump:
 				return SteamVRInputMapper.Jump;
-			case RewiredConsts.Action.Interact:
 			case RewiredConsts.Action.Use:
+				return SteamVRInputMapper.Use;
+			case RewiredConsts.Action.Interact:
 			case RewiredConsts.Action.MouseLeftClick:
 				return SteamVRInputMapper.Interact;
 			case RewiredConsts.Action.Sprint:
