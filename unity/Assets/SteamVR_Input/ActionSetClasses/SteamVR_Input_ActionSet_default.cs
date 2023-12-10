@@ -321,6 +321,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean Use
+        {
+            get
+            {
+                return SteamVR_Actions.default_Use;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean UIShortcut2
+        {
+            get
+            {
+                return SteamVR_Actions.default_UIShortcut2;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

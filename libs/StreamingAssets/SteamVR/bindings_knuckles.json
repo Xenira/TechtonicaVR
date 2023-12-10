@@ -1,7 +1,7 @@
 {
    "action_manifest_version" : 0,
    "alias_info" : {},
-   "app_key" : "application.generated.unity.unity.exe",
+   "app_key" : "system.generated.unity.exe",
    "bindings" : {
       "/actions/buggy" : {
          "chords" : [],
@@ -64,7 +64,7 @@
             {
                "inputs" : {
                   "click" : {
-                     "output" : "/actions/default/in/interact"
+                     "output" : "/actions/default/in/use"
                   }
                },
                "mode" : "button",
@@ -86,13 +86,14 @@
             {
                "inputs" : {
                   "grab" : {
-                     "output" : "/actions/default/in/grabgrip"
+                     "output" : "/actions/default/in/interact"
                   }
                },
                "mode" : "grab",
                "parameters" : {
                   "force_hold_threshold" : "0.02",
-                  "force_release_threshold" : "0.01"
+                  "force_release_threshold" : "0.01",
+                  "value_hold_threshold" : "1.05"
                },
                "path" : "/user/hand/right/input/grip"
             },
@@ -304,6 +305,18 @@
                },
                "mode" : "button",
                "path" : "/user/hand/left/input/b"
+            },
+            {
+               "inputs" : {
+                  "grab" : {
+                     "output" : "/actions/default/in/uishortcut2"
+                  }
+               },
+               "mode" : "grab",
+               "parameters" : {
+                  "value_hold_threshold" : "1.1"
+               },
+               "path" : "/user/hand/right/input/grip"
             }
          ]
       },

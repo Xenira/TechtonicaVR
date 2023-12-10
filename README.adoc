@@ -61,14 +61,18 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Finger tracking
 - Ability to switch primary hand
 - Ability to yeet paladin down the waterfall
+- Hand crank using uhhhhh... hands?
+- Hotbar reassignment
 
 === Known Issues
-- The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things.
+- The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things. Also map shows the player looking in the wrong direction.
 - Button prompts are not for VR controllers.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
 - Use and interact buttons are mapped to the same button. This might cause issues when interacting with objects.
 - The manual crank button is not mapped to a button on the controller.
-- Building and erasing uses head rotation instead of hand rotation for targeting.
+- Machine info not visible when targeting with hand.
+- Crafting queue not visible.
+- The game is locked to 60fps when running in windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
 
 === Cool stuff to try
 - Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)
