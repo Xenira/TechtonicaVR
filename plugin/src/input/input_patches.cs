@@ -277,6 +277,10 @@ class InputPatches
 				return SteamVRInputMapper.UISubmit;
 			case RewiredConsts.Action.UI_Cancel:
 				return SteamVRInputMapper.UICancel;
+			case RewiredConsts.Action.UI_Shortcut_1:
+				return SteamVRInputMapper.UIShortcut1;
+			case RewiredConsts.Action.UI_Shortcut_2:
+				return SteamVRInputMapper.UIShortcut2;
 			case RewiredConsts.Action.Craft:
 				return SteamVRInputMapper.craft;
 			case RewiredConsts.Action.Craft_Five:

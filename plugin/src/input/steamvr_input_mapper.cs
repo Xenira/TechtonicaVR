@@ -40,6 +40,8 @@ public static class SteamVRInputMapper
 	public static Button UIPageRightSecondary = new Button(SteamVR_Actions._default.UIPageRightSecondary);
 	public static Button UISubmit = new Button(SteamVR_Actions._default.UISubmit);
 	public static Button UICancel = new Button(SteamVR_Actions._default.UICancel);
+	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);
+	public static Button UIShortcut2 = new Button(SteamVR_Actions._default.UIShortcut2);
 
 	public static Button cycleHotbarLeft = new Button(SteamVR_Actions._default.CycleHotbarLeft);
 	public static Button cycleHotbarRight = new Button(SteamVR_Actions._default.CycleHotbarRight);

@@ -10,6 +10,8 @@ namespace TechtonicaVR.UI.Patch;
 public class UIMenuPatch
 {
 	private static Dictionary<UIMenu, WorldPositionedCanvas> cache = new Dictionary<UIMenu, WorldPositionedCanvas>();
+	private static WorldPositionedCanvas recipePickerUi;
+
 	private static Vector3 lastCamOrigin = Vector3.zero;
 	private static Vector3 lastPosition = Vector3.zero;
 
@@ -28,7 +30,7 @@ public class UIMenuPatch
 		}
 
 		var tracked_menu = tlc.AddComponent<WorldPositionedCanvas>();
-		tracked_menu.menu = __instance;
+		tracked_menu.menu = new UIMenuWrapper(__instance);
 		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
 		{
 			tracked_menu.scale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
@@ -117,6 +119,72 @@ public class UIMenuPatch
 		tlc.transform.localScale = worldPositionedCanvas.scale;
 
 		worldPositionedCanvas.playerInventoryUI = __instance;
+	}
+
+	[HarmonyPatch(typeof(RecipePickerUI), nameof(RecipePickerUI.Start))]
+	[HarmonyPostfix]
+	public static void RecipePickerUIStartPostfix(RecipePickerUI __instance)
+	{
+		Plugin.Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
+
+		var tlc = GameObjectFinder.FindChildObjectByName("Top Level Container", __instance.gameObject) ?? GameObjectFinder.FindParentObjectByName("Top Level Container", __instance.gameObject) ?? __instance.gameObject;
+		var blurs = GameObjectFinder.FindChildObjectsByName("BG Blur", __instance.transform.root.gameObject);
+
+		foreach (var blur in blurs)
+		{
+			destroyBlur(blur);
+		}
+
+		var tracked_menu = tlc.AddComponent<WorldPositionedCanvas>();
+		tracked_menu.menu = new BehaviourMenu();
+
+		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
+		{
+			tracked_menu.scale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
+		}
+		else
+		{
+			tracked_menu.scale = ModConfig.menuScale.Value;
+		}
+
+		recipePickerUi = tracked_menu;
+	}
+
+	[HarmonyPatch(typeof(RecipePickerUI), nameof(RecipePickerUI.Open))]
+	[HarmonyPostfix]
+	public static void RecipePickerUIOpenPostfix(RecipePickerUI __instance)
+	{
+		Plugin.Logger.LogInfo($"RecipePickerUI.OpenPostfix: {__instance.name}");
+		var worldPositionedCanvas = recipePickerUi;
+		if (worldPositionedCanvas == null)
+		{
+			Plugin.Logger.LogError($"RecipePickerUI.OpenPostfix: worldPositionedCanvas is null");
+			return;
+		}
+
+		var tlc = __instance.gameObject.transform.GetChild(0);
+		tlc.transform.localScale = worldPositionedCanvas.scale;
+
+		worldPositionedCanvas.target = lastPosition;
+		worldPositionedCanvas.camOrigin = lastCamOrigin;
+		((BehaviourMenu)recipePickerUi.menu).open = true;
+	}
+
+	[HarmonyPatch(typeof(RecipePickerUI), nameof(RecipePickerUI.Close))]
+	[HarmonyPostfix]
+	public static void RecipePickerUIClosePostfix(RecipePickerUI __instance)
+	{
+		Plugin.Logger.LogInfo($"RecipePickerUI.ClosePostfix: {__instance.name}");
+		var worldPositionedCanvas = recipePickerUi;
+		if (worldPositionedCanvas == null)
+		{
+			Plugin.Logger.LogError($"RecipePickerUI.ClosePostfix: worldPositionedCanvas is null");
+			return;
+		}
+
+		worldPositionedCanvas.target = Vector3.zero;
+		worldPositionedCanvas.playerInventoryUI = null;
+		((BehaviourMenu)recipePickerUi.menu).open = false;
 	}
 
 	private static void destroyBlur(GameObject blur)

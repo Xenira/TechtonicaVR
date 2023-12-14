@@ -6,7 +6,7 @@ namespace TechtonicaVR.UI;
 
 public class WorldPositionedCanvas : MonoBehaviour
 {
-	public UIMenu menu;
+	public Menu menu;
 	public PlayerInventoryUI playerInventoryUI;
 
 	public Vector3 target;
@@ -24,13 +24,14 @@ public class WorldPositionedCanvas : MonoBehaviour
 
 	private void Update()
 	{
-		if (target == Vector3.zero || !menu.isOpen)
+		var isOpen = menu.isOpen();
+		if (target == Vector3.zero || !isOpen)
 		{
 			return;
 		}
 
 		var cam = VRCameraManager.mainCamera;
-		if (menu.isOpen)
+		if (isOpen)
 		{
 			MathyStuff.PositionCanvasInWorld(gameObject, cam, target, camOrigin);
 		}
