@@ -10,6 +10,11 @@ namespace TechtonicaVR.VRCamera.Patch;
 [HarmonyPatch]
 public class BuilderRaycastPatch
 {
+	private const int EXPECTED_DECONSTRUCTION_UPDATE_PATCH_COUNT = 3;
+	private const int EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT = 2;
+	private const int EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT = 1;
+	private const int EXPECTED_TARGET_LOGISTICS_OBJECT_PATCH_COUNT = 2;
+
 	static MethodInfo raycastMethod = typeof(Physics).GetMethod(nameof(Physics.Raycast), [typeof(Vector3), typeof(Vector3), typeof(RaycastHit).MakeByRefType(), typeof(float), typeof(int), typeof(QueryTriggerInteraction)]);
 	static MethodInfo vectorMultiplyMethod = typeof(Vector3).GetMethod("op_Multiply", [typeof(Vector3), typeof(float)]);
 	static MethodInfo vectorAddMethod = typeof(Vector3).GetMethod("op_Addition", [typeof(Vector3), typeof(Vector3)]);
@@ -18,7 +23,7 @@ public class BuilderRaycastPatch
 	static MethodInfo vectorMultiplyPatchMethod = typeof(BuilderRaycastPatch).GetMethod(nameof(PatchedVectorMultiply));
 	static MethodInfo vectorAddPatchMethod = typeof(BuilderRaycastPatch).GetMethod(nameof(PatchedVectorAdd));
 
-	[HarmonyPatch(typeof(PlayerBuilder), nameof(PlayerBuilder.cameraOrigin), MethodType.Getter)]
+	[HarmonyPatch(typeof(PlayerBuilder), nameof(PlayerBuilder.CameraOrigin), MethodType.Getter)]
 	[HarmonyPrefix]
 	public static bool cameraOriginPrefix(PlayerBuilder __instance, ref Vector3 __result)
 	{
@@ -31,7 +36,7 @@ public class BuilderRaycastPatch
 		return false;
 	}
 
-	[HarmonyPatch(typeof(PlayerBuilder), nameof(PlayerBuilder.cameraDirection), MethodType.Getter)]
+	[HarmonyPatch(typeof(PlayerBuilder), nameof(PlayerBuilder.CameraDirection), MethodType.Getter)]
 	[HarmonyPrefix]
 	public static bool cameraDirectionPrefix(PlayerBuilder __instance, ref Vector3 __result)
 	{
@@ -42,30 +47,6 @@ public class BuilderRaycastPatch
 
 		__result = -SteamVRInputMapper.rightHandObject.transform.up;
 		return false;
-	}
-
-	[HarmonyPatch(typeof(PlayerBuilder), nameof(PlayerBuilder.DeconstructionUpdate))]
-	[HarmonyTranspiler]
-	public static IEnumerable<CodeInstruction> DeconstructionUpdateTranspiler(IEnumerable<CodeInstruction> instructions)
-	{
-		var patchCnt = 0;
-		foreach (var instruction in instructions)
-		{
-			if (instruction.Calls(raycastMethod))
-			{
-				yield return new CodeInstruction(OpCodes.Call, raycastPatchMethod);
-				patchCnt++;
-			}
-			else
-			{
-				yield return instruction;
-			}
-		}
-
-		if (patchCnt != 3)
-		{
-			Plugin.Logger.LogError("Failed to patch PlayerBuilder.DeconstructionUpdate");
-		}
 	}
 
 	[HarmonyPatch(typeof(PlayerBuilder), nameof(PlayerBuilder.FreeformUpdatePlacement))]
@@ -91,9 +72,9 @@ public class BuilderRaycastPatch
 			}
 		}
 
-		if (patchCnt != 2)
+		if (patchCnt != EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError("Failed to patch PlayerBuilder.FreeformUpdatePlacement");
+			Plugin.Logger.LogError($"[PlayerBuilder.FreeformUpdatePlacement] Patch count mismatch: {patchCnt} != {EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT}");
 		}
 	}
 
@@ -115,9 +96,9 @@ public class BuilderRaycastPatch
 			}
 		}
 
-		if (patchCnt != 1)
+		if (patchCnt != EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError("Failed to patch PlayerBuilder.HasTargetDeconstructable");
+			Plugin.Logger.LogError($"[PlayerBuilder.HasTargetDeconstructable] Patch count mismatch: {patchCnt} != {EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT}");
 		}
 	}
 
@@ -139,9 +120,9 @@ public class BuilderRaycastPatch
 			}
 		}
 
-		if (patchCnt != 1)
+		if (patchCnt != EXPECTED_TARGET_LOGISTICS_OBJECT_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError("Failed to patch PlayerBuilder.CheckTargetLogisticsObject");
+			Plugin.Logger.LogError($"[PlayerBuilder.CheckTargetLogisticsObject] Patch count mismatch: {patchCnt} != {EXPECTED_TARGET_LOGISTICS_OBJECT_PATCH_COUNT}");
 		}
 	}
 

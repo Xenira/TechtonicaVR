@@ -10,6 +10,8 @@ namespace TechtonicaVR.VRCamera.Patch;
 [HarmonyPatch]
 public class BuilderReassemblePatch
 {
+	private const int EXPECTED_PATCH_COUNT = 12;
+
 	private static MethodInfo getTransformMethod = typeof(Component).GetMethod("get_transform");
 	private static MethodInfo getForwardMethod = typeof(Transform).GetMethod("get_forward");
 
@@ -60,9 +62,9 @@ public class BuilderReassemblePatch
 			}
 		}
 
-		if (patchCnt != 12)
+		if (patchCnt != EXPECTED_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError($"ReassembleTranspiler: Patch count mismatch: {patchCnt} != 12");
+			Plugin.Logger.LogError($"ReassembleTranspiler: Patch count mismatch: {patchCnt} != {EXPECTED_PATCH_COUNT}");
 		}
 	}
 
