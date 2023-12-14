@@ -170,6 +170,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/UIShortcut1",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -276,7 +280,8 @@
       "/actions/default/in/UICancel": "UI Cancel",
       "/actions/default/in/ToggleErase": "Toggle Erase",
       "/actions/default/in/Use": "Use",
-      "/actions/default/in/UIShortcut2": "Crank"
+      "/actions/default/in/UIShortcut2": "<Unused>",
+      "/actions/default/in/UIShortcut1": "Crank"
     }
   ]
 }
