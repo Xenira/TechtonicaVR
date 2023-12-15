@@ -5,7 +5,7 @@ using HarmonyLib;
 using Plugin.Input;
 using UnityEngine;
 
-namespace TechtonicaVR.VRCamera.Patch;
+namespace TechtonicaVR.VRCamera.Patch.Builder;
 
 [HarmonyPatch]
 public class BuilderRaycastPatch

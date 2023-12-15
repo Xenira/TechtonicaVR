@@ -3,6 +3,7 @@
         "input",
         "render",
         "ui",
-        "player"
+        "player",
+        "game"
     ]
 }
