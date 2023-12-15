@@ -15,6 +15,11 @@ public class TargetRaycastPatch
 	[HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.UpdateAimingRaycasts))]
 	public static bool UpdateAimingRaycastsPostfix(PlayerFirstPersonController __instance)
 	{
+		if (SteamVRInputMapper.rightHandObject == null)
+		{
+			return true;
+		}
+
 		var right_hand_transform = SteamVRInputMapper.rightHandObject.transform;
 		var forward = -right_hand_transform.up;
 

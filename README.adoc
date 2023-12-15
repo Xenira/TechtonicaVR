@@ -5,7 +5,7 @@ v.0.1.0
 :toc: left
 :icons: font
 :source-highlighter: highlightjs
-:game-version: 0.1.2a
+:game-version: 0.2.0f
 
 This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
 
@@ -69,12 +69,13 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Button prompts are not for VR controllers.
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
 - Use and interact buttons are mapped to the same button. This might cause issues when interacting with objects.
-- The manual crank button is not mapped to a button on the controller.
 - Machine info not visible when targeting with hand.
 - Crafting queue not visible.
 - The game is locked to 60fps when running in windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
+- Menus are a little jittery
 
 === Cool stuff to try
+- Tobii eye tracking for dynamic foveated rendering
 - Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)
 
 == Troubleshooting

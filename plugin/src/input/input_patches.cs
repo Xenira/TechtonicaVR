@@ -32,6 +32,18 @@ class InputPatches
 	[HarmonyPatch(typeof(Rewired.Player), nameof(Rewired.Player.GetAxis2D), [typeof(int), typeof(int)])]
 	static bool GetAxis2D(ref Vector2 __result, int xAxisActionId, int yAxisActionId)
 	{
+		return handleAxisInput(ref __result, xAxisActionId, yAxisActionId);
+	}
+
+	[HarmonyPrefix]
+	[HarmonyPatch(typeof(Rewired.Player), nameof(Rewired.Player.GetAxis2DRaw), [typeof(int), typeof(int)])]
+	static bool GetAxis2DRaw(ref Vector2 __result, int xAxisActionId, int yAxisActionId)
+	{
+		return handleAxisInput(ref __result, xAxisActionId, yAxisActionId);
+	}
+
+	private static bool handleAxisInput(ref Vector2 __result, int xAxisActionId, int yAxisActionId)
+	{
 		if (xAxisActionId == RewiredConsts.Action.Move_Horizontal && yAxisActionId == RewiredConsts.Action.Move_Vertical)
 		{
 			__result = SteamVRInputMapper.MoveAxes;
@@ -58,7 +70,7 @@ class InputPatches
 	[HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.Move))]
 	static void Move(PlayerFirstPersonController __instance)
 	{
-		if (!__instance.m_IsGrounded || InputHandler.instance.playerInputBlocked || InputHandler.instance.playerInputBlockedOverride)
+		if (!__instance.m_IsGrounded || InputHandler.instance.playerInputBlocked || InputHandler.instance.playerInputBlockedOverride && VRCameraManager.mainCamera != null)
 		{
 			return;
 		}
