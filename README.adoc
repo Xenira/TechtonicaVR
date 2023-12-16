@@ -62,8 +62,6 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Ability to switch primary hand
 - Ability to yeet paladin down the waterfall
 - Hand crank using uhhhhh... hands?
-- Machine info not visible when targeting with hand. (#12)
-- Crafting queue not visible. (#11)
 
 === Known Issues
 - The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things. Also map shows the player looking in the wrong direction. (#14)
