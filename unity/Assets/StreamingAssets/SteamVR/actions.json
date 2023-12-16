@@ -174,6 +174,26 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/ToggleHotbarEdit",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/ExitHotbarEdit",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/PauseMenu",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/ClearHotbar",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/HotbarSwap",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -281,7 +301,12 @@
       "/actions/default/in/ToggleErase": "Toggle Erase",
       "/actions/default/in/Use": "Use",
       "/actions/default/in/UIShortcut2": "<Unused>",
-      "/actions/default/in/UIShortcut1": "Crank"
+      "/actions/default/in/UIShortcut1": "Crank",
+      "/actions/default/in/ToggleHotbarEdit": "Toggle Hotbar Edit",
+      "/actions/default/in/ExitHotbarEdit": "Exit Hotbar Edit",
+      "/actions/default/in/PauseMenu": "Toggle Pause Menu",
+      "/actions/default/in/ClearHotbar": "Clear Hotbar",
+      "/actions/default/in/HotbarSwap": "Swap Hotbar Item"
     }
   ]
 }

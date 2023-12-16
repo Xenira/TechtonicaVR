@@ -9,7 +9,7 @@ v.0.1.0
 
 This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
 
-CAUTION: This mod is still in early development and *will* contain bugs. Use at your own risk. Only tested with the Valve Index and Knuckles controllers.
+CAUTION: This mod is still in early development and *will* contain bugs. Use at your own risk. Only tested with the Valve Index / Pimax Crystal and Knuckles controllers.
 
 == Prerequisites
 
@@ -54,25 +54,23 @@ While the mod is in a playable state, it is still in early development. Some fea
 
 === Missing
 - Gesture support (e.g. Mining using pickaxe motion)
-- Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now.
+- Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now. (#9)
 - Model for the player's body. Currently not a priority as this requires IK.
-- Default bindings for VR controllers other than the Valve Index Controllers
+- Default bindings for VR controllers other than the Valve Index Controllers (#16, #17)
 - Object outlines. Disabled for now as the shader is broken in VR.
-- Finger tracking
+- Finger tracking (#15)
 - Ability to switch primary hand
 - Ability to yeet paladin down the waterfall
 - Hand crank using uhhhhh... hands?
-- Hotbar reassignment
+- Machine info not visible when targeting with hand. (#12)
+- Crafting queue not visible. (#11)
 
 === Known Issues
-- The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things. Also map shows the player looking in the wrong direction.
-- Button prompts are not for VR controllers.
+- The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things. Also map shows the player looking in the wrong direction. (#14)
+- Button prompts are not for VR controllers. (#13)
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
-- Use and interact buttons are mapped to the same button. This might cause issues when interacting with objects.
-- Machine info not visible when targeting with hand.
-- Crafting queue not visible.
-- The game is locked to 60fps when running in windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
-- Menus are a little jittery
+- The game is locked to 60fps when running in windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (#10)
+- Menus are a little jittery (#18)
 
 === Cool stuff to try
 - Tobii eye tracking for dynamic foveated rendering
