@@ -345,6 +345,46 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean ToggleHotbarEdit
+        {
+            get
+            {
+                return SteamVR_Actions.default_ToggleHotbarEdit;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean ExitHotbarEdit
+        {
+            get
+            {
+                return SteamVR_Actions.default_ExitHotbarEdit;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean PauseMenu
+        {
+            get
+            {
+                return SteamVR_Actions.default_PauseMenu;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean ClearHotbar
+        {
+            get
+            {
+                return SteamVR_Actions.default_ClearHotbar;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean HotbarSwap
+        {
+            get
+            {
+                return SteamVR_Actions.default_HotbarSwap;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

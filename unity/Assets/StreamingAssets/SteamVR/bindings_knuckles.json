@@ -1,7 +1,7 @@
 {
    "action_manifest_version" : 0,
    "alias_info" : {},
-   "app_key" : "system.generated.unity.exe",
+   "app_key" : "application.generated.unity.unity.exe",
    "bindings" : {
       "/actions/buggy" : {
          "chords" : [],
@@ -125,9 +125,6 @@
             },
             {
                "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/sprint"
-                  },
                   "position" : {
                      "output" : "/actions/default/in/smoothturn"
                   }
@@ -137,6 +134,9 @@
             },
             {
                "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/sprint"
+                  },
                   "position" : {
                      "output" : "/actions/default/in/move"
                   }
@@ -272,6 +272,9 @@
             },
             {
                "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/togglehotbaredit"
+                  },
                   "position" : {
                      "output" : "/actions/default/in/menujoysticksecondary"
                   }
@@ -320,6 +323,42 @@
                   "sub_mode" : "click"
                },
                "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/exithotbaredit"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/b"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/pausemenu"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/system"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/clearhotbar"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/b"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/hotbarswap"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/a"
             }
          ]
       },

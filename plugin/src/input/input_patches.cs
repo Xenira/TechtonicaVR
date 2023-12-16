@@ -289,6 +289,15 @@ class InputPatches
 				return SteamVRInputMapper.UISubmit;
 			case RewiredConsts.Action.UI_Cancel:
 				return SteamVRInputMapper.UICancel;
+			case RewiredConsts.Action.Hotbar_Edit_Single:
+				return SteamVRInputMapper.HotbarEdit;
+			case RewiredConsts.Action.Lock_Toolbar:
+			case RewiredConsts.Action.Edit_Shotcut:
+				return SteamVRInputMapper.HotbarSwapItem;
+			case RewiredConsts.Action.Exit_Hotbar:
+				return SteamVRInputMapper.HotbarExitEdit;
+			case RewiredConsts.Action.Clear_Shortcut:
+				return SteamVRInputMapper.HotbarClear;
 			case RewiredConsts.Action.UI_Shortcut_1:
 				return SteamVRInputMapper.UIShortcut1;
 			case RewiredConsts.Action.UI_Shortcut_2:
@@ -311,6 +320,8 @@ class InputPatches
 				return SteamVRInputMapper.cycleHotbarRight;
 			case RewiredConsts.Action.KB_TechTree:
 				return SteamVRInputMapper.TechTree;
+			case RewiredConsts.Action.Pause:
+				return SteamVRInputMapper.PauseMenu;
 			default:
 				// Plugin.Logger.LogDebug($"Unknown Rewired button action ID: {actionId}. Using default Rewired input.");
 				return null;

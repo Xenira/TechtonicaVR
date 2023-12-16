@@ -99,6 +99,16 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_UIShortcut1;
         
+        private static SteamVR_Action_Boolean p_default_ToggleHotbarEdit;
+        
+        private static SteamVR_Action_Boolean p_default_ExitHotbarEdit;
+        
+        private static SteamVR_Action_Boolean p_default_PauseMenu;
+        
+        private static SteamVR_Action_Boolean p_default_ClearHotbar;
+        
+        private static SteamVR_Action_Boolean p_default_HotbarSwap;
+        
         private static SteamVR_Action_Vibration p_default_Haptic;
         
         public static SteamVR_Action_Boolean default_GrabPinch
@@ -429,6 +439,46 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean default_ToggleHotbarEdit
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_ToggleHotbarEdit.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_ExitHotbarEdit
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_ExitHotbarEdit.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_PauseMenu
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_PauseMenu.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_ClearHotbar
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_ClearHotbar.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_HotbarSwap
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_HotbarSwap.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration default_Haptic
         {
             get
@@ -481,6 +531,11 @@ namespace Valve.VR
                     SteamVR_Actions.default_Use,
                     SteamVR_Actions.default_UIShortcut2,
                     SteamVR_Actions.default_UIShortcut1,
+                    SteamVR_Actions.default_ToggleHotbarEdit,
+                    SteamVR_Actions.default_ExitHotbarEdit,
+                    SteamVR_Actions.default_PauseMenu,
+                    SteamVR_Actions.default_ClearHotbar,
+                    SteamVR_Actions.default_HotbarSwap,
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_GrabPinch,
@@ -523,7 +578,12 @@ namespace Valve.VR
                     SteamVR_Actions.default_ToggleErase,
                     SteamVR_Actions.default_Use,
                     SteamVR_Actions.default_UIShortcut2,
-                    SteamVR_Actions.default_UIShortcut1};
+                    SteamVR_Actions.default_UIShortcut1,
+                    SteamVR_Actions.default_ToggleHotbarEdit,
+                    SteamVR_Actions.default_ExitHotbarEdit,
+                    SteamVR_Actions.default_PauseMenu,
+                    SteamVR_Actions.default_ClearHotbar,
+                    SteamVR_Actions.default_HotbarSwap};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -563,7 +623,12 @@ namespace Valve.VR
                     SteamVR_Actions.default_ToggleErase,
                     SteamVR_Actions.default_Use,
                     SteamVR_Actions.default_UIShortcut2,
-                    SteamVR_Actions.default_UIShortcut1};
+                    SteamVR_Actions.default_UIShortcut1,
+                    SteamVR_Actions.default_ToggleHotbarEdit,
+                    SteamVR_Actions.default_ExitHotbarEdit,
+                    SteamVR_Actions.default_PauseMenu,
+                    SteamVR_Actions.default_ClearHotbar,
+                    SteamVR_Actions.default_HotbarSwap};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
@@ -612,7 +677,12 @@ namespace Valve.VR
                     SteamVR_Actions.default_ToggleErase,
                     SteamVR_Actions.default_Use,
                     SteamVR_Actions.default_UIShortcut2,
-                    SteamVR_Actions.default_UIShortcut1};
+                    SteamVR_Actions.default_UIShortcut1,
+                    SteamVR_Actions.default_ToggleHotbarEdit,
+                    SteamVR_Actions.default_ExitHotbarEdit,
+                    SteamVR_Actions.default_PauseMenu,
+                    SteamVR_Actions.default_ClearHotbar,
+                    SteamVR_Actions.default_HotbarSwap};
         }
         
         private static void PreInitActions()
@@ -658,6 +728,11 @@ namespace Valve.VR
             SteamVR_Actions.p_default_Use = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/Use")));
             SteamVR_Actions.p_default_UIShortcut2 = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/UIShortcut2")));
             SteamVR_Actions.p_default_UIShortcut1 = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/UIShortcut1")));
+            SteamVR_Actions.p_default_ToggleHotbarEdit = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/ToggleHotbarEdit")));
+            SteamVR_Actions.p_default_ExitHotbarEdit = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/ExitHotbarEdit")));
+            SteamVR_Actions.p_default_PauseMenu = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/PauseMenu")));
+            SteamVR_Actions.p_default_ClearHotbar = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/ClearHotbar")));
+            SteamVR_Actions.p_default_HotbarSwap = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/HotbarSwap")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
         }
     }
