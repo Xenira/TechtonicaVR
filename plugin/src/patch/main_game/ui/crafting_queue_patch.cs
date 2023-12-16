@@ -21,7 +21,7 @@ class CraftingQueuePatch : GameComponentPatch<CraftingQueueGrid>
 		trackedCanvas.offset = new Vector3(-0.08f, 0.06f, -0.1f);
 		trackedCanvas.showDistance = 0.3f;
 		trackedCanvas.noTransform = true;
-		tlc.localPosition = new Vector3(-17.7141f, 17.7794f, 0f);
+		trackedCanvas.tlcLocalPosition = new Vector3(-17.7141f, 17.7794f, 0f);
 		tlc.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
 		for (int i = 0; i < tlc.childCount; i++)
 		{

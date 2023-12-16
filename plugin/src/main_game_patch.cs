@@ -47,6 +47,7 @@ public class MainGamePatch : MonoBehaviour
 						new DialoguePopupPatch(),
 						new DisableComponentPatch<OutlinePostProcess>(),
 						new CursorCanvasPatch(),
+						new InspectorCanvasPatch(),
 						new CompassPatch(),
 						new MapPatch(),
 						new CraftingQueuePatch(),

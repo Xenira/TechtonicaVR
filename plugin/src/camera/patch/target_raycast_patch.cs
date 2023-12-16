@@ -10,6 +10,7 @@ public class TargetRaycastPatch
 {
 
 	public static Transform cursorTlc;
+	public static Transform inspectorTlc;
 
 	[HarmonyPrefix]
 	[HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.UpdateAimingRaycasts))]
@@ -48,10 +49,21 @@ public class TargetRaycastPatch
 	[HarmonyPatch(typeof(CursorDotUI), nameof(PlayerFirstPersonController.LateUpdate))]
 	public static void LateUpdatePostfix(CursorDotUI __instance)
 	{
-		if (cursorTlc != null && Player.instance.fpcontroller.hasCamHit && VRCameraManager.mainCamera != null)
+		if (!Player.instance.fpcontroller.hasCamHit || VRCameraManager.mainCamera == null)
 		{
-			var camHit = Player.instance.fpcontroller.camHit;
+			return;
+		}
+
+		var camHit = Player.instance.fpcontroller.camHit;
+
+		if (cursorTlc != null)
+		{
 			MathyStuff.PositionCanvasInWorld(cursorTlc.gameObject, VRCameraManager.mainCamera, camHit.point);
+		}
+
+		if (inspectorTlc != null)
+		{
+			MathyStuff.PositionCanvasInWorld(inspectorTlc.gameObject, VRCameraManager.mainCamera, camHit.point);
 		}
 	}
 }

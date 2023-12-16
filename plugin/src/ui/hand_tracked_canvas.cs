@@ -13,6 +13,8 @@ class HandTrackedCanvas : MonoBehaviour
 	public RectTransform rectTransform;
 	public Transform rectTransformOverride;
 	public Vector3 transformOverride = Vector3.zero;
+	public Vector3 tlcLocalPosition = Vector3.zero;
+
 	public bool noTransform = false;
 	public float showDistance;
 
@@ -33,7 +35,7 @@ class HandTrackedCanvas : MonoBehaviour
 
 		canvas.gameObject.transform.parent = anchor.transform;
 		canvas.gameObject.transform.localPosition = Vector3.zero;
-		gameObject.transform.localPosition = Vector3.zero;
+		gameObject.transform.localPosition = tlcLocalPosition;
 	}
 
 	private void Update()
