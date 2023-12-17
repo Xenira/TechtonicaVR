@@ -27,7 +27,9 @@ Steps to reproduce the behavior:
  - OS: [e.g. Linux <Distro and Version>, Windows 10]
  - Headset and Controllers: [e.g. Valve Index with Knuckles]
  - Game Version; [e.g. 0.2.0f]
-- Mod Version: [e.g. 0.1.0]
+ - Mod Version: [e.g. 0.1.0]
 
 **Additional context**
-Add any other context about the problem here.
+
+<!-- Add any other context about the problem here. -->
+<!-- Please attach the BepInEx log file (Techtonica/BepInEx/LogOutput.log) -->
