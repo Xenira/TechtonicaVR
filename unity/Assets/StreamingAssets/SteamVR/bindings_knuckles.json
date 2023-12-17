@@ -11,7 +11,15 @@
          "sources" : []
       },
       "/actions/default" : {
-         "chords" : [],
+         "chords" : [
+            {
+               "inputs" : [
+                  [ "/user/hand/right/input/b", "held" ],
+                  [ "/user/hand/left/input/b", "held" ]
+               ],
+               "output" : "/actions/default/in/pausemenu"
+            }
+         ],
          "haptics" : [
             {
                "output" : "/actions/default/out/haptic",

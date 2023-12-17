@@ -11,6 +11,7 @@ namespace TechtonicaVR.VRCamera;
 public class VRCameraManager : MonoBehaviour
 {
 	public Transform vrRoot;
+
 	public SteamVR_CameraHelper cameraHelperPrefab;
 
 	private SteamVR_CameraHelper cameraHelper;
@@ -64,15 +65,18 @@ public class VRCameraManager : MonoBehaviour
 
 		mainCamera.gameObject.AddComponent<SteamVR_Camera>();
 		mainCamera.gameObject.AddComponent<SteamVR_TrackedObject>();
-		mainCamera.gameObject.AddComponent<TechMainCamera>();
+		var techCam = mainCamera.gameObject.AddComponent<TechMainCamera>();
 		HmdMatrix44_t leftEyeMatrix = OpenVR.System.GetProjectionMatrix(EVREye.Eye_Left, mainCamera.nearClipPlane, mainCamera.farClipPlane);
 		HmdMatrix44_t rightEyeMatrix = OpenVR.System.GetProjectionMatrix(EVREye.Eye_Right, mainCamera.nearClipPlane, mainCamera.farClipPlane);
 
 		if (PlayerFirstPersonController.instance != null)
 		{
 			vrRoot = PlayerFirstPersonController.instance.transform;
+			techCam.camRoot = new GameObject("CamRoot").transform;
 
-			mainCamera.transform.parent = vrRoot;
+			techCam.camRoot.parent = vrRoot;
+			techCam.camRoot.localPosition = Vector3.zero;
+			mainCamera.transform.parent = techCam.camRoot;
 			foreach (var a in ReInput.mapping.Actions)
 			{
 				Plugin.Logger.LogInfo("Action: " + a.name);
@@ -80,7 +84,7 @@ public class VRCameraManager : MonoBehaviour
 			}
 
 			StartCoroutine(PatchCoroutine());
-			SpawnHands(vrRoot);
+			SpawnHands(techCam.camRoot);
 		}
 
 		FindObjectsOfType<Headlamp>().ForEach(h => h.transform.parent = mainCamera.transform);
