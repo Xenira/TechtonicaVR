@@ -4,6 +4,7 @@
         "render",
         "ui",
         "player",
-        "game"
+        "game",
+        "readme"
     ]
 }
