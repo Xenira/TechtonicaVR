@@ -26,7 +26,7 @@ CAUTION: This mod is still in early development and *will* contain bugs. Use at 
 === VR Mod
 . Download the latest release of this mod from the https://github.com/xenira/techtonicavr/releases[Releases] page.
 . Extract the downloaded archive.
-. Copy the extracted files to the `BepInEx/plugins` folder in your game's installation directory.
+. Copy the content from the `Techtonica` folder in the extracted files to the `Techtonica` folder in `steamapps/common` directory.
 . Run the game. The mod should be loaded automatically by BepInEx.
 
 === Disabling the Mod
