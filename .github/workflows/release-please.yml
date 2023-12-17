@@ -4,13 +4,13 @@ on:
       branches: ["master"]
       types:
         - completed
-  
+
 permissions:
     contents: write
     pull-requests: write
-  
+
 name: release-please
-  
+
 jobs:
     release-please:
       runs-on: ubuntu-latest
@@ -24,9 +24,8 @@ jobs:
           if: ${{ steps.release.outputs.release_created }}
           uses: dawidd6/action-download-artifact@v2
           with:
-            workflow: ".Net"
+            workflow: "dotnet.yml"
             name: release-artifact
-            path: techtonica_vr.tar.gz
         - name: Upload release artifact
           if: ${{ steps.release.outputs.release_created }}
           env:
