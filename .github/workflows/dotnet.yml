@@ -34,7 +34,7 @@ jobs:
       with:
         name: plugin
         path: ./plugin/bin/Release/netstandard2.1/techtonica_vr.dll
-  
+
   package:
     runs-on: ubuntu-latest
     needs: build
@@ -46,17 +46,17 @@ jobs:
           name: plugin
       - name: Copy Files
         run: |
-          ls -Lla
-          mkdir -p ./Techtonica/BepInEx/plugins/techtonica_vr/assets && mkdir -p ./Techtonica/Techtonica_Data
-          cp techtonica_vr.dll ./Techtonica/BepInEx/plugins
-          cp -r ./libs/* ./Techtonica/Techtonica_Data/
-          cp -r ./unity/AssetBundles/StandaloneWindows/* ./Techtonica/BepInEx/plugins/techtonica_vr/assets
+          mkdir -p ./artifact/Techtonica/BepInEx/plugins/techtonica_vr/assets && mkdir -p ./artifact/Techtonica/Techtonica_Data
+          cp techtonica_vr.dll ./artifact/Techtonica/BepInEx/plugins
+          cp -r ./libs/* ./artifact/Techtonica/Techtonica_Data/
+          cp -r ./unity/AssetBundles/StandaloneWindows/* ./artifact/Techtonica/BepInEx/plugins/techtonica_vr/assets
+          cp {README.adoc,CHANGELOG.md,LICENSE} ./artifact/
       - name: TarGz
-        run: tar -czvf techtonica_vr.tar.gz Techtonica/*
+        run: cd artifact && tar -czvf techtonica_vr.tar.gz ./* && cp techtonica_vr.tar.gz ../
       - name: Upload Release Asset Artifact
         uses: actions/upload-artifact@v2
         with:
           name: release-artifact
           path: techtonica_vr.tar.gz
-        
-      
+
+
