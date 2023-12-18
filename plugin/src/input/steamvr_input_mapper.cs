@@ -54,6 +54,9 @@ public static class SteamVRInputMapper
 	public static Button rotateRight = new Button(SteamVR_Actions._default.RotoateBuildingRight);
 	public static Button toggleErase = new Button(SteamVR_Actions._default.ToggleErase);
 
+	public static Button snapTurnLeft = new Button(SteamVR_Actions._default.SnapTurnLeft);
+	public static Button snapTurnRight = new Button(SteamVR_Actions._default.SnapTurnRight);
+
 	public static void MapActions()
 	{
 		TechtonicaVR.Plugin.Logger.LogInfo("Mapping SteamVR actions...");

@@ -75,8 +75,24 @@ class InputPatches
 			return;
 		}
 
-		var delta = Time.deltaTime;
-		var horizontalRotation = SteamVRInputMapper.TurnAxis * delta * ModConfig.smoothTurnSpeed.Value;
+		Turn(__instance);
+	}
+
+	private static void Turn(PlayerFirstPersonController __instance)
+	{
+		var horizontalRotation = 0f;
+		if (SteamVRInputMapper.snapTurnLeft.IsReleased())
+		{
+			horizontalRotation -= ModConfig.snapTurnAngle.Value;
+		}
+		else if (SteamVRInputMapper.snapTurnRight.IsReleased())
+		{
+			horizontalRotation += ModConfig.snapTurnAngle.Value;
+		}
+		else
+		{
+			horizontalRotation = SteamVRInputMapper.TurnAxis * Time.deltaTime * ModConfig.smoothTurnSpeed.Value;
+		}
 		__instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
 	}
 
