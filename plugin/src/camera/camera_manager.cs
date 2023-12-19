@@ -85,6 +85,7 @@ public class VRCameraManager : MonoBehaviour
 
 			StartCoroutine(PatchCoroutine());
 			SpawnHands(techCam.camRoot);
+			AddAudioSrc(mainCamera);
 			Teleport.Create().transform.parent = mainCamera.transform;
 		}
 
@@ -120,5 +121,11 @@ public class VRCameraManager : MonoBehaviour
 		leftHandModel.transform.localRotation = Quaternion.Euler(335.2912f, 256.7355f, 116.7813f);
 
 		SteamVRInputMapper.leftHandObject = leftHandObject;
+	}
+
+	private void AddAudioSrc(Camera mainCamera)
+	{
+		var audioSource = mainCamera.gameObject.AddComponent<AudioSource>();
+		audioSource.playOnAwake = false;
 	}
 }

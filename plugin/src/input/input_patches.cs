@@ -1,5 +1,6 @@
 using System.Linq;
 using HarmonyLib;
+using TechtonicaVR.Assets;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
 using Valve.VR;
@@ -83,10 +84,12 @@ class InputPatches
 		if (SteamVRInputMapper.snapTurnLeft.IsReleased())
 		{
 			horizontalRotation -= ModConfig.snapTurnAngle.Value;
+			VRCameraManager.mainCamera.gameObject.GetComponent<AudioSource>().PlayOneShot(AssetLoader.SnapTurn, 0.25f);
 		}
 		else if (SteamVRInputMapper.snapTurnRight.IsReleased())
 		{
 			horizontalRotation += ModConfig.snapTurnAngle.Value;
+			VRCameraManager.mainCamera.gameObject.GetComponent<AudioSource>().PlayOneShot(AssetLoader.SnapTurn, 0.25f);
 		}
 		else
 		{
