@@ -194,6 +194,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/Teleport",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -306,7 +310,8 @@
       "/actions/default/in/ExitHotbarEdit": "Exit Hotbar Edit",
       "/actions/default/in/PauseMenu": "Toggle Pause Menu",
       "/actions/default/in/ClearHotbar": "Clear Hotbar",
-      "/actions/default/in/HotbarSwap": "Swap Hotbar Item"
+      "/actions/default/in/HotbarSwap": "Swap Hotbar Item",
+      "/actions/default/in/Teleport": "Teleport"
     }
   ]
 }

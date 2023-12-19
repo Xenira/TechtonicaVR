@@ -1,4 +1,4 @@
-using Plugin.Input;
+using TechtonicaVR.Input;
 using TechtonicaVR.Patches.Universal;
 using TechtonicaVR.UI;
 using UnityEngine;

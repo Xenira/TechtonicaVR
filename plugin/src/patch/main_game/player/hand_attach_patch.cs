@@ -1,4 +1,4 @@
-using Plugin.Input;
+using TechtonicaVR.Input;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.Player;

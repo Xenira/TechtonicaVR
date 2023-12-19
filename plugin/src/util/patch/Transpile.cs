@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Plugin.Input;
+using TechtonicaVR.Input;
 using UnityEngine;
 
 namespace TechtonicaVR.Util.Patch;

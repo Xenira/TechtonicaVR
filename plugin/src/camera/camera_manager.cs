@@ -1,6 +1,6 @@
 using System.Collections;
 using FluffyUnderware.DevTools.Extensions;
-using Plugin.Input;
+using TechtonicaVR.Input;
 using Rewired;
 using TechtonicaVR.Assets;
 using TechtonicaVR.Debug;
@@ -85,6 +85,7 @@ public class VRCameraManager : MonoBehaviour
 
 			StartCoroutine(PatchCoroutine());
 			SpawnHands(techCam.camRoot);
+			Teleport.Create().transform.parent = mainCamera.transform;
 		}
 
 		FindObjectsOfType<Headlamp>().ForEach(h => h.transform.parent = mainCamera.transform);

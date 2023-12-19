@@ -12,7 +12,7 @@ using UnityEngine.XR.Management;
 using UnityEngine.XR;
 using TechtonicaVR.VRCamera;
 using TechtonicaVR.Util;
-using Plugin.Input;
+using TechtonicaVR.Input;
 using TechtonicaVR.Assets;
 using UnityEngine.SceneManagement;
 
@@ -78,7 +78,7 @@ public class Plugin : BaseUnityPlugin
 
 		VRCameraManager.Create();
 
-		new AssetLoader();
+		StartCoroutine(AssetLoader.Load());
 
 		Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
 

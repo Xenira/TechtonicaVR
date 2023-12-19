@@ -12,6 +12,7 @@ public class ModConfig
 	// Input
 	public static ConfigEntry<int> smoothTurnSpeed;
 	public static ConfigEntry<float> snapTurnAngle;
+	public static ConfigEntry<float> teleportRange;
 
 	// Buttons
 	public static ConfigEntry<float> longPressTime;
@@ -38,6 +39,7 @@ public class ModConfig
 		// Input
 		smoothTurnSpeed = config.Bind("Input", "Smooth Turn Speed", 90, "Speed of smooth turning");
 		snapTurnAngle = config.Bind("Input", "Snap Turn Angle", 30f, "Angle of snap turning");
+		teleportRange = config.Bind("Input", "Teleport Range", 12f, "Range of teleporting");
 
 		// Buttons
 		longPressTime = config.Bind("Buttons", "Long Press Time", 1f, "Time to hold button for long press");

@@ -1,6 +1,5 @@
 using System.Linq;
 using HarmonyLib;
-using Plugin.Input;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
 using Valve.VR;

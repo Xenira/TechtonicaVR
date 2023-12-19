@@ -1,4 +1,3 @@
-using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
 

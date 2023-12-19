@@ -1,7 +1,6 @@
-using Plugin.Input;
+using TechtonicaVR.Input;
 using TechtonicaVR.Debug;
 using TechtonicaVR.UI;
-using TechtonicaVR.VRCamera;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;
