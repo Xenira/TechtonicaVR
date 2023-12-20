@@ -393,6 +393,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean SonarZoomIn
+        {
+            get
+            {
+                return SteamVR_Actions.default_SonarZoomIn;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean SonarZoomOut
+        {
+            get
+            {
+                return SteamVR_Actions.default_SonarZoomOut;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

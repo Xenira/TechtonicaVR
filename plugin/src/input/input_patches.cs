@@ -19,6 +19,14 @@ class InputPatches
 	}
 
 	[HarmonyPrefix]
+	[HarmonyPatch(typeof(AltInputHandler), nameof(AltInputHandler.isUsingMouse), MethodType.Getter)]
+	static bool GetIsUsingMouse(ref bool __result)
+	{
+		__result = false;
+		return false;
+	}
+
+	[HarmonyPrefix]
 	[HarmonyPatch(typeof(InputHandler), nameof(InputHandler.SetVibration))]
 	static bool SetVibration(float leftIntensity, float rightIntensity)
 	{
@@ -59,6 +67,11 @@ class InputPatches
 			return false;
 		}
 		else if (xAxisActionId == RewiredConsts.Action.UI_Horizontal_Secondary && yAxisActionId == RewiredConsts.Action.UI_Vertical_Secondary)
+		{
+			__result = SteamVRInputMapper.UIAxesSecondary;
+			return false;
+		}
+		else if (xAxisActionId == RewiredConsts.Action.Rotate_Horizontal && yAxisActionId == RewiredConsts.Action.Rotate_Vertical)
 		{
 			__result = SteamVRInputMapper.UIAxesSecondary;
 			return false;
@@ -346,6 +359,10 @@ class InputPatches
 				return SteamVRInputMapper.UIShortcut1;
 			case RewiredConsts.Action.UI_Shortcut_2:
 				return SteamVRInputMapper.UIShortcut2;
+			case RewiredConsts.Action.Zoom_In:
+				return SteamVRInputMapper.SonarZoomIn;
+			case RewiredConsts.Action.Zoom_Out:
+				return SteamVRInputMapper.SonarZoomOut;
 			case RewiredConsts.Action.Craft:
 				return SteamVRInputMapper.craft;
 			case RewiredConsts.Action.Craft_Five:
@@ -396,7 +413,16 @@ class InputPatches
 			SteamVRInputMapper.craftAll,
 			SteamVRInputMapper.transfer,
 			SteamVRInputMapper.transferHalf,
-			SteamVRInputMapper.transferAll
+			SteamVRInputMapper.transferAll,
+			SteamVRInputMapper.HotbarEdit,
+			SteamVRInputMapper.HotbarSwapItem,
+			SteamVRInputMapper.HotbarExitEdit,
+			SteamVRInputMapper.HotbarClear,
+			SteamVRInputMapper.UIShortcut1,
+			SteamVRInputMapper.UIShortcut2,
+			SteamVRInputMapper.SonarZoomIn,
+			SteamVRInputMapper.SonarZoomOut,
+			SteamVRInputMapper.PauseMenu
 		];
 	}
 }

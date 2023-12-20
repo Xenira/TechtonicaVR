@@ -198,6 +198,14 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/SonarZoomIn",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/SonarZoomOut",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -311,7 +319,9 @@
       "/actions/default/in/PauseMenu": "Toggle Pause Menu",
       "/actions/default/in/ClearHotbar": "Clear Hotbar",
       "/actions/default/in/HotbarSwap": "Swap Hotbar Item",
-      "/actions/default/in/Teleport": "Teleport"
+      "/actions/default/in/Teleport": "Teleport",
+      "/actions/default/in/SonarZoomIn": "Map Zoom In",
+      "/actions/default/in/SonarZoomOut": "Map Zoom Out"
     }
   ]
 }
