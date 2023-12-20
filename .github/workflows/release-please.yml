@@ -26,10 +26,24 @@ jobs:
           with:
             workflow: "dotnet.yml"
             name: release-artifact
+        - name: Download Tobey.UnityAudio
+          if: ${{ steps.release.outputs.release_created }}
+          uses: dsaltares/fetch-gh-release-asset@1.1.1
+          with:
+            repo: "toebeann/Tobey.UnityAudio"
+            file: "Tobey.UnityAudio.zip"
+            version: "tags/v2.0.0"
+            token: ${{ secrets.DEPENDENCY_TOKEN }}
+        - name: Zip release artifact
+          if: ${{ steps.release.outputs.release_created }}
+          run: |
+            mkdir ./artifact/
+            unzip techtonica_vr.zip -d ./artifact/
+            unzip Tobey.UnityAudio.zip -d ./artifact/TechtonicaVR/
+            zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}.zip ./artifact/*
         - name: Upload release artifact
           if: ${{ steps.release.outputs.release_created }}
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
-            mv techtonica_vr.tar.gz techtonica_vr-${{ steps.release.outputs.tag_name }}.tar.gz
-            gh release upload ${{ steps.release.outputs.tag }} techtonica_vr-${{ steps.release.outputs.tag_name }}.tar.gz
+            gh release upload ${{ steps.release.outputs.tag }} techtonica_vr-${{ steps.release.outputs.tag_name }}.zip
