@@ -1,5 +1,5 @@
 using HarmonyLib;
-using Plugin.Input;
+using TechtonicaVR.Input;
 using TechtonicaVR.Util;
 using UnityEngine;
 

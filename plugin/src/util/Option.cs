@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Plugin.Util;
+namespace TechtonicaVR.Util;
 
 public class Option<T> : IEnumerable<T>
 {

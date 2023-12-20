@@ -77,8 +77,11 @@
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>..\strip-dll\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\strip-dll\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>

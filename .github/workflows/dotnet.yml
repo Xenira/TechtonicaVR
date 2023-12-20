@@ -51,12 +51,10 @@ jobs:
           cp -r ./libs/* ./artifact/Techtonica/Techtonica_Data/
           cp -r ./unity/AssetBundles/StandaloneWindows/* ./artifact/Techtonica/BepInEx/plugins/techtonica_vr/assets
           cp {README.adoc,CHANGELOG.md,LICENSE} ./artifact/
-      - name: TarGz
-        run: cd artifact && tar -czvf techtonica_vr.tar.gz ./* && cp techtonica_vr.tar.gz ../
       - name: Upload Release Asset Artifact
         uses: actions/upload-artifact@v2
         with:
           name: release-artifact
-          path: techtonica_vr.tar.gz
+          path: artifact
 
 

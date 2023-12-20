@@ -30,7 +30,7 @@ CAUTION: This mod is still in early development and *will* contain bugs. Use at 
 . Run the game. The mod should be loaded automatically by BepInEx.
 
 === Disabling the Mod
-To disable the mod change the `Enabled` under `[General]` value in the `de.xenira.techtonica.cfg` file in the `BepInEx/config` folder to `false`.`
+To disable the mod change the `Enabled` under `[General]` value in the `de.xenira.techtonica.cfg` file in the `BepInEx/config` folder to `false`.
 
 === Uninstalling the Mod
 To uninstall the mod remove the mod's files from the `BepInEx/plugins` folder. This should be the following files:
@@ -54,7 +54,6 @@ While the mod is in a playable state, it is still in early development. Some fea
 
 === Missing
 - Gesture support (e.g. Mining using pickaxe motion)
-- Comfort options (e.g. Teleportation). Smooth locomotion and turning only for now. (#9)
 - Model for the player's body. Currently not a priority as this requires IK.
 - Default bindings for VR controllers other than the Valve Index Controllers (#16, #17)
 - Object outlines. Disabled for now as the shader is broken in VR.
@@ -64,7 +63,7 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Hand crank using uhhhhh... hands?
 
 === Known Issues
-- The players position is not synced correctly with the game when using roomscale. The characters position is in the center of the playspace. This might cause issues with collisions and other things. Also map shows the player looking in the wrong direction. (#14)
+- Map shows the player looking in the wrong direction.
 - Button prompts are not for VR controllers. (#13)
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
 - The game is locked to 60fps when running in windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (#10)
@@ -82,6 +81,8 @@ If you encounter any issues while using this mod, please check the BepInEx conso
 [qanda]
 Why is my framerate locked to 60fps?::
 The game is locked to x fps when running in Windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
+Does this mod work with Gamepass?::
+Yes, the mod needs to be installed in `Gamepass/Techtonica/Content`.
 // AI generated below :P
 Why is the mod not open source?::
 It is. You are looking at the source right now (duh!).
@@ -89,5 +90,9 @@ Why is the mod not on NexusMods?::
 I don't like NexusMods. I don't like their ToS and I don't like their mod manager. I don't want to support them.
 
 == License
-
 This mod is licensed under the GNU General Public License v3.0 (GPL-3.0).
+
+Contents of the `unity` and `libs` folders are licensed under their respective licenses.
+
+== Disclaimer
+This mod is not affiliated with the game's developers Fire Hose Games, Unity Technologies or Valve Corporation. All trademarks are the property of their respective owners.

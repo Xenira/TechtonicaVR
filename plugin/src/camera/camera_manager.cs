@@ -1,6 +1,6 @@
 using System.Collections;
 using FluffyUnderware.DevTools.Extensions;
-using Plugin.Input;
+using TechtonicaVR.Input;
 using Rewired;
 using TechtonicaVR.Assets;
 using TechtonicaVR.Debug;
@@ -85,6 +85,13 @@ public class VRCameraManager : MonoBehaviour
 
 			StartCoroutine(PatchCoroutine());
 			SpawnHands(techCam.camRoot);
+			AddAudioSrc(mainCamera);
+
+			if (ModConfig.VignetteEnabled())
+			{
+				Vignette.Create();
+			}
+			Teleport.Create().transform.parent = mainCamera.transform;
 		}
 
 		FindObjectsOfType<Headlamp>().ForEach(h => h.transform.parent = mainCamera.transform);
@@ -119,5 +126,11 @@ public class VRCameraManager : MonoBehaviour
 		leftHandModel.transform.localRotation = Quaternion.Euler(335.2912f, 256.7355f, 116.7813f);
 
 		SteamVRInputMapper.leftHandObject = leftHandObject;
+	}
+
+	private void AddAudioSrc(Camera mainCamera)
+	{
+		var audioSource = mainCamera.gameObject.AddComponent<AudioSource>();
+		audioSource.playOnAwake = false;
 	}
 }

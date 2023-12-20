@@ -12,7 +12,7 @@ using UnityEngine.XR.Management;
 using UnityEngine.XR;
 using TechtonicaVR.VRCamera;
 using TechtonicaVR.Util;
-using Plugin.Input;
+using TechtonicaVR.Input;
 using TechtonicaVR.Assets;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +20,7 @@ namespace TechtonicaVR;
 
 [BepInPlugin("de.xenira.techtonica", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Techtonica.exe")]
+[BepInDependency("Tobey.UnityAudio", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BaseUnityPlugin
 {
 	public static new ManualLogSource Logger;
@@ -78,7 +79,7 @@ public class Plugin : BaseUnityPlugin
 
 		VRCameraManager.Create();
 
-		new AssetLoader();
+		StartCoroutine(AssetLoader.Load());
 
 		Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
 

@@ -1,11 +1,7 @@
-
-using System;
-using TechtonicaVR.Input;
 using UnityEngine;
-using UnityEngine.XR;
 using Valve.VR;
 
-namespace Plugin.Input;
+namespace TechtonicaVR.Input;
 
 public static class SteamVRInputMapper
 {
@@ -53,6 +49,10 @@ public static class SteamVRInputMapper
 	public static Button rotateLeft = new Button(SteamVR_Actions._default.RotateBuildingLeft);
 	public static Button rotateRight = new Button(SteamVR_Actions._default.RotoateBuildingRight);
 	public static Button toggleErase = new Button(SteamVR_Actions._default.ToggleErase);
+
+	public static Button snapTurnLeft = new Button(SteamVR_Actions._default.SnapTurnLeft);
+	public static Button snapTurnRight = new Button(SteamVR_Actions._default.SnapTurnRight);
+	public static Button teleport = new Button(SteamVR_Actions._default.Teleport);
 
 	public static void MapActions()
 	{

@@ -7,10 +7,23 @@ namespace TechtonicaVR;
 public class ModConfig
 {
 	// General
-	public static ConfigEntry<bool> modEnabled;
+	private static ConfigEntry<bool> modEnabled;
 
 	// Input
 	public static ConfigEntry<int> smoothTurnSpeed;
+
+	// Comfort
+	public static ConfigEntry<float> snapTurnAngle;
+	public static ConfigEntry<float> teleportRange;
+	private static ConfigEntry<bool> vignetteEnabled;
+	private static ConfigEntry<bool> vignetteOnTeleport;
+	private static ConfigEntry<bool> vignetteOnSmoothLocomotion;
+	private static ConfigEntry<bool> vignetteOnSmoothTurn;
+	private static ConfigEntry<bool> vignetteOnSnapTurn;
+	public static ConfigEntry<Color> vignetteColor;
+	public static ConfigEntry<float> vignetteIntensity;
+	public static ConfigEntry<float> vignetteSmoothness;
+	public static ConfigEntry<float> vignetteFadeSpeed;
 
 	// Buttons
 	public static ConfigEntry<float> longPressTime;
@@ -25,9 +38,9 @@ public class ModConfig
 	public static ConfigEntry<float> menuDownwardOffset;
 
 	// Debug
-	public static ConfigEntry<bool> debugMode;
-	public static ConfigEntry<bool> gizmoEnabled;
-	public static ConfigEntry<bool> debugLineEnabled;
+	private static ConfigEntry<bool> debugMode;
+	private static ConfigEntry<bool> gizmoEnabled;
+	private static ConfigEntry<bool> debugLineEnabled;
 
 	public static void Init(ConfigFile config)
 	{
@@ -36,6 +49,19 @@ public class ModConfig
 
 		// Input
 		smoothTurnSpeed = config.Bind("Input", "Smooth Turn Speed", 90, "Speed of smooth turning");
+
+		// Comfort
+		snapTurnAngle = config.Bind("Comfort", "Snap Turn Angle", 30f, "Angle of snap turning");
+		teleportRange = config.Bind("Comfort", "Teleport Range", 12f, "Range of teleporting");
+		vignetteEnabled = config.Bind("Comfort", "Vignette Enabled", true, "Enable vignette");
+		vignetteOnTeleport = config.Bind("Comfort", "Vignette On Teleport", true, "Enable vignette on teleport");
+		vignetteOnSmoothLocomotion = config.Bind("Comfort", "Vignette On Smooth Locomotion", true, "Enable vignette on smooth locomotion");
+		vignetteOnSmoothTurn = config.Bind("Comfort", "Vignette On Smooth Turn", true, "Enable vignette on smooth turn");
+		vignetteOnSnapTurn = config.Bind("Comfort", "Vignette On Snap Turn", true, "Enable vignette on snap turn");
+		vignetteColor = config.Bind("Comfort", "Vignette Color", new Color(0, 0, 0, 1f), "Color of vignette");
+		vignetteIntensity = config.Bind("Comfort", "Vignette Intensity", 0.5f, "Intensity of vignette");
+		vignetteSmoothness = config.Bind("Comfort", "Vignette Smoothness", 0.15f, "Smoothness of vignette");
+		vignetteFadeSpeed = config.Bind("Comfort", "Vignette Fade Speed", 3f, "Fade speed of vignette");
 
 		// Buttons
 		longPressTime = config.Bind("Buttons", "Long Press Time", 1f, "Time to hold button for long press");
@@ -60,6 +86,33 @@ public class ModConfig
 		return modEnabled.Value;
 	}
 
+	// Comfort
+	public static bool VignetteEnabled()
+	{
+		return vignetteEnabled.Value;
+	}
+
+	public static bool VignetteOnTeleport()
+	{
+		return VignetteEnabled() && vignetteOnTeleport.Value;
+	}
+
+	public static bool VignetteOnSmoothLocomotion()
+	{
+		return VignetteEnabled() && vignetteOnSmoothLocomotion.Value;
+	}
+
+	public static bool VignetteOnSmoothTurn()
+	{
+		return VignetteEnabled() && vignetteOnSmoothTurn.Value;
+	}
+
+	public static bool VignetteOnSnapTurn()
+	{
+		return VignetteEnabled() && vignetteOnSnapTurn.Value;
+	}
+
+	// Debug
 	public static bool GizmoEnabled()
 	{
 		return debugMode.Value && gizmoEnabled.Value;

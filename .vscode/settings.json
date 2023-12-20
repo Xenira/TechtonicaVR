@@ -5,6 +5,9 @@
         "ui",
         "player",
         "game",
-        "readme"
+        "readme",
+        "comfort",
+        "sound",
+        "deps"
     ]
 }
