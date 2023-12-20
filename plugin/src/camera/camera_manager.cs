@@ -86,6 +86,11 @@ public class VRCameraManager : MonoBehaviour
 			StartCoroutine(PatchCoroutine());
 			SpawnHands(techCam.camRoot);
 			AddAudioSrc(mainCamera);
+
+			if (ModConfig.VignetteEnabled())
+			{
+				Vignette.Create();
+			}
 			Teleport.Create().transform.parent = mainCamera.transform;
 		}
 

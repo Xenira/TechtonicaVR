@@ -73,6 +73,7 @@ class Teleport : MonoBehaviour
 
 			teleporting = false;
 			teleportArc.Hide();
+
 			TeleportToHitPoint();
 		}
 	}
@@ -99,6 +100,18 @@ class Teleport : MonoBehaviour
 			return;
 		}
 
+		if (ModConfig.VignetteOnTeleport())
+		{
+			Vignette.instance.OneShot(ExecuteTeleport, 1f);
+		}
+		else
+		{
+			ExecuteTeleport();
+		}
+	}
+
+	private void ExecuteTeleport()
+	{
 		audioSource.PlayOneShot(teleportGo);
 		Player.instance.fpcontroller.transform.position = hitPoint.point;
 	}

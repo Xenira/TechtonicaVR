@@ -47,6 +47,10 @@ class InputPatches
 		if (xAxisActionId == RewiredConsts.Action.Move_Horizontal && yAxisActionId == RewiredConsts.Action.Move_Vertical)
 		{
 			__result = SteamVRInputMapper.MoveAxes;
+			if (ModConfig.VignetteOnSmoothLocomotion())
+			{
+				Vignette.instance.Show(SteamVRInputMapper.MoveAxes.magnitude);
+			}
 			return false;
 		}
 		else if (xAxisActionId == RewiredConsts.Action.UI_Horizontal_Primary && yAxisActionId == RewiredConsts.Action.UI_Vertical_Primary)
@@ -80,22 +84,44 @@ class InputPatches
 
 	private static void Turn(PlayerFirstPersonController __instance)
 	{
-		var horizontalRotation = 0f;
 		if (SteamVRInputMapper.snapTurnLeft.IsReleased())
 		{
-			horizontalRotation -= ModConfig.snapTurnAngle.Value;
-			VRCameraManager.mainCamera.gameObject.GetComponent<AudioSource>().PlayOneShot(AssetLoader.SnapTurn, 0.25f);
+			SnapTurn(__instance, -1);
+			return;
 		}
-		else if (SteamVRInputMapper.snapTurnRight.IsReleased())
+
+		if (SteamVRInputMapper.snapTurnRight.IsReleased())
 		{
-			horizontalRotation += ModConfig.snapTurnAngle.Value;
-			VRCameraManager.mainCamera.gameObject.GetComponent<AudioSource>().PlayOneShot(AssetLoader.SnapTurn, 0.25f);
+			SnapTurn(__instance, 1);
+			return;
+		}
+
+		var horizontalRotation = SteamVRInputMapper.TurnAxis * Time.deltaTime * ModConfig.smoothTurnSpeed.Value;
+		if (ModConfig.VignetteOnSmoothTurn())
+		{
+			Vignette.instance.Show(Mathf.Abs(SteamVRInputMapper.TurnAxis));
+		}
+		__instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
+	}
+
+	private static void SnapTurn(PlayerFirstPersonController __instance, float direction)
+	{
+		if (ModConfig.VignetteOnSnapTurn())
+		{
+			Vignette.instance.OneShot(() => Turn(__instance, direction * ModConfig.snapTurnAngle.Value));
 		}
 		else
 		{
-			horizontalRotation = SteamVRInputMapper.TurnAxis * Time.deltaTime * ModConfig.smoothTurnSpeed.Value;
+			Turn(__instance, direction * ModConfig.snapTurnAngle.Value);
 		}
-		__instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
+
+		return;
+	}
+
+	private static void Turn(PlayerFirstPersonController fpController, float horizontalRotation)
+	{
+		VRCameraManager.mainCamera.gameObject.GetComponent<AudioSource>().PlayOneShot(AssetLoader.SnapTurn, 0.25f);
+		fpController.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
 	}
 
 	[HarmonyPrefix]

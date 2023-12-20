@@ -11,6 +11,7 @@ class AssetLoader
 
 	public static GameObject LeftHandBase;
 	public static GameObject RightHandBase;
+	public static GameObject Vignette;
 
 	public static AudioClip TeleportGo;
 	public static AudioClip TeleportPointerStart;
@@ -24,6 +25,7 @@ class AssetLoader
 		var playerBundle = LoadBundle("player");
 		LeftHandBase = LoadAsset<GameObject>(playerBundle, "hands/left_hand.prefab");
 		RightHandBase = LoadAsset<GameObject>(playerBundle, "hands/right_hand.prefab");
+		Vignette = LoadAsset<GameObject>(playerBundle, "comfort/vignette.prefab");
 
 		var steamVrBundle = LoadBundle("steamvr");
 		TeleportPointerMat = LoadAsset<Material>(steamVrBundle, "SteamVR/InteractionSystem/Teleport/Materials/TeleportPointer.mat");
