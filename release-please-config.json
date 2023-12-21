@@ -1,0 +1,11 @@
+{
+    "bump-minor-pre-major": true,
+    "extra-files": [
+        "plugin/TechtonicaVr.csproj",
+        {
+            "type": "json",
+            "path": "manifest.json",
+            "jsonpath": "$.version_number"
+        }
+    ]
+}

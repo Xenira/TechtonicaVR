@@ -37,13 +37,25 @@ jobs:
         - name: Zip release artifact
           if: ${{ steps.release.outputs.release_created }}
           run: |
-            mkdir ./artifact/
-            unzip techtonica_vr.zip -d ./artifact/
-            unzip Tobey.UnityAudio.zip -d ./artifact/TechtonicaVR/
-            zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}.zip ./artifact/*
+            unzip Tobey.UnityAudio.zip -d ./artifact/
+            cd artifact && zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}.zip ./ && cd ..
+            mv artifact/techtonica_vr-${{ steps.release.outputs.tag_name }}.zip .
         - name: Upload release artifact
           if: ${{ steps.release.outputs.release_created }}
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             gh release upload ${{ steps.release.outputs.tag }} techtonica_vr-${{ steps.release.outputs.tag_name }}.zip
+        - name: Upload to Thunderstore
+          uses: GreenTF/upload-thunderstore-package@v4.1
+          if: ${{ steps.release.outputs.release_created }}
+          with:
+            namespace: "3_141"
+            community: Techtonica
+            name: TechtonicaVR
+            description: VR mod for Techtonica
+            categories: |
+              mods
+            file: techtonica_vr-${{ steps.release.outputs.tag_name }}.zip
+            version: "${{ steps.release.outputs.major }}.${{ steps.release.outputs.major }}.${{ steps.release.outputs.patch }}"
+            token: ${{ secrets.THUNDERSTORE_KEY }}

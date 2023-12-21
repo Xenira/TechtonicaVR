@@ -8,6 +8,7 @@
         "readme",
         "comfort",
         "sound",
-        "deps"
+        "deps",
+        "thunderstore"
     ]
 }

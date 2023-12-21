@@ -3,9 +3,28 @@ v.0.1.0
 :toclevels: 2
 :sectnums:
 :toc: left
+ifdef::env-github[]
+:caution-caption: :fire:
+endif::[]
 :icons: font
 :source-highlighter: highlightjs
 :game-version: 0.2.0f
+:repo: Xenira/TechtonicaVR
+
+image:https://img.shields.io/github/v/release/{repo}[GitHub release (with filter)]
+image:https://img.shields.io/github/release-date/{repo}[GitHub Release Date - Published_At]
+image:https://img.shields.io/github/downloads/{repo}/total[GitHub downloads all releases]
+image:https://img.shields.io/github/actions/workflow/status/{repo}/dotnet.yml[GitHub Workflow Status (with event)]
+image:https://img.shields.io/github/issues/{repo}[GitHub issues]
+image:https://img.shields.io/github/issues-pr/{repo}[GitHub pull requests]
+image:https://img.shields.io/github/license/{repo}[License]
+
+++++
+<p align="center">
+  <img src="icon.png" width="256" />
+</p>
+++++
+
 
 This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
 
@@ -13,7 +32,7 @@ CAUTION: This mod is still in early development and *will* contain bugs. Use at 
 
 == Prerequisites
 
-* Version {game-version} of the game. As the game is still in early access, this mod may not work with future versions of the game. If you encounter any issues, please create an https://github.com/xenira/techtonicavr/issues[Issue].
+* Version {game-version} of the game. As the game is still in early access, this mod may not work with future versions of the game. If you encounter any issues, please create an https://github.com/{repo}/issues[Issue].
 * https://github.com/BepInEx/BepInEx[BepInEx] version BepInEx Version
 
 == Setup
@@ -24,9 +43,9 @@ CAUTION: This mod is still in early development and *will* contain bugs. Use at 
 . Run the game once. BepInEx should be installed automatically.
 
 === VR Mod
-. Download the latest release of this mod from the https://github.com/xenira/techtonicavr/releases[Releases] page.
+. Download the latest release of this mod from the https://github.com/{repo}/releases[Releases] page.
 . Extract the downloaded archive.
-. Copy the content from the `Techtonica` folder in the extracted files to the `Techtonica` folder in `steamapps/common` directory.
+. Copy the `BepInEx` and `Techtonica_Data` folders to the `Techtonica` folder in `steamapps/common` directory.
 . Run the game. The mod should be loaded automatically by BepInEx.
 
 === Disabling the Mod
@@ -46,7 +65,8 @@ While the mod is in a playable state, it is still in early development. Some fea
 === Working
 - Rendering of the game world with 6DOF Tracking
 - Tracking of the player's head and hands
-- Movement
+- Smooth locomotion and turning
+- Comfort options (Teleportation, Snap turning, Vignette)
 - Basic controller bindings (Although they might not be optimal)
 - Controller haptics
 - Smooth turning
@@ -63,7 +83,6 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Hand crank using uhhhhh... hands?
 
 === Known Issues
-- Map shows the player looking in the wrong direction.
 - Button prompts are not for VR controllers. (#13)
 - Haptics are played on both controllers by the game. One improvement would be to play them on the hand that is actually holding the tool.
 - The game is locked to 60fps when running in windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (#10)
@@ -75,7 +94,7 @@ While the mod is in a playable state, it is still in early development. Some fea
 
 == Troubleshooting
 
-If you encounter any issues while using this mod, please check the BepInEx console for any error messages. You can also report issues on the https://github.com/xenira/techtonicavr/issues[Issues] page of this repository.
+If you encounter any issues while using this mod, please check the BepInEx console for any error messages. You can also report issues on the https://github.com/{repo}/issues[Issues] page of this repository.
 
 === Q&A
 [qanda]
