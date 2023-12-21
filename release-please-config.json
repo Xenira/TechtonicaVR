@@ -1,5 +1,6 @@
 {
     "bump-minor-pre-major": true,
+    "release-type": "simple",
     "extra-files": [
         "plugin/TechtonicaVr.csproj",
         {
