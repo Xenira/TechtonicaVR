@@ -2,34 +2,141 @@
 name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
-labels: bug
+labels: [bug]
 assignees: Xenira
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Welcome Groundbreaker!**
+        Did ya break something?
 
+        Thank you for taking the time to report a bug. Please fill out the following information to help me fix the issue and get you back to breaking the game instead of this mod.
+  - type: checkboxes
+    id: prereqs
+    attributes:
+      label: Just to make sure
+      description: Your time is valuable, so please check the following before submitting a bug report.
+      options:
+        - label: I have read the [README](https://github.com/Xenira/TechtonicaVR)
+          required: true
+        - label: My issue is not already reported
+          required: true
+        - label: My Graphics/Headset/Controller drivers and OS are up to date
+          required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      value: |
+        Description:
+
+        Expected behavior:
+
+        Actual behavior:
+    validations:
+      required: true
+  - type: textarea
+    id: bug-reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior.
+      value: |
+        Steps to reproduce the behavior:
+        1. Go to '...'
+        2. Do '....'
+        3. Press '....'
+        4. See error
+    validations:
+      required: true
+  - type: dropdown
+    id: bug-os
+    attributes:
+      label: OS
+      description: What OS are you using?
+      options:
+        - Windows 10
+        - Windows 11
+        - Linux
+    validations:
+      required: true
+  - type: dropdown
+    id: bug-headset
+    attributes:
+      label: Headset _(optional)_
+      description: What headset are you using?
+      multiple: true
+      options:
+        - Valve Index
+        - Oculus Quest (Please specify model and connection method in Additional context)
+        - Oculus Rift S with Touch
+        - HTC Vive with Wands
+        - Windows Mixed Reality with Wands
+        - Other
+  - type: dropdown
+    id: bug-controllers
+    attributes:
+      label: Controllers _(optional)_
+      description: What controllers are you using?
+      multiple: true
+      options:
+        - Valve Index
+        - Oculus Touch
+        - HTC Vive Wands
+        - Windows Mixed Reality Wands
+        - Pimax Crystal Controller
+        - Pimax Sword
+        - Other
+  - type: dropdown
+    id: bug-game-version
+    attributes:
+      label: Game Version
+      description: What version of the game are you using?
+      options:
+        - 0.2.0f
+        - 0.1.2a
+    validations:
+      required: true
+  - type: input
+    id: bug-mod-version
+    attributes:
+      label: Mod Version
+      description: What version of the mod are you using (version or branch)?
+      value: "v0.1.0" # x-release-please-version
+    validations:
+      required: true
+  - type: textarea
+    id: bug-additional
+    attributes:
+      label: Additional context _(optional)_
+      description: Add any other context about the problem here.
+      placeholder:
+  - type: markdown
+    attributes:
+      value: |
+        That's it! Thank you for taking the time to report a bug. To help me further, please
+
+        - Attach any screenshots or videos that may help explain your problem.
+        - Please attach the BepInEx log file (Techtonica/BepInEx/LogOutput.log)
 ---
 
 **Describe the bug**
-<!-- A clear and concise description of what the bug is. -->
+{bug-description}
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-<!-- A clear and concise description of what you expected to happen. -->
+{bug-reproduction}
 
 **Screenshots**
 <!-- If applicable, add screenshots to help explain your problem. -->
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Linux <Distro and Version>, Windows 10]
- - Headset and Controllers: [e.g. Valve Index with Knuckles]
- - Game Version; [e.g. 0.2.0f]
- - Mod Version: [e.g. 0.1.0]
+ - OS: {bug-os}
+ - Headset: {bug-headset}
+ - Controllers: {bug-controllers}
+ - Game Version: {bug-game-version}
+ - Mod Version: {bug-mod-version}
 
 **Additional context**
-
-<!-- Add any other context about the problem here. -->
-<!-- Please attach the BepInEx log file (Techtonica/BepInEx/LogOutput.log) -->
+{bug-additional}
