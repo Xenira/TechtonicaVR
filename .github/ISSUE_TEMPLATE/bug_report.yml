@@ -1,4 +1,3 @@
----
 name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
@@ -119,24 +118,3 @@ body:
 
         - Attach any screenshots or videos that may help explain your problem.
         - Please attach the BepInEx log file (Techtonica/BepInEx/LogOutput.log)
----
-
-**Describe the bug**
-{bug-description}
-
-**To Reproduce**
-Steps to reproduce the behavior:
-{bug-reproduction}
-
-**Screenshots**
-<!-- If applicable, add screenshots to help explain your problem. -->
-
-**Desktop (please complete the following information):**
- - OS: {bug-os}
- - Headset: {bug-headset}
- - Controllers: {bug-controllers}
- - Game Version: {bug-game-version}
- - Mod Version: {bug-mod-version}
-
-**Additional context**
-{bug-additional}
