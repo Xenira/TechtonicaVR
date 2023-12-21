@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/Xenira/TechtonicaVR/compare/v0.2.0...v0.2.1) (2023-12-21)
+
+
+### 📝 Documentation
+
+* **readme:** add initial thunderstore ref ([#40](https://github.com/Xenira/TechtonicaVR/issues/40)) ([1e65301](https://github.com/Xenira/TechtonicaVR/commit/1e65301b8f904c18c91dfae835aebd8797820937))
+
 ## [0.2.0](https://github.com/Xenira/TechtonicaVR/compare/v0.1.0...v0.2.0) (2023-12-21)
 
 
