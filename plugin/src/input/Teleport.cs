@@ -54,6 +54,17 @@ class Teleport : MonoBehaviour
 
 	private void Update()
 	{
+		if (InputHandler.instance.playerInputBlocked || InputHandler.instance.playerInputBlockedOverride)
+		{
+			if (teleporting)
+			{
+				teleporting = false;
+				teleportArc.Hide();
+				loopAudioSource.Stop();
+			}
+			return;
+		}
+
 		if (SteamVRInputMapper.teleport.IsPressed())
 		{
 			teleporting = true;

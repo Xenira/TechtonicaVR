@@ -51,6 +51,7 @@ public class MainGamePatch : MonoBehaviour
 						new CompassPatch(),
 						new MapPatch(),
 						new CraftingQueuePatch(),
+						new PlayerArrowPatch(),
 				]).ToArray();
 
 		Plugin.Logger.LogDebug("Hello World!");

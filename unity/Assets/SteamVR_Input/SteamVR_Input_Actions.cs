@@ -111,6 +111,10 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_Teleport;
         
+        private static SteamVR_Action_Boolean p_default_SonarZoomIn;
+        
+        private static SteamVR_Action_Boolean p_default_SonarZoomOut;
+        
         private static SteamVR_Action_Vibration p_default_Haptic;
         
         public static SteamVR_Action_Boolean default_GrabPinch
@@ -489,6 +493,22 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean default_SonarZoomIn
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_SonarZoomIn.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_SonarZoomOut
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_SonarZoomOut.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration default_Haptic
         {
             get
@@ -547,6 +567,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_ClearHotbar,
                     SteamVR_Actions.default_HotbarSwap,
                     SteamVR_Actions.default_Teleport,
+                    SteamVR_Actions.default_SonarZoomIn,
+                    SteamVR_Actions.default_SonarZoomOut,
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_GrabPinch,
@@ -595,7 +617,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_PauseMenu,
                     SteamVR_Actions.default_ClearHotbar,
                     SteamVR_Actions.default_HotbarSwap,
-                    SteamVR_Actions.default_Teleport};
+                    SteamVR_Actions.default_Teleport,
+                    SteamVR_Actions.default_SonarZoomIn,
+                    SteamVR_Actions.default_SonarZoomOut};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -641,7 +665,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_PauseMenu,
                     SteamVR_Actions.default_ClearHotbar,
                     SteamVR_Actions.default_HotbarSwap,
-                    SteamVR_Actions.default_Teleport};
+                    SteamVR_Actions.default_Teleport,
+                    SteamVR_Actions.default_SonarZoomIn,
+                    SteamVR_Actions.default_SonarZoomOut};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
@@ -696,7 +722,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_PauseMenu,
                     SteamVR_Actions.default_ClearHotbar,
                     SteamVR_Actions.default_HotbarSwap,
-                    SteamVR_Actions.default_Teleport};
+                    SteamVR_Actions.default_Teleport,
+                    SteamVR_Actions.default_SonarZoomIn,
+                    SteamVR_Actions.default_SonarZoomOut};
         }
         
         private static void PreInitActions()
@@ -748,6 +776,8 @@ namespace Valve.VR
             SteamVR_Actions.p_default_ClearHotbar = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/ClearHotbar")));
             SteamVR_Actions.p_default_HotbarSwap = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/HotbarSwap")));
             SteamVR_Actions.p_default_Teleport = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/Teleport")));
+            SteamVR_Actions.p_default_SonarZoomIn = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SonarZoomIn")));
+            SteamVR_Actions.p_default_SonarZoomOut = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SonarZoomOut")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
         }
     }

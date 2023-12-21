@@ -42,6 +42,8 @@ public static class SteamVRInputMapper
 	public static Button HotbarClear = new Button(SteamVR_Actions._default.ClearHotbar);
 	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);
 	public static Button UIShortcut2 = new Button(SteamVR_Actions._default.UIShortcut2);
+	public static Button SonarZoomIn = new Button(SteamVR_Actions._default.SonarZoomIn);
+	public static Button SonarZoomOut = new Button(SteamVR_Actions._default.SonarZoomOut);
 	public static Button PauseMenu = new Button(SteamVR_Actions._default.PauseMenu);
 
 	public static Button cycleHotbarLeft = new Button(SteamVR_Actions._default.CycleHotbarLeft);
