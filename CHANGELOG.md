@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/Xenira/TechtonicaVR/compare/v0.2.1...v0.2.2) (2023-12-21)
+
+
+### 👷 Build System
+
+* fix release artifact path and added repo to cli args ([#42](https://github.com/Xenira/TechtonicaVR/issues/42)) ([7bf1dd8](https://github.com/Xenira/TechtonicaVR/commit/7bf1dd8bf662260558679d990e579adc563baa58))
+
 ## [0.2.1](https://github.com/Xenira/TechtonicaVR/compare/v0.2.0...v0.2.1) (2023-12-21)
 
 
