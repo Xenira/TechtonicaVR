@@ -46,11 +46,11 @@ jobs:
           name: plugin
       - name: Copy Files
         run: |
-          mkdir -p ./artifact/Techtonica/BepInEx/plugins/techtonica_vr/assets && mkdir -p ./artifact/Techtonica/Techtonica_Data
-          cp techtonica_vr.dll ./artifact/Techtonica/BepInEx/plugins
-          cp -r ./libs/* ./artifact/Techtonica/Techtonica_Data/
-          cp -r ./unity/AssetBundles/StandaloneWindows/* ./artifact/Techtonica/BepInEx/plugins/techtonica_vr/assets
-          cp {README.adoc,CHANGELOG.md,LICENSE} ./artifact/
+          mkdir -p ./artifact/BepInEx/plugins/techtonica_vr/assets && mkdir -p ./artifact/Techtonica_Data
+          cp techtonica_vr.dll ./artifact/BepInEx/plugins
+          cp -r ./libs/* ./artifact/Techtonica_Data/
+          cp -r ./unity/AssetBundles/StandaloneWindows/* ./artifact/BepInEx/plugins/techtonica_vr/assets
+          cp {README.adoc,CHANGELOG.md,LICENSE,manifest.json,icon.png} ./artifact/
       - name: Upload Release Asset Artifact
         uses: actions/upload-artifact@v2
         with:
