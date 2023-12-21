@@ -1,12 +1,64 @@
 {
+    "include-v-in-tag": true,
     "bump-minor-pre-major": true,
     "release-type": "simple",
+    "packages": {
+        ".": {}
+    },
     "extra-files": [
+        "README.adoc",
+        ".github/ISSUE_TEMPLATE/bug_report.md",
         "plugin/TechtonicaVr.csproj",
         {
             "type": "json",
             "path": "manifest.json",
             "jsonpath": "$.version_number"
+        }
+    ],
+    "changelog-sections": [
+        {
+            "type": "feat",
+            "section": "✨ Features"
+        },
+        {
+            "type": "fix",
+            "section": "🐛 Bug Fixes"
+        },
+        {
+            "type": "docs",
+            "section": "📝 Documentation"
+        },
+        {
+            "type": "style",
+            "section": "🎨 Code Style"
+        },
+        {
+            "type": "refactor",
+            "section": "♻️ Code Refactoring"
+        },
+        {
+            "type": "perf",
+            "section": "⚡ Performance Improvements"
+        },
+        {
+            "type": "test",
+            "section": "🧪 Tests"
+        },
+        {
+            "type": "build",
+            "section": "👷 Build System"
+        },
+        {
+            "type": "ci",
+            "hidden": true
+        },
+        {
+            "type": "chore",
+            "section": "🔧 Other Changes"
+        },
+        {
+            "type": "revert",
+            "section": "⏪️ Reverts"
         }
     ]
 }
