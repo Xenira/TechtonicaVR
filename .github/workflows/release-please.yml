@@ -45,7 +45,7 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
-            gh release upload ${{ steps.release.outputs.tag }} techtonica_vr-${{ steps.release.outputs.tag_name }}.zip
+            gh release upload ${{ steps.release.outputs.tag_name }} techtonica_vr-${{ steps.release.outputs.tag_name }}.zip
         - name: Upload to Thunderstore
           uses: GreenTF/upload-thunderstore-package@v4.1
           if: ${{ steps.release.outputs.release_created }}
