@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.2.0](https://github.com/Xenira/TechtonicaVR/compare/v0.1.0...v0.2.0) (2023-12-21)
+
+
+### ✨ Features
+
+* **comfort:** add comfort options ([#30](https://github.com/Xenira/TechtonicaVR/issues/30)) ([dd104bb](https://github.com/Xenira/TechtonicaVR/commit/dd104bba6220a7ff95bab31f9c245fcbe46cba81))
+* **input:** improved oculus bindings ([#37](https://github.com/Xenira/TechtonicaVR/issues/37)) ([29579d0](https://github.com/Xenira/TechtonicaVR/commit/29579d0029547173523c5574ab11985fce14f385))
+* **input:** oculus controller bindings ([#26](https://github.com/Xenira/TechtonicaVR/issues/26)) ([d65c121](https://github.com/Xenira/TechtonicaVR/commit/d65c1215c360ab709454dae5960cd04df71da447))
+
+
+### 🐛 Bug Fixes
+
+* **input:** bind map controlls and fix player arrow ([#32](https://github.com/Xenira/TechtonicaVR/issues/32)) ([67d2ebb](https://github.com/Xenira/TechtonicaVR/commit/67d2ebb590ae14fa4d51d5f95be527735b5c2496))
+
+
+### 📝 Documentation
+
+* **readme:** update install instructions ([#25](https://github.com/Xenira/TechtonicaVR/issues/25)) ([3b2ab8d](https://github.com/Xenira/TechtonicaVR/commit/3b2ab8d78ca4bec81a3451efb49f5f8ba07a76b2))
+
+
+### 👷 Build System
+
+* add readme, license and changelog to release ([#29](https://github.com/Xenira/TechtonicaVR/issues/29)) ([3e68554](https://github.com/Xenira/TechtonicaVR/commit/3e68554a40545918e618a487e632857cc72678a5))
+* **thunderstore:** ⚡ add thunderstore release ([39d863e](https://github.com/Xenira/TechtonicaVR/commit/39d863eecc92f1e4c7a52ad92fb8e34a79ac8c93))
+
+
+### 🔧 Other Changes
+
+* fix issue template description ([#38](https://github.com/Xenira/TechtonicaVR/issues/38)) ([59c8424](https://github.com/Xenira/TechtonicaVR/commit/59c84241f8d511f57463426ef92bcd36e25e3cff))
+
 ## 0.1.0 (2023-12-17)
 
 
