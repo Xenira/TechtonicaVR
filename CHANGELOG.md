@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/Xenira/TechtonicaVR/compare/v0.2.3...v0.2.4) (2023-12-22)
+
+
+### 👷 Build System
+
+* **thunderstore:** :zap: actually add thunderstore deps ([#47](https://github.com/Xenira/TechtonicaVR/issues/47)) ([9c052ea](https://github.com/Xenira/TechtonicaVR/commit/9c052eaedc580fe8a7eacc5be4489199d617ce15))
+
 ## [0.2.3](https://github.com/Xenira/TechtonicaVR/compare/v0.2.2...v0.2.3) (2023-12-22)
 
 
