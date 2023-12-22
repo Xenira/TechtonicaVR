@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/Xenira/TechtonicaVR/compare/v0.2.2...v0.2.3) (2023-12-22)
+
+
+### 👷 Build System
+
+* **thunderstore:** :zap: add dependencies and removed from release artifact ([#45](https://github.com/Xenira/TechtonicaVR/issues/45)) ([50ee8e6](https://github.com/Xenira/TechtonicaVR/commit/50ee8e6f7c8903b13729350fa4c4f2ece3b1d61f))
+
 ## [0.2.2](https://github.com/Xenira/TechtonicaVR/compare/v0.2.1...v0.2.2) (2023-12-21)
 
 
