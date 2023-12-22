@@ -28,7 +28,7 @@ image:https://img.shields.io/github/license/{repo}[License]
 
 ++++
 <p align="center">
-  <img src="icon.png" width="256" />
+  <img src="https://github.com/Xenira/TechtonicaVR/raw/master/icon.png" width="256" />
 </p>
 ++++
 
@@ -48,7 +48,7 @@ endif::[]
 
 == Setup
 
-You can install the mod from https://thunderstore.io/package/{tbd}/[Thunderstore] or install it manually:
+You can install the mod from https://thunderstore.io/c/techtonica/p/3_141/TechtonicaVR/[Thunderstore] or install it manually:
 
 === BepInEx
 . Download the latest 5.x release of BepInEx from the https://github.com/BepInEx/BepInEx/releases[Releases] page.
@@ -56,7 +56,9 @@ You can install the mod from https://thunderstore.io/package/{tbd}/[Thunderstore
 . Run the game once. BepInEx should be installed automatically.
 
 === VR Mod
-. Download the latest release of this mod from the https://github.com/{repo}/releases[Releases] page.
+// x-release-please-start-version
+. Download the latest release (v0.2.2) of this mod from the https://github.com/{repo}/releases[Releases] page.
+// x-release-please-end
 . Extract the downloaded archive.
 . Copy the `BepInEx` and `Techtonica_Data` folders to the `Techtonica` folder in `steamapps/common` directory.
 . Run the game. The mod should be loaded automatically by BepInEx.

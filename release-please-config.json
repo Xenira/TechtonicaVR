@@ -7,7 +7,7 @@
     },
     "extra-files": [
         "README.adoc",
-        ".github/ISSUE_TEMPLATE/bug_report.yml",
+        ".github/ISSUE_TEMPLATE/bug_report.md",
         "plugin/TechtonicaVr.csproj",
         {
             "type": "json",
