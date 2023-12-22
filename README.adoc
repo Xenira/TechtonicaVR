@@ -63,6 +63,14 @@ You can install the mod from https://thunderstore.io/c/techtonica/p/3_141/Techto
 . Copy the `BepInEx` and `Techtonica_Data` folders to the `Techtonica` folder in `steamapps/common` directory.
 . Run the game. The mod should be loaded automatically by BepInEx.
 
+=== Audio Fix
+Teleport and Snap turn have audio cues that are not played unless https://github.com/toebeann/Tobey.UnityAudio[Tobey.UnityAudio] is installed. You can install it from https://thunderstore.io/package/toebeann/TobeyUnityAudio/[Thunderstore] or the https://github.com/toebeann/Tobey.UnityAudio/releases[GitHub Releases] page.
+
+- The GitHub release of the VR mod includes the audio fix so you don't need to install it separately.
+- The thunderstore release does not include the audio fix unless you install it using a mod manager that installs dependencies.
+
+To install the UnityAudio extract the `BepInEx` folder from the downloaded archive into the game's installation directory.
+
 === Disabling the Mod
 To disable the mod change the `Enabled` under `[General]` value in the `de.xenira.techtonica.cfg` file in the `BepInEx/config` folder to `false`.
 
@@ -72,7 +80,9 @@ To uninstall the mod remove the mod's files from the `BepInEx/plugins` folder. T
 - `techtonica_vr.dll`
 - 'techtonica_vr' folder
 
-There will be some leftover files in the `Techtonica_Data` folder. To clean those up, delete the folder and verify the game's files in Steam. This will redownload the game's files and remove any leftover files.
+If you installed the audio fix, remove the `BepInEx/patches/Tobey/UnityAudio` and `BepInEx/plugin/Tobey/UnityAudio` folder from the game's installation directory.
+
+There will be some leftover files in the `Techtonica_Data` folder. To clean those up, delete the folder and verify the game's files in Steam. This will redownload the game's files and remove any leftover files. This is not strictly necessary but it will keep your game folder clean.
 
 == Current State
 While the mod is in a playable state, it is still in early development. Some features are still missing and there are some known issues. Other things might be a little yanky or not work as expected.
