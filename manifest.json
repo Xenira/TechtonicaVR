@@ -3,5 +3,8 @@
     "version_number": "0.2.3",
     "website_url": "https://github.com/Xenira/TechtonicaVR",
     "description": "VR Mod for Techtonica",
-    "dependencies": []
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100",
+        "Tobey-UnityAudio-2.0.1"
+    ]
 }
