@@ -15,7 +15,7 @@ ifndef::env-github[]
 endif::[]
 :icons: font
 :source-highlighter: highlightjs
-:game-version: 0.2.0f
+:game-version: 0.2.0h
 :repo: Xenira/TechtonicaVR
 
 image:https://img.shields.io/github/v/release/{repo}[GitHub release (with filter)]

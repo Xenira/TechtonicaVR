@@ -40,8 +40,11 @@ jobs:
           run: |
             mkdir artifact
             unzip release-artifact.zip -d ./artifact/
+            cd artifact && npx downdoc README.adoc && zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}-thunderstore.zip ./ && cd ..
+            mv artifact/techtonica_vr-${{ steps.release.outputs.tag_name }}-thunderstore.zip .
+            rm artifact/README.md
             unzip Tobey.UnityAudio.zip -d ./artifact/
-            cd artifact && npx downdoc README.adoc && zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}.zip ./ && cd ..
+            cd artifact && zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}.zip ./ && cd ..
             mv artifact/techtonica_vr-${{ steps.release.outputs.tag_name }}.zip .
         - name: Upload release artifact
           if: ${{ steps.release.outputs.release_created }}
@@ -59,7 +62,7 @@ jobs:
             description: VR mod for Techtonica
             categories: |
               mods
-            file: techtonica_vr-${{ steps.release.outputs.tag_name }}.zip
+            file: techtonica_vr-${{ steps.release.outputs.tag_name }}-thunderstore.zip
             version: "${{ steps.release.outputs.major }}.${{ steps.release.outputs.major }}.${{ steps.release.outputs.patch }}"
             repo: thunderstore.io
             token: ${{ secrets.THUNDERSTORE_KEY }}
