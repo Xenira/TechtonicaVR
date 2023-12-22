@@ -33,7 +33,7 @@ jobs:
           with:
             repo: "toebeann/Tobey.UnityAudio"
             file: "Tobey.UnityAudio.zip"
-            version: "tags/v2.0.0"
+            version: "tags/v2.0.2"
             token: ${{ secrets.DEPENDENCY_TOKEN }}
         - name: Zip release artifact
           if: ${{ steps.release.outputs.release_created }}

@@ -5,6 +5,6 @@
     "description": "VR Mod for Techtonica",
     "dependencies": [
         "BepInEx-BepInExPack-5.4.2100",
-        "Tobey-UnityAudio-2.0.1"
+        "Tobey-UnityAudio-2.0.2"
     ]
 }
