@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.5](https://github.com/Xenira/TechtonicaVR/compare/v0.2.4...v0.2.5) (2023-12-27)
+
+
+### 🐛 Bug Fixes
+
+* **config:** disable vignette by default ([#53](https://github.com/Xenira/TechtonicaVR/issues/53)) ([2eb80cb](https://github.com/Xenira/TechtonicaVR/commit/2eb80cbae55f712ae788d687dad7be6612d9d9ec))
+
+
+### 📝 Documentation
+
+* add Tobey.UnityAudio information ([#50](https://github.com/Xenira/TechtonicaVR/issues/50)) ([adce76e](https://github.com/Xenira/TechtonicaVR/commit/adce76e27458a6ff7100d137c561e7f11c9b1ce8))
+
 ## [0.2.4](https://github.com/Xenira/TechtonicaVR/compare/v0.2.3...v0.2.4) (2023-12-22)
 
 
