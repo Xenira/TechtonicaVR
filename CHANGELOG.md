@@ -40,7 +40,7 @@
 
 ### 🐛 Bug Fixes
 
-* **input:** bind map controlls and fix player arrow ([#32](https://github.com/Xenira/TechtonicaVR/issues/32)) ([67d2ebb](https://github.com/Xenira/TechtonicaVR/commit/67d2ebb590ae14fa4d51d5f95be527735b5c2496))
+* **input:** bind map controls and fix player arrow ([#32](https://github.com/Xenira/TechtonicaVR/issues/32)) ([67d2ebb](https://github.com/Xenira/TechtonicaVR/commit/67d2ebb590ae14fa4d51d5f95be527735b5c2496))
 
 
 ### 📝 Documentation
@@ -72,7 +72,7 @@
 * **input:** add smooth turning ([dd579c9](https://github.com/Xenira/TechtonicaVR/commit/dd579c94771fb8014eea119e209e02d6f75578b7))
 * **input:** use right hand as target origin ([8e3a749](https://github.com/Xenira/TechtonicaVR/commit/8e3a7499bf44b5de3c9b39d2a2184b5827820471))
 * **player:** add player hands ([0897dca](https://github.com/Xenira/TechtonicaVR/commit/0897dcab4acda07dfd94a19bbdaa31f083bc2fed))
-* **ui:** attched inspector to aim location ([#23](https://github.com/Xenira/TechtonicaVR/issues/23)) ([b7ef8db](https://github.com/Xenira/TechtonicaVR/commit/b7ef8dbf1f7dfae9a08e0f13f3fe2152e2ab1aac))
+* **ui:** attached inspector to aim location ([#23](https://github.com/Xenira/TechtonicaVR/issues/23)) ([b7ef8db](https://github.com/Xenira/TechtonicaVR/commit/b7ef8dbf1f7dfae9a08e0f13f3fe2152e2ab1aac))
 * **ui:** inventory overhaul ([#3](https://github.com/Xenira/TechtonicaVR/issues/3)) ([4c6fdb5](https://github.com/Xenira/TechtonicaVR/commit/4c6fdb5fc2ef4f6923c1e0de463eae719c10b630))
 * **ui:** move crafting queue to left hand ([#22](https://github.com/Xenira/TechtonicaVR/issues/22)) ([8c4fb9b](https://github.com/Xenira/TechtonicaVR/commit/8c4fb9ba23d0b9b7ef09533324eafd64f3e1dec6))
 

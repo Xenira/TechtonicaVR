@@ -9,6 +9,7 @@
         "comfort",
         "sound",
         "deps",
-        "thunderstore"
+        "thunderstore",
+        "config"
     ]
 }

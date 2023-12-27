@@ -151,7 +151,7 @@ Long Press Time:: Time in seconds before a button press is considered a long pre
 .UI
 Menu Spawn Distance:: Distance of the menu from the player. Default: `0.8`
 Menu Scale:: Scale of the menu (X/Y/Z). Default: `{"x":0.2,"y":0.2,"z":0.2}`
-Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting menu (X/Y/Z). This menu has different scaling and needs seperate config. Default: `{"x":0.2,"y":0.1,"z":0.2}`
+Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting menu (X/Y/Z). This menu has different scaling and needs separate config. Default: `{"x":0.2,"y":0.1,"z":0.2}`
 Menu Downward Offset:: Offset of the menu in the downward direction. Default: `0.2`
 [horizontal]
 .Debug
