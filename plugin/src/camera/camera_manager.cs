@@ -30,7 +30,7 @@ public class VRCameraManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	private void OnDestory()
+	private void OnDestroy()
 	{
 		Plugin.Logger.LogInfo("Destroying vr camera manager...");
 	}

@@ -10,8 +10,19 @@ on:
     branches: [ "master" ]
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check typos
+        uses: crate-ci/typos@master
+        with:
+          config: .github/_typos.toml
   build:
-
     runs-on: ubuntu-latest
     defaults:
       run:

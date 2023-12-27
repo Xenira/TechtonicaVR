@@ -1,0 +1,8 @@
+[default.extend-identifiers]
+FluffyUnderware = "FluffyUnderware"
+"Edit_Shotcut" = "Edit_Shotcut"
+
+[files]
+extend-exclude = [
+    "unity/*",
+]

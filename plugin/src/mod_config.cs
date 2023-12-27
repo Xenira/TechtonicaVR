@@ -53,7 +53,7 @@ public class ModConfig
 		// Comfort
 		snapTurnAngle = config.Bind("Comfort", "Snap Turn Angle", 30f, "Angle of snap turning");
 		teleportRange = config.Bind("Comfort", "Teleport Range", 12f, "Range of teleporting");
-		vignetteEnabled = config.Bind("Comfort", "Vignette Enabled", true, "Enable vignette");
+		vignetteEnabled = config.Bind("Comfort", "Vignette Enabled", false, "Enable vignette");
 		vignetteOnTeleport = config.Bind("Comfort", "Vignette On Teleport", true, "Enable vignette on teleport");
 		vignetteOnSmoothLocomotion = config.Bind("Comfort", "Vignette On Smooth Locomotion", true, "Enable vignette on smooth locomotion");
 		vignetteOnSmoothTurn = config.Bind("Comfort", "Vignette On Smooth Turn", true, "Enable vignette on smooth turn");
