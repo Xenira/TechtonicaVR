@@ -27,7 +27,7 @@ Steps to reproduce the behavior:
  - OS: [e.g. Linux <Distro and Version>, Windows 10]
  - Headset and Controllers: [e.g. Valve Index with Knuckles]
  - Game Version; [e.g. 0.2.0h]
- - Mod Version: 0.2.4 <!-- x-release-please-version -->
+ - Mod Version: 0.2.5 <!-- x-release-please-version -->
 
 **Additional context**
 
