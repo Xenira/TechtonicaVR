@@ -114,6 +114,10 @@ public class VRCameraManager : MonoBehaviour
 		var rightHandModel = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zero, Quaternion.identity, rightHandObject.transform);
 		rightHandModel.transform.localPosition = new Vector3(0, 0.01f, -0.09f);
 		rightHandModel.transform.localRotation = Quaternion.Euler(358.4256f, 103.2413f, 240.2217f);
+		var rightLaserPointer = rightHandObject.AddComponent<LaserPointer>();
+		rightLaserPointer.inputSource = SteamVR_Input_Sources.RightHand;
+		rightLaserPointer.interactButton = SteamVRInputMapper.UIClick;
+		rightLaserPointer.direction = Vector3.down;
 
 		SteamVRInputMapper.rightHandObject = rightHandObject;
 

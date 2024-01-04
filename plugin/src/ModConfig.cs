@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BepInEx.Configuration;
 using UnityEngine;
 
@@ -11,6 +10,13 @@ public class ModConfig
 
 	// Input
 	public static ConfigEntry<int> smoothTurnSpeed;
+	public static ConfigEntry<Color> laserColor;
+	public static ConfigEntry<Color> laserInactiveColor;
+	public static ConfigEntry<Color> laserClickColor;
+	public static ConfigEntry<Color> laserValidColor;
+	public static ConfigEntry<Color> laserInvalidColor;
+	public static ConfigEntry<float> laserThickness;
+	public static ConfigEntry<float> laserClickThicknessMultiplier;
 
 	// Comfort
 	public static ConfigEntry<float> snapTurnAngle;
@@ -49,6 +55,13 @@ public class ModConfig
 
 		// Input
 		smoothTurnSpeed = config.Bind("Input", "Smooth Turn Speed", 90, "Speed of smooth turning");
+		laserColor = config.Bind("Input", "Laser Color", Color.cyan, "Color of laser");
+		laserInactiveColor = config.Bind("Input", "Laser Inactive Color", new Color(0, 0, 0, 0.5f), "Color of laser when inactive");
+		laserClickColor = config.Bind("Input", "Laser Click Color", Color.blue, "Color of laser when clicking");
+		laserValidColor = config.Bind("Input", "Laser Hover Color", Color.green, "Color of laser when hovering");
+		laserInvalidColor = config.Bind("Input", "Laser Invalid Color", Color.red, "Color of laser when hovering over invalid object");
+		laserThickness = config.Bind("Input", "Laser Thickness", 0.002f, "Thickness of laser");
+		laserClickThicknessMultiplier = config.Bind("Input", "Laser Click Thickness Multiplier", 2f, "Thickness multiplier of laser when clicking");
 
 		// Comfort
 		snapTurnAngle = config.Bind("Comfort", "Snap Turn Angle", 30f, "Angle of snap turning");
@@ -116,6 +129,11 @@ public class ModConfig
 	public static bool GizmoEnabled()
 	{
 		return debugMode.Value && gizmoEnabled.Value;
+	}
+
+	public static bool DebugEnabled()
+	{
+		return debugMode.Value;
 	}
 
 	public static bool DebugLineEnabled()

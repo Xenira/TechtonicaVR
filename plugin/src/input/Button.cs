@@ -7,77 +7,101 @@ namespace TechtonicaVR.Input;
 
 public class Button
 {
-    bool currentState;
-    bool previousState;
-    float lastChangeTime;
-    float lastDuration;
+	public SteamVR_Action_Boolean action;
+	bool currentState;
+	bool previousState;
+	float lastChangeTime;
+	float lastDuration;
+	private InputState state;
 
-    public Button(SteamVR_Action_Boolean action)
-    {
-        action.AddOnUpdateListener(HandleUpdate, SteamVR_Input_Sources.Any);
-        lastChangeTime = UnityEngine.Time.time;
-        lastDuration = 0f;
-    }
+	public event ButtonEventHandler ButtonPressed;
+	public event ButtonEventHandler ButtonReleased;
 
-    private void HandleUpdate(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
-    {
-        previousState = currentState;
-        currentState = newState;
-        if (currentState != previousState)
-        {
-            lastDuration = UnityEngine.Time.time - lastChangeTime;
-            lastChangeTime = UnityEngine.Time.time;
-        }
-    }
+	public Button(SteamVR_Action_Boolean action, InputState state = InputState.None)
+	{
+		this.action = action;
+		this.state = state;
 
-    public bool IsDown()
-    {
-        return currentState;
-    }
+		action.AddOnUpdateListener(HandleUpdate, SteamVR_Input_Sources.Any);
+		lastChangeTime = UnityEngine.Time.time;
+		lastDuration = 0f;
+	}
 
-    public bool IsUp()
-    {
-        return !currentState;
-    }
+	private void HandleUpdate(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
+	{
+		previousState = currentState;
+		currentState = newState;
+		if (currentState != previousState)
+		{
+			if (currentState)
+			{
+				ButtonPressed?.Invoke(this, fromSource);
+			}
+			else
+			{
+				ButtonReleased?.Invoke(this, fromSource);
+			}
 
-    public bool IsPressed()
-    {
-        return currentState && !previousState;
-    }
+			lastDuration = UnityEngine.Time.time - lastChangeTime;
+			lastChangeTime = UnityEngine.Time.time;
+		}
+	}
 
-    public bool IsReleased()
-    {
-        return !currentState && previousState;
-    }
+	public bool IsDown()
+	{
+		if (state != InputState.None && state != ActiveInputState.state)
+		{
+			return false;
+		}
 
-    public bool IsTimedPress(float min)
-    {
-        return currentState && UnityEngine.Time.time - lastChangeTime >= min;
-    }
+		return currentState;
+	}
 
-    public bool IsTimedPressUp(float min)
-    {
-        return IsReleased() && lastDuration >= min;
-    }
+	public bool IsUp()
+	{
+		return !IsDown();
+	}
 
-    public bool IsTimedPressUp(float min, float max)
-    {
-        return IsReleased() && lastDuration >= min && lastDuration <= max;
-    }
+	public bool IsPressed()
+	{
+		return IsDown() && !previousState;
+	}
 
-    public bool IsTimedPressDown(float min)
-    {
-        return currentState && UnityEngine.Time.time - lastChangeTime >= min;
-    }
+	public bool IsReleased()
+	{
+		return IsUp() && previousState;
+	}
 
-    public bool IsTimedPressDown(float min, float max)
-    {
-        if (!currentState)
-        {
-            return false;
-        }
+	public bool IsTimedPress(float min)
+	{
+		return IsDown() && UnityEngine.Time.time - lastChangeTime >= min;
+	}
 
-        var timePressed = UnityEngine.Time.time - lastChangeTime;
-        return timePressed >= min && timePressed <= max;
-    }
+	public bool IsTimedPressUp(float min)
+	{
+		return IsReleased() && lastDuration >= min;
+	}
+
+	public bool IsTimedPressUp(float min, float max)
+	{
+		return IsReleased() && lastDuration >= min && lastDuration <= max;
+	}
+
+	public bool IsTimedPressDown(float min)
+	{
+		return IsDown() && UnityEngine.Time.time - lastChangeTime >= min;
+	}
+
+	public bool IsTimedPressDown(float min, float max)
+	{
+		if (IsUp())
+		{
+			return false;
+		}
+
+		var timePressed = UnityEngine.Time.time - lastChangeTime;
+		return timePressed >= min && timePressed <= max;
+	}
 }
+
+public delegate void ButtonEventHandler(object sender, SteamVR_Input_Sources source);

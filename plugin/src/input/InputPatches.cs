@@ -57,7 +57,7 @@ class InputPatches
 			__result = SteamVRInputMapper.MoveAxes;
 			if (ModConfig.VignetteOnSmoothLocomotion())
 			{
-				Vignette.instance.Show(SteamVRInputMapper.MoveAxes.magnitude);
+				Vignette.instance?.Show(SteamVRInputMapper.MoveAxes.magnitude);
 			}
 			return false;
 		}
@@ -112,7 +112,7 @@ class InputPatches
 		var horizontalRotation = SteamVRInputMapper.TurnAxis * Time.deltaTime * ModConfig.smoothTurnSpeed.Value;
 		if (ModConfig.VignetteOnSmoothTurn())
 		{
-			Vignette.instance.Show(Mathf.Abs(SteamVRInputMapper.TurnAxis));
+			Vignette.instance?.Show(Mathf.Abs(SteamVRInputMapper.TurnAxis));
 		}
 		__instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
 	}

@@ -208,11 +208,19 @@
     {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
+    },
+    {
+      "name": "/actions/UI/in/Click",
+      "type": "boolean"
     }
   ],
   "action_sets": [
     {
       "name": "/actions/default",
+      "usage": "leftright"
+    },
+    {
+      "name": "/actions/UI",
       "usage": "leftright"
     }
   ],
@@ -321,7 +329,8 @@
       "/actions/default/in/HotbarSwap": "Swap Hotbar Item",
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/in/SonarZoomIn": "Map Zoom In",
-      "/actions/default/in/SonarZoomOut": "Map Zoom Out"
+      "/actions/default/in/SonarZoomOut": "Map Zoom Out",
+      "/actions/UI/in/Click": "Click"
     }
   ]
 }

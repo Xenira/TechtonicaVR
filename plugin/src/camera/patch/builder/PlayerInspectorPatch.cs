@@ -41,6 +41,12 @@ public class PlayerInspectorPatch
 
 	public static bool PatchedRaycast(Vector3 _origin, Vector3 _direction, out RaycastHit hitInfo, float maxDistance, int layerMask)
 	{
+		if (SteamVRInputMapper.rightHandObject == null)
+		{
+			hitInfo = default;
+			return false;
+		}
+
 		return Physics.Raycast(SteamVRInputMapper.rightHandObject.transform.position, -SteamVRInputMapper.rightHandObject.transform.up, out hitInfo, maxDistance, layerMask);
 	}
 
