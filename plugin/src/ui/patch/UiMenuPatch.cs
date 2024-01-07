@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using HarmonyLib;
+using TechtonicaVR.Debug;
 using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
@@ -11,8 +11,7 @@ public class UIMenuPatch
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<UIMenuPatch>();
 
-	private static Dictionary<UIMenu, WorldPositionedCanvas> cache = new Dictionary<UIMenu, WorldPositionedCanvas>();
-	private static WorldPositionedCanvas recipePickerUi;
+	private static GameObject worldAnchor;
 
 	private static Vector3 lastCamOrigin = Vector3.zero;
 	private static Vector3 lastPosition = Vector3.zero;
@@ -23,7 +22,7 @@ public class UIMenuPatch
 	{
 		Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
 
-		var tlc = GameObjectFinder.FindChildObjectByName("Top Level Container", __instance.gameObject) ?? GameObjectFinder.FindParentObjectByName("Top Level Container", __instance.gameObject) ?? __instance.gameObject;
+		GameObject tlc = findTlc(__instance.gameObject);
 		var blurs = GameObjectFinder.FindChildObjectsByName("BG Blur", __instance.transform.root.gameObject);
 
 		foreach (var blur in blurs)
@@ -31,18 +30,27 @@ public class UIMenuPatch
 			destroyBlur(blur);
 		}
 
-		var tracked_menu = tlc.AddComponent<WorldPositionedCanvas>();
-		tracked_menu.menu = new UIMenuWrapper(__instance);
+		var canvas = tlc.GetComponentInParent<Canvas>();
+		canvas.renderMode = RenderMode.WorldSpace;
+		canvas.gameObject.layer = 0;
+		canvas.transform.SetParent(getWorldAnchor().transform);
+		canvas.transform.localPosition = Vector3.zero;
+		canvas.transform.localRotation = Quaternion.identity;
+		canvas.transform.localScale = Vector3.one;
+
 		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
 		{
-			tracked_menu.scale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
+			canvas.transform.localScale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
 		}
 		else
 		{
-			tracked_menu.scale = ModConfig.menuScale.Value;
+			canvas.transform.localScale = ModConfig.menuScale.Value;
 		}
+	}
 
-		cache[__instance] = tracked_menu;
+	private static GameObject findTlc(GameObject gameObject)
+	{
+		return GameObjectFinder.FindChildObjectByName("Top Level Container", gameObject) ?? GameObjectFinder.FindParentObjectByName("Top Level Container", gameObject) ?? gameObject;
 	}
 
 	[HarmonyPatch(typeof(UIMenu), nameof(UIMenu.OnOpen))]
@@ -50,28 +58,17 @@ public class UIMenuPatch
 	public static void OnOpenPostfix(UIMenu __instance)
 	{
 		Logger.LogInfo($"UIMenu.OnOpenPostfix: {__instance.name}");
-		WorldPositionedCanvas tracked_menu;
-		if (!cache.TryGetValue(__instance, out tracked_menu))
-		{
-			Logger.LogError($"UIMenu.OnOpenPostfix: tracked_menu is null");
-			return;
-		}
-
-		tracked_menu.transform.localScale = tracked_menu.scale;
 
 		// Do not update if menu is part of carousel
 		if (UIManager._instance.carouselUI.isOpen && lastPosition != Vector3.zero)
 		{
-			tracked_menu.target = lastPosition;
-			tracked_menu.camOrigin = lastCamOrigin;
 			return;
 		}
 
 		lastPosition = VRCameraManager.mainCamera.transform.position + VRCameraManager.mainCamera.transform.forward * ModConfig.menuSpawnDistance.Value + Vector3.down * ModConfig.menuDownwardOffset.Value;
 		lastCamOrigin = VRCameraManager.mainCamera.transform.position;
 
-		tracked_menu.target = lastPosition;
-		tracked_menu.camOrigin = lastCamOrigin;
+		setWorldAnchor(lastPosition, lastCamOrigin);
 	}
 
 	[HarmonyPatch(typeof(UIMenu), nameof(UIMenu.OnClose))]
@@ -80,20 +77,11 @@ public class UIMenuPatch
 	{
 		Logger.LogInfo($"UIMenu.OnClosePostfix: {__instance.name}");
 
-		WorldPositionedCanvas tracked_menu;
-		if (!cache.TryGetValue(__instance, out tracked_menu))
-		{
-			Logger.LogWarning($"UIMenu.OnClosePostfix: tracked_menu is null (Can be ignored on game start)");
-			return;
-		}
-
 		if (UIManager._instance.carouselUI.isOpen)
 		{
 			return;
 		}
 
-		tracked_menu.target = Vector3.zero;
-		tracked_menu.playerInventoryUI = null;
 		lastPosition = Vector3.zero;
 		lastCamOrigin = Vector3.zero;
 	}
@@ -105,22 +93,18 @@ public class UIMenuPatch
 		return me != null;
 	}
 
-	[HarmonyPatch(typeof(PlayerInventoryUI), nameof(PlayerInventoryUI.Open))]
+	[HarmonyPatch(typeof(PlayerInventoryUI), nameof(PlayerInventoryUI.Start))]
 	[HarmonyPostfix]
-	public static void PlayerInventoryUIOpenPostfix(PlayerInventoryUI __instance, RectTransform playerInventoryRefXfm, bool shouldCycle)
+	public static void PlayerInventoryUIStartPostfix(PlayerInventoryUI __instance)
 	{
-		Logger.LogInfo($"PlayerInventoryUI.OpenPostfix: {__instance.name}");
-		var worldPositionedCanvas = playerInventoryRefXfm.GetComponentInParent<WorldPositionedCanvas>();
-		if (worldPositionedCanvas == null)
-		{
-			Logger.LogError($"PlayerInventoryUI.OpenPostfix: worldPositionedCanvas is null");
-			return;
-		}
-
-		var tlc = __instance.gameObject.transform.GetChild(0);
-		tlc.transform.localScale = worldPositionedCanvas.scale;
-
-		worldPositionedCanvas.playerInventoryUI = __instance;
+		Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
+		var canvas = __instance.myCanvas;
+		canvas.gameObject.layer = 0;
+		canvas.renderMode = RenderMode.WorldSpace;
+		canvas.transform.SetParent(getWorldAnchor().transform, true);
+		canvas.transform.localPosition = Vector3.zero;
+		canvas.transform.localRotation = Quaternion.identity;
+		canvas.transform.localScale = ModConfig.menuScale.Value;
 	}
 
 	[HarmonyPatch(typeof(RecipePickerUI), nameof(RecipePickerUI.Start))]
@@ -129,7 +113,6 @@ public class UIMenuPatch
 	{
 		Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
 
-		var tlc = GameObjectFinder.FindChildObjectByName("Top Level Container", __instance.gameObject) ?? GameObjectFinder.FindParentObjectByName("Top Level Container", __instance.gameObject) ?? __instance.gameObject;
 		var blurs = GameObjectFinder.FindChildObjectsByName("BG Blur", __instance.transform.root.gameObject);
 
 		foreach (var blur in blurs)
@@ -137,56 +120,12 @@ public class UIMenuPatch
 			destroyBlur(blur);
 		}
 
-		var tracked_menu = tlc.AddComponent<WorldPositionedCanvas>();
-		tracked_menu.menu = new BehaviourMenu();
-
-		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
-		{
-			tracked_menu.scale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
-		}
-		else
-		{
-			tracked_menu.scale = ModConfig.menuScale.Value;
-		}
-
-		recipePickerUi = tracked_menu;
-	}
-
-	[HarmonyPatch(typeof(RecipePickerUI), nameof(RecipePickerUI.Open))]
-	[HarmonyPostfix]
-	public static void RecipePickerUIOpenPostfix(RecipePickerUI __instance)
-	{
-		Logger.LogInfo($"RecipePickerUI.OpenPostfix: {__instance.name}");
-		var worldPositionedCanvas = recipePickerUi;
-		if (worldPositionedCanvas == null)
-		{
-			Logger.LogError($"RecipePickerUI.OpenPostfix: worldPositionedCanvas is null");
-			return;
-		}
-
-		var tlc = __instance.gameObject.transform.GetChild(0);
-		tlc.transform.localScale = worldPositionedCanvas.scale;
-
-		worldPositionedCanvas.target = lastPosition;
-		worldPositionedCanvas.camOrigin = lastCamOrigin;
-		((BehaviourMenu)recipePickerUi.menu).open = true;
-	}
-
-	[HarmonyPatch(typeof(RecipePickerUI), nameof(RecipePickerUI.Close))]
-	[HarmonyPostfix]
-	public static void RecipePickerUIClosePostfix(RecipePickerUI __instance)
-	{
-		Logger.LogInfo($"RecipePickerUI.ClosePostfix: {__instance.name}");
-		var worldPositionedCanvas = recipePickerUi;
-		if (worldPositionedCanvas == null)
-		{
-			Logger.LogError($"RecipePickerUI.ClosePostfix: worldPositionedCanvas is null");
-			return;
-		}
-
-		worldPositionedCanvas.target = Vector3.zero;
-		worldPositionedCanvas.playerInventoryUI = null;
-		((BehaviourMenu)recipePickerUi.menu).open = false;
+		var canvas = __instance.GetComponentInParent<Canvas>();
+		canvas.gameObject.layer = 0;
+		canvas.renderMode = RenderMode.WorldSpace;
+		canvas.transform.SetParent(getWorldAnchor().transform, true);
+		canvas.transform.localPosition = Vector3.zero;
+		canvas.transform.localScale = ModConfig.menuScale.Value;
 	}
 
 	private static void destroyBlur(GameObject blur)
@@ -204,5 +143,31 @@ public class UIMenuPatch
 		}
 
 		Object.Destroy(blur);
+	}
+
+	private static GameObject getWorldAnchor()
+	{
+		if (worldAnchor == null)
+		{
+			worldAnchor = new GameObject("World Anchor");
+			Object.DontDestroyOnLoad(worldAnchor);
+			worldAnchor.AddComponent<Gizmo>();
+		}
+
+		return worldAnchor;
+	}
+
+	private static void setWorldAnchor(Vector3 position, Vector3 camOrigin)
+	{
+		Ray ray = new Ray(camOrigin, position - camOrigin);
+		if (Physics.Raycast(ray, out var hit, ModConfig.menuSpawnDistance.Value))
+		{
+			Logger.LogDebug($"Hit {hit.collider.gameObject.name}");
+			position = hit.point - ray.direction * 0.001f;
+		}
+
+		var anchor = getWorldAnchor();
+		anchor.transform.position = position;
+		anchor.transform.LookAt(2 * anchor.transform.position - camOrigin);
 	}
 }

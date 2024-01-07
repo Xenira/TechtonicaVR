@@ -86,8 +86,8 @@ public class ModConfig
 
 		// UI
 		menuSpawnDistance = config.Bind("UI", "Menu Spawn Distance", 0.8f, "Distance from head to spawn Menus");
-		menuScale = config.Bind("UI", "Menu Scale", new Vector3(0.2f, 0.2f, 0.2f), "Scale of Menus");
-		inventoryAndCraftingMenuScaleOverride = config.Bind("UI", "Inventory and Crafting Menu Scale Override", new Vector3(0.2f, 0.1f, 0.2f), "Scale of Inventory and Crafting Menu. Set to 0 to use Menu Scale");
+		menuScale = config.Bind("UI", "Menu Scale", new Vector3(0.001f, 0.001f, 0.001f), "Scale of Menus");
+		inventoryAndCraftingMenuScaleOverride = config.Bind("UI", "Inventory and Crafting Menu Scale Override", new Vector3(0.001f, 0.0005f, 0.001f), "Scale of Inventory and Crafting Menu. Set to 0 to use Menu Scale");
 		menuDownwardOffset = config.Bind("UI", "Menu Downward Offset", 0.2f, "Offset of Menus from head. Needed, as menus sometimes spawn too high.");
 
 		// Debug
