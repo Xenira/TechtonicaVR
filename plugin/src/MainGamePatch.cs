@@ -3,6 +3,7 @@ using TechtonicaVR.Patches;
 using TechtonicaVR.Patches.MainGame.Player;
 using TechtonicaVR.Patches.MainGame.UI;
 using TechtonicaVR.Patches.Universal;
+using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR;
@@ -15,6 +16,7 @@ public interface IPatch
 
 public class MainGamePatch : MonoBehaviour
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<MainGamePatch>();
 
 	private IPatch[] playerSpringPatches = [
 			new LeftHandAttachPatch(),
@@ -56,7 +58,7 @@ public class MainGamePatch : MonoBehaviour
 						new PlayerArrowPatch(),
 				]).ToArray();
 
-		Plugin.Logger.LogDebug("Hello World!");
+		Logger.LogDebug("Hello World!");
 	}
 
 	void Update()

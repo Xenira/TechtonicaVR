@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using TechtonicaVR.Input;
+using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.VRCamera.Patch.Builder;
@@ -10,6 +11,8 @@ namespace TechtonicaVR.VRCamera.Patch.Builder;
 [HarmonyPatch]
 public class PlayerInspectorPatch
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<PlayerInspectorPatch>();
+
 	private const int EXPECTED_INSPECTOR_UPDATE_PATCH_COUNT = 1;
 
 	static MethodInfo raycastMethod = typeof(Physics).GetMethod(nameof(Physics.Raycast), [typeof(Vector3), typeof(Vector3), typeof(RaycastHit).MakeByRefType(), typeof(float), typeof(int)]);
@@ -35,7 +38,7 @@ public class PlayerInspectorPatch
 
 		if (patchCnt != EXPECTED_INSPECTOR_UPDATE_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError($"[PlayerInspector.LateUpdate] Patch count mismatch: {patchCnt} != {EXPECTED_INSPECTOR_UPDATE_PATCH_COUNT}");
+			Logger.LogError($"[PlayerInspector.LateUpdate] Patch count mismatch: {patchCnt} != {EXPECTED_INSPECTOR_UPDATE_PATCH_COUNT}");
 		}
 	}
 

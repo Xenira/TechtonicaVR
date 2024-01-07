@@ -6,10 +6,13 @@ using TechtonicaVR.Assets;
 using TechtonicaVR.Debug;
 using UnityEngine;
 using Valve.VR;
+using TechtonicaVR.Util;
 
 namespace TechtonicaVR.VRCamera;
 public class VRCameraManager : MonoBehaviour
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<VRCameraManager>();
+
 	public Transform vrRoot;
 
 	public SteamVR_CameraHelper cameraHelperPrefab;
@@ -32,17 +35,17 @@ public class VRCameraManager : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Plugin.Logger.LogInfo("Destroying vr camera manager...");
+		Logger.LogInfo("Destroying vr camera manager...");
 	}
 
 	private void OnEnable()
 	{
-		Plugin.Logger.LogInfo("Enabling vr camera manager...");
+		Logger.LogInfo("Enabling vr camera manager...");
 	}
 
 	private void OnDisable()
 	{
-		Plugin.Logger.LogInfo("Disabling vr camera manager...");
+		Logger.LogInfo("Disabling vr camera manager...");
 	}
 
 	private void Update()
@@ -61,7 +64,7 @@ public class VRCameraManager : MonoBehaviour
 
 	private void SetupCamera()
 	{
-		Plugin.Logger.LogInfo("Setting up camera...");
+		Logger.LogInfo("Setting up camera...");
 
 		mainCamera.gameObject.AddComponent<SteamVR_Camera>();
 		mainCamera.gameObject.AddComponent<SteamVR_TrackedObject>();
@@ -79,8 +82,8 @@ public class VRCameraManager : MonoBehaviour
 			mainCamera.transform.parent = techCam.camRoot;
 			foreach (var a in ReInput.mapping.Actions)
 			{
-				Plugin.Logger.LogInfo("Action: " + a.name);
-				Plugin.Logger.LogInfo("  id: " + a.id);
+				Logger.LogInfo("Action: " + a.name);
+				Logger.LogInfo("  id: " + a.id);
 			}
 
 			StartCoroutine(PatchCoroutine());

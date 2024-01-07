@@ -69,6 +69,11 @@ public class Button
 
 	public bool IsReleased()
 	{
+		if (state != InputState.None && state != ActiveInputState.state)
+		{
+			return false;
+		}
+
 		return IsUp() && previousState;
 	}
 
@@ -94,7 +99,7 @@ public class Button
 
 	public bool IsTimedPressDown(float min, float max)
 	{
-		if (IsUp())
+		if (IsUp() || state != InputState.None && state != ActiveInputState.state)
 		{
 			return false;
 		}

@@ -1,3 +1,4 @@
+using TechtonicaVR.Util;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -5,6 +6,8 @@ namespace TechtonicaVR.VRCamera;
 
 public class TechMainCamera : MonoBehaviour
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<TechMainCamera>();
+
 	public Transform camRoot;
 	private PostProcessLayer postProcessLayer;
 	private Vector3 offset = Vector3.zero;
@@ -37,7 +40,7 @@ public class TechMainCamera : MonoBehaviour
 
 		if (float.IsNaN(diff.x) || float.IsNaN(diff.z))
 		{
-			Plugin.Logger.LogError("Diff is NaN");
+			Logger.LogError("Diff is NaN");
 			return;
 		}
 

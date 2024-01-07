@@ -9,6 +9,8 @@ namespace TechtonicaVR.UI.Patch;
 [HarmonyPatch]
 public class UIMenuPatch
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<UIMenuPatch>();
+
 	private static Dictionary<UIMenu, WorldPositionedCanvas> cache = new Dictionary<UIMenu, WorldPositionedCanvas>();
 	private static WorldPositionedCanvas recipePickerUi;
 
@@ -19,7 +21,7 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void StartPostfix(UIMenu __instance)
 	{
-		Plugin.Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
+		Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
 
 		var tlc = GameObjectFinder.FindChildObjectByName("Top Level Container", __instance.gameObject) ?? GameObjectFinder.FindParentObjectByName("Top Level Container", __instance.gameObject) ?? __instance.gameObject;
 		var blurs = GameObjectFinder.FindChildObjectsByName("BG Blur", __instance.transform.root.gameObject);
@@ -47,11 +49,11 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void OnOpenPostfix(UIMenu __instance)
 	{
-		Plugin.Logger.LogInfo($"UIMenu.OnOpenPostfix: {__instance.name}");
+		Logger.LogInfo($"UIMenu.OnOpenPostfix: {__instance.name}");
 		WorldPositionedCanvas tracked_menu;
 		if (!cache.TryGetValue(__instance, out tracked_menu))
 		{
-			Plugin.Logger.LogError($"UIMenu.OnOpenPostfix: tracked_menu is null");
+			Logger.LogError($"UIMenu.OnOpenPostfix: tracked_menu is null");
 			return;
 		}
 
@@ -76,12 +78,12 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void OnClosePostfix(UIMenu __instance)
 	{
-		Plugin.Logger.LogInfo($"UIMenu.OnClosePostfix: {__instance.name}");
+		Logger.LogInfo($"UIMenu.OnClosePostfix: {__instance.name}");
 
 		WorldPositionedCanvas tracked_menu;
 		if (!cache.TryGetValue(__instance, out tracked_menu))
 		{
-			Plugin.Logger.LogWarning($"UIMenu.OnClosePostfix: tracked_menu is null (Can be ignored on game start)");
+			Logger.LogWarning($"UIMenu.OnClosePostfix: tracked_menu is null (Can be ignored on game start)");
 			return;
 		}
 
@@ -107,11 +109,11 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void PlayerInventoryUIOpenPostfix(PlayerInventoryUI __instance, RectTransform playerInventoryRefXfm, bool shouldCycle)
 	{
-		Plugin.Logger.LogInfo($"PlayerInventoryUI.OpenPostfix: {__instance.name}");
+		Logger.LogInfo($"PlayerInventoryUI.OpenPostfix: {__instance.name}");
 		var worldPositionedCanvas = playerInventoryRefXfm.GetComponentInParent<WorldPositionedCanvas>();
 		if (worldPositionedCanvas == null)
 		{
-			Plugin.Logger.LogError($"PlayerInventoryUI.OpenPostfix: worldPositionedCanvas is null");
+			Logger.LogError($"PlayerInventoryUI.OpenPostfix: worldPositionedCanvas is null");
 			return;
 		}
 
@@ -125,7 +127,7 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void RecipePickerUIStartPostfix(RecipePickerUI __instance)
 	{
-		Plugin.Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
+		Logger.LogDebug($"Attaching world position behaviour to: {__instance.name}");
 
 		var tlc = GameObjectFinder.FindChildObjectByName("Top Level Container", __instance.gameObject) ?? GameObjectFinder.FindParentObjectByName("Top Level Container", __instance.gameObject) ?? __instance.gameObject;
 		var blurs = GameObjectFinder.FindChildObjectsByName("BG Blur", __instance.transform.root.gameObject);
@@ -154,11 +156,11 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void RecipePickerUIOpenPostfix(RecipePickerUI __instance)
 	{
-		Plugin.Logger.LogInfo($"RecipePickerUI.OpenPostfix: {__instance.name}");
+		Logger.LogInfo($"RecipePickerUI.OpenPostfix: {__instance.name}");
 		var worldPositionedCanvas = recipePickerUi;
 		if (worldPositionedCanvas == null)
 		{
-			Plugin.Logger.LogError($"RecipePickerUI.OpenPostfix: worldPositionedCanvas is null");
+			Logger.LogError($"RecipePickerUI.OpenPostfix: worldPositionedCanvas is null");
 			return;
 		}
 
@@ -174,11 +176,11 @@ public class UIMenuPatch
 	[HarmonyPostfix]
 	public static void RecipePickerUIClosePostfix(RecipePickerUI __instance)
 	{
-		Plugin.Logger.LogInfo($"RecipePickerUI.ClosePostfix: {__instance.name}");
+		Logger.LogInfo($"RecipePickerUI.ClosePostfix: {__instance.name}");
 		var worldPositionedCanvas = recipePickerUi;
 		if (worldPositionedCanvas == null)
 		{
-			Plugin.Logger.LogError($"RecipePickerUI.ClosePostfix: worldPositionedCanvas is null");
+			Logger.LogError($"RecipePickerUI.ClosePostfix: worldPositionedCanvas is null");
 			return;
 		}
 
@@ -197,7 +199,7 @@ public class UIMenuPatch
 		var disableBehaviour = blur.GetComponent<DisableWhenNoMenuOpen>();
 		if (disableBehaviour != null)
 		{
-			Plugin.Logger.LogDebug($"Deregistering component disabler: {disableBehaviour.targetBehaviour}");
+			Logger.LogDebug($"Deregistering component disabler: {disableBehaviour.targetBehaviour}");
 			UIManager._instance.DeregisterComponentDisabler(disableBehaviour.targetBehaviour);
 		}
 

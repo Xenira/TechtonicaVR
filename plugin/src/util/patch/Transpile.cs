@@ -9,6 +9,8 @@ namespace TechtonicaVR.Util.Patch;
 
 public class Transpile
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<Transpile>();
+
 	public static MethodInfo getTransformMethod = typeof(Component).GetMethod("get_transform");
 	public static MethodInfo getForwardMethod = typeof(Transform).GetMethod("get_forward");
 
@@ -40,7 +42,7 @@ public class Transpile
 
 		if (patchCnt != expectedPatchCount)
 		{
-			Plugin.Logger.LogError($"[{typeof(T)}]: Patch count mismatch: {patchCnt} != {expectedPatchCount}");
+			Logger.LogError($"[{typeof(T)}]: Patch count mismatch: {patchCnt} != {expectedPatchCount}");
 		}
 	}
 

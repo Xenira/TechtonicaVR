@@ -8,17 +8,21 @@ using TechtonicaVR.Util;
 namespace TechtonicaVR.Input;
 public class LaserPointer : MonoBehaviour
 {
-	private static Logger<LaserPointer> Logger = new Logger<LaserPointer>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<LaserPointer>();
+
 	private static List<LaserPointer> pointers = new List<LaserPointer>();
 	public static List<InteractableUi> interactables = new List<InteractableUi>();
 	public static event PointerEventHandler PointerIn;
 	public static event PointerEventHandler PointerOut;
 	public static event PointerEventHandler PointerClick;
+	public static event PointerEventHandler PointerGrab;
+	public static event PointerEventHandler PointerDrop;
+	public static event PointerEventHandler PointerCancelDrag;
 
 	public bool active = true;
+	public bool laserUiOnly = ModConfig.laserUiOnly.Value;
 	public Color color = ModConfig.laserColor.Value;
 	public Color clickColor = ModConfig.laserClickColor.Value;
-	public Color inactiveColor = ModConfig.laserInactiveColor.Value;
 	public Color validColor = ModConfig.laserValidColor.Value;
 	public Color invalidColor = ModConfig.laserInvalidColor.Value;
 	public float thickness = ModConfig.laserThickness.Value;
@@ -30,8 +34,8 @@ public class LaserPointer : MonoBehaviour
 	public Transform reference;
 	public SteamVR_Input_Sources inputSource;
 	public Button interactButton;
-	public Button grabButton;
-
+	public GameObject dragCanvasObject;
+	Interactable draggedInteractable;
 	InteractableUi previousContact = null;
 
 	private void Start()
@@ -45,7 +49,7 @@ public class LaserPointer : MonoBehaviour
 		pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		pointer.transform.parent = holder.transform;
 		pointer.transform.localScale = new Vector3(thickness, thickness, maxDistance);
-		pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
+		pointer.transform.localPosition = new Vector3(0f, 0f, maxDistance / 2f);
 		pointer.transform.localRotation = Quaternion.identity;
 		BoxCollider collider = pointer.GetComponent<BoxCollider>();
 		if (collider)
@@ -54,8 +58,16 @@ public class LaserPointer : MonoBehaviour
 		}
 
 		Material newMaterial = new Material(Shader.Find("Unlit/Color"));
-		newMaterial.SetColor("_Color", color);
+		newMaterial.color = color;
 		pointer.GetComponent<MeshRenderer>().material = newMaterial;
+		pointer.GetComponent<MeshRenderer>().sortingOrder = 200;
+
+		dragCanvasObject = new GameObject("DragCanvas");
+		dragCanvasObject.transform.parent = holder.transform;
+		dragCanvasObject.transform.localPosition = (Vector3.forward + Vector3.up) * 0.1f;
+		var canvas = dragCanvasObject.AddComponent<Canvas>();
+		canvas.renderMode = RenderMode.WorldSpace;
+		canvas.sortingOrder = 100;
 
 		interactButton.ButtonReleased += new ButtonEventHandler(DoClickUp);
 
@@ -90,6 +102,43 @@ public class LaserPointer : MonoBehaviour
 			PointerOut(this, e);
 	}
 
+	public virtual void OnGrab(PointerEventArgs e)
+	{
+		Logger.LogDebug($"OnGrab: {e.target.name}");
+		var dragIcon = Instantiate(e.interactable.gameObject).GetComponent<RectTransform>();
+		dragIcon.SetParent(dragCanvasObject.transform, false);
+		dragIcon.localPosition = Vector3.zero;
+		dragIcon.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+		dragIcon.localRotation = Quaternion.Euler(90f, 0f, 0f);
+		draggedInteractable = e.interactable;
+		draggedInteractable.drag(e.target);
+
+		if (PointerGrab != null)
+			PointerGrab(this, e);
+	}
+
+	public virtual void OnDrop(PointerEventArgs e)
+	{
+		Logger.LogDebug($"OnDrop: {e.target?.name}");
+		dragCanvasObject.transform.DestroyAllChildren();
+		draggedInteractable.drop(e.target, draggedInteractable, e.interactable);
+		draggedInteractable = null;
+
+		if (PointerDrop != null)
+			PointerDrop(this, e);
+	}
+
+	public virtual void OnCancelDrag(PointerEventArgs e)
+	{
+		Logger.LogDebug($"OnCancelDrag: {e.target?.name}");
+		dragCanvasObject.transform.DestroyAllChildren();
+		draggedInteractable.cancelDrag(e.target);
+		draggedInteractable = null;
+
+		if (PointerCancelDrag != null)
+			PointerCancelDrag(this, e);
+	}
+
 	private void LateUpdate()
 	{
 		if (!isActive)
@@ -114,7 +163,6 @@ public class LaserPointer : MonoBehaviour
 				target = previousContact,
 				interactable = interactable
 			};
-			ActiveInputState.reset();
 			OnPointerOut(args);
 			previousContact = null;
 		}
@@ -127,7 +175,6 @@ public class LaserPointer : MonoBehaviour
 				target = hit.ui,
 				interactable = interactable
 			};
-			ActiveInputState.setState(InputState.Ui);
 			OnPointerIn(argsIn);
 			previousContact = hit.ui;
 		}
@@ -140,7 +187,67 @@ public class LaserPointer : MonoBehaviour
 			dist = hit.distance;
 		}
 
-		if (interactable != null && interactButton.IsReleased())
+		if (bHit || draggedInteractable != null)
+		{
+			ActiveInputState.setState(InputState.Ui);
+			holder.SetActive(true);
+		}
+		else
+		{
+			ActiveInputState.reset();
+			if (laserUiOnly)
+			{
+				holder.SetActive(false);
+				return;
+			}
+		}
+
+		handleInteraction(hit, interactable);
+
+		updateLaserPointer(hit?.ui, interactable, dist);
+	}
+
+	public void deactivate()
+	{
+		active = false;
+		isActive = false;
+	}
+
+	private void handleInteraction(UiRaycastHit hit, Interactable interactable)
+	{
+		if (draggedInteractable != null && interactButton.IsUp())
+		{
+			PointerEventArgs argsDrop = new PointerEventArgs
+			{
+				distance = hit?.distance ?? maxDistance,
+				flags = 0,
+				target = hit?.ui,
+				interactable = interactable
+			};
+
+			if (hit?.ui == null || interactable.acceptsDrop(hit.ui, draggedInteractable))
+			{
+				OnDrop(argsDrop);
+			}
+			else
+			{
+				OnCancelDrag(argsDrop);
+			}
+			return;
+		}
+		else if (draggedInteractable != null)
+		{
+			return;
+		}
+
+		if (interactable == null)
+		{
+			return;
+		}
+
+		var isDraggable = interactable.isDraggable();
+
+		if (isDraggable ? interactButton.IsTimedPressUp(0, ModConfig.clickTime.Value) : interactButton.IsReleased())
 		{
 			PointerEventArgs argsClick = new PointerEventArgs
 			{
@@ -150,8 +257,25 @@ public class LaserPointer : MonoBehaviour
 				interactable = interactable
 			};
 			OnPointerClick(argsClick);
+			return;
 		}
 
+		if (isDraggable && interactButton.IsTimedPressDown(ModConfig.clickTime.Value))
+		{
+			PointerEventArgs argsGrab = new PointerEventArgs
+			{
+				distance = hit.distance,
+				flags = 0,
+				target = hit.ui,
+				interactable = interactable
+			};
+			OnGrab(argsGrab);
+			return;
+		}
+	}
+
+	private void updateLaserPointer(InteractableUi ui, Interactable interactable, float dist)
+	{
 		if (interactButton.IsDown())
 		{
 			var thickness = this.thickness * ModConfig.laserClickThicknessMultiplier.Value;
@@ -161,23 +285,30 @@ public class LaserPointer : MonoBehaviour
 		else
 		{
 			pointer.transform.localScale = new Vector3(thickness, thickness, dist);
-			if (interactable != null)
-			{
-				pointer.GetComponent<MeshRenderer>().material.color = interactable.isClickable() || interactable.isDraggable() ? validColor : invalidColor;
-			}
-			else
-			{
-				pointer.GetComponent<MeshRenderer>().material.color = bHit ? color : inactiveColor;
-			}
 		}
 
+		pointer.GetComponent<MeshRenderer>().material.color = getLaserColor(ui, interactable);
 		pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
 	}
 
-	public void deactivate()
+	private Color getLaserColor(InteractableUi ui, Interactable interactable)
 	{
-		active = false;
-		isActive = false;
+		if (draggedInteractable != null)
+		{
+			return interactable?.acceptsDrop(ui, draggedInteractable) ?? false ? validColor : invalidColor;
+		}
+
+		if (interactable == null)
+		{
+			return color;
+		}
+
+		if (interactable.isClickable() || interactable.isDraggable())
+		{
+			return validColor;
+		}
+
+		return invalidColor;
 	}
 }
 

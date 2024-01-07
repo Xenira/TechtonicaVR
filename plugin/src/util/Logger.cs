@@ -1,24 +1,42 @@
+using System;
+
 namespace TechtonicaVR.Util;
 
-public class Logger<T>
+public class PluginLogger
 {
+	private string prefix;
+
+	public PluginLogger(string prefix)
+	{
+		this.prefix = prefix;
+	}
+	public PluginLogger(Type type)
+	{
+		prefix = type.FullName;
+	}
+
+	public static PluginLogger GetLogger<T>()
+	{
+		return new PluginLogger(typeof(T));
+	}
+
 	public void LogInfo(string message)
 	{
-		Plugin.Logger.LogInfo($"[{typeof(T).Name}] {message}");
+		TechtonicaVR.Logger.LogInfo($"[{prefix}] {message}");
 	}
 
 	public void LogDebug(string message)
 	{
-		Plugin.Logger.LogDebug($"[{typeof(T).Name}] {message}");
+		TechtonicaVR.Logger.LogDebug($"[{prefix}] {message}");
 	}
 
 	public void LogWarning(string message)
 	{
-		Plugin.Logger.LogWarning($"[{typeof(T).Name}] {message}");
+		TechtonicaVR.Logger.LogWarning($"[{prefix}] {message}");
 	}
 
 	public void LogError(string message)
 	{
-		Plugin.Logger.LogError($"[{typeof(T).Name}] {message}");
+		TechtonicaVR.Logger.LogError($"[{prefix}] {message}");
 	}
 }

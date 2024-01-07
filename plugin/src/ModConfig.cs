@@ -10,8 +10,8 @@ public class ModConfig
 
 	// Input
 	public static ConfigEntry<int> smoothTurnSpeed;
+	public static ConfigEntry<bool> laserUiOnly;
 	public static ConfigEntry<Color> laserColor;
-	public static ConfigEntry<Color> laserInactiveColor;
 	public static ConfigEntry<Color> laserClickColor;
 	public static ConfigEntry<Color> laserValidColor;
 	public static ConfigEntry<Color> laserInvalidColor;
@@ -32,6 +32,7 @@ public class ModConfig
 	public static ConfigEntry<float> vignetteFadeSpeed;
 
 	// Buttons
+	public static ConfigEntry<float> clickTime;
 	public static ConfigEntry<float> longPressTime;
 
 	// Graphics
@@ -55,8 +56,8 @@ public class ModConfig
 
 		// Input
 		smoothTurnSpeed = config.Bind("Input", "Smooth Turn Speed", 90, "Speed of smooth turning");
+		laserUiOnly = config.Bind("Input", "Laser UI Only", true, "Only use laser for UI");
 		laserColor = config.Bind("Input", "Laser Color", Color.cyan, "Color of laser");
-		laserInactiveColor = config.Bind("Input", "Laser Inactive Color", new Color(0, 0, 0, 0.5f), "Color of laser when inactive");
 		laserClickColor = config.Bind("Input", "Laser Click Color", Color.blue, "Color of laser when clicking");
 		laserValidColor = config.Bind("Input", "Laser Hover Color", Color.green, "Color of laser when hovering");
 		laserInvalidColor = config.Bind("Input", "Laser Invalid Color", Color.red, "Color of laser when hovering over invalid object");
@@ -77,6 +78,7 @@ public class ModConfig
 		vignetteFadeSpeed = config.Bind("Comfort", "Vignette Fade Speed", 3f, "Fade speed of vignette");
 
 		// Buttons
+		clickTime = config.Bind("Buttons", "Click Time", 0.2f, "Speed for clicking. Higher values make it easier to click");
 		longPressTime = config.Bind("Buttons", "Long Press Time", 1f, "Time to hold button for long press");
 
 		// Graphics

@@ -1,3 +1,4 @@
+using TechtonicaVR.Util;
 using UnityEngine;
 using Valve.VR;
 
@@ -5,6 +6,8 @@ namespace TechtonicaVR.Input;
 
 public static class SteamVRInputMapper
 {
+	private static PluginLogger Logger = new PluginLogger(typeof(SteamVRInputMapper));
+
 	public static Vector2 MoveAxes { get; private set; }
 	public static Vector2 UIAxesPrimary { get; private set; }
 	public static Vector2 UIAxesSecondary { get; private set; }
@@ -61,7 +64,7 @@ public static class SteamVRInputMapper
 
 	public static void MapActions()
 	{
-		TechtonicaVR.Plugin.Logger.LogInfo("Mapping SteamVR actions...");
+		Logger.LogInfo("Mapping SteamVR actions...");
 		UIClick.action.actionSet.Activate();
 		SteamVR_Actions._default.Move.AddOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.AddOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
@@ -74,7 +77,7 @@ public static class SteamVRInputMapper
 
 	public static void UnmapActions()
 	{
-		TechtonicaVR.Plugin.Logger.LogInfo("Unmapping SteamVR actions...");
+		Logger.LogInfo("Unmapping SteamVR actions...");
 		SteamVR_Actions._default.Move.RemoveOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.RemoveOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickSecondary.RemoveOnUpdateListener(HandleSteamVRMenuJoystickSecondary, SteamVR_Input_Sources.Any);
