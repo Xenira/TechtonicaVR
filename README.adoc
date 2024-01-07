@@ -18,13 +18,15 @@ endif::[]
 :game-version: 0.2.0h
 :repo: Xenira/TechtonicaVR
 
-image:https://img.shields.io/github/v/release/{repo}[GitHub release (with filter)]
-image:https://img.shields.io/github/release-date/{repo}[GitHub Release Date - Published_At]
-image:https://img.shields.io/github/downloads/{repo}/total[GitHub downloads all releases]
+image:https://img.shields.io/github/v/release/{repo}["GitHub release (with filter)", link="https://github.com/{repo}/releases/latest"]
+image:https://img.shields.io/github/release-date/{repo}["GitHub Release Date - Published_At", link="https://github.com/{repo}/releases/latest"]
+image:https://img.shields.io/thunderstore/dt/3_141/TechtonicaVR?label=thunderstore.io&color=1d6fa5["Thunderstore.io", link="https://thunderstore.io/c/techtonica/p/3_141/TechtonicaVR/"]
+image:https://img.shields.io/github/downloads/{repo}/total?label=github%20downloads["GitHub downloads all releases", link="https://github.com/{repo}/releases"]
+image:https://img.shields.io/liberapay/patrons/rip3.141.svg?logo=liberapay["LiberaPay Patrons", link="https://liberapay.com/rip3.141/"]
 image:https://img.shields.io/github/actions/workflow/status/{repo}/dotnet.yml[GitHub Workflow Status (with event)]
-image:https://img.shields.io/github/issues/{repo}[GitHub issues]
-image:https://img.shields.io/github/issues-pr/{repo}[GitHub pull requests]
-image:https://img.shields.io/github/license/{repo}[License]
+image:https://img.shields.io/github/issues/{repo}["GitHub issues", link="https://github.com/{repo}/issues"]
+image:https://img.shields.io/github/issues-pr/{repo}["GitHub pull requests", link="https://github.com/{repo}/pulls"]
+image:https://img.shields.io/github/license/{repo}["License", link="https://github.com/{repo}/blob/master/LICENSE"]
 
 ++++
 <p align="center">
@@ -69,7 +71,7 @@ Teleport and Snap turn have audio cues that are not played unless https://github
 - The GitHub release of the VR mod includes the audio fix so you don't need to install it separately.
 - The thunderstore release does not include the audio fix unless you install it using a mod manager that installs dependencies.
 
-To install the UnityAudio extract the `BepInEx` folder from the downloaded archive into the game's installation directory.
+To manually install the UnityAudio extract the `BepInEx` folder from the downloaded archive into the game's installation directory.
 
 === Disabling the Mod
 To disable the mod change the `Enabled` under `[General]` value in the `de.xenira.techtonica.cfg` file in the `BepInEx/config` folder to `false`.
@@ -129,9 +131,11 @@ To reset only a specific section, delete the section from the configuration file
 [horizontal]
 .General
 Enabed:: Enables or disables the mod. Default: `true`
+
 [horizontal]
 .Input
 Smooth Turn Speed:: Speed of smooth turning. Default: `90`
+
 [horizontal]
 .Comfort
 Snap Turn Angle:: Angle of snap turns. Default: `30`
@@ -144,15 +148,18 @@ Vignette Color:: Color of the vignette. Default: `000000FF` Black
 Vignette Intensity:: Intensity of the vignette. Determines how far the vignette will close. Default: `0.5`
 Vignette Smoothness:: Adds a blur to the vignette edge. 0 is sharp edge, 1 is prob. unusable. Default: `0.15`
 Vignette Fade Speed:: Animation speed of the vignette. Higher is faster. Default: `3`
+
 [horizontal]
 .Buttons
 Long Press Time:: Time in seconds before a button press is considered a long press. Default: `1`
+
 [horizontal]
 .UI
 Menu Spawn Distance:: Distance of the menu from the player. Default: `0.8`
 Menu Scale:: Scale of the menu (X/Y/Z). Default: `{"x":0.2,"y":0.2,"z":0.2}`
 Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting menu (X/Y/Z). This menu has different scaling and needs separate config. Default: `{"x":0.2,"y":0.1,"z":0.2}`
 Menu Downward Offset:: Offset of the menu in the downward direction. Default: `0.2`
+
 [horizontal]
 .Debug
 Debug Mode:: Mostly used for development. Default: `false`

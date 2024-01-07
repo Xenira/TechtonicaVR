@@ -6,6 +6,8 @@ namespace TechtonicaVR.UI;
 
 public class WorldPositionedCanvas : MonoBehaviour
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<WorldPositionedCanvas>();
+
 	public Menu menu;
 	public PlayerInventoryUI playerInventoryUI;
 
@@ -17,7 +19,7 @@ public class WorldPositionedCanvas : MonoBehaviour
 	{
 		if (menu == null)
 		{
-			Plugin.Logger.LogError("WorldPositionedCanvas: menu is null");
+			Logger.LogError("WorldPositionedCanvas: menu is null");
 			Destroy(this);
 		}
 	}

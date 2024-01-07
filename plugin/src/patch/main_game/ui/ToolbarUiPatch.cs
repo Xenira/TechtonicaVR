@@ -1,5 +1,5 @@
 using TechtonicaVR.Input;
-using TechtonicaVR.Patches.Universal;
+using TechtonicaVR.Input.Ui;
 using TechtonicaVR.UI;
 using UnityEngine;
 
@@ -10,8 +10,6 @@ class ToolbarUiPatch : GameComponentPatch<ToolbarUI>
 {
 	protected override bool Apply(ToolbarUI component)
 	{
-		SetDefaultLayerPatch.SetChildLayer(component.transform.parent.parent.gameObject, 0);
-
 		var trackedCanvas = component.gameObject.AddComponent<HandTrackedCanvas>();
 		trackedCanvas.hand = SteamVRInputMapper.leftHandObject.transform;
 		trackedCanvas.showDirection = -Vector3.right;
@@ -28,4 +26,30 @@ class ToolbarUiPatch : GameComponentPatch<ToolbarUI>
 		return true;
 	}
 
+}
+
+class PrimaryToolbarPatch : GameObjectPatch
+{
+	public PrimaryToolbarPatch() : base("Primary Toolbar")
+	{
+	}
+
+	protected override bool Apply(GameObject gameObject)
+	{
+		gameObject.AddComponent<ToolbarInteractableUI>();
+		return true;
+	}
+}
+
+class SecondaryToolbarPatch : GameObjectPatch
+{
+	public SecondaryToolbarPatch() : base("Secondary Toolbar")
+	{
+	}
+
+	protected override bool Apply(GameObject gameObject)
+	{
+		gameObject.AddComponent<ToolbarInteractableUI>();
+		return true;
+	}
 }

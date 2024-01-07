@@ -21,7 +21,7 @@ namespace TechtonicaVR;
 [BepInPlugin("de.xenira.techtonica", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Techtonica.exe")]
 [BepInDependency("Tobey.UnityAudio", BepInDependency.DependencyFlags.SoftDependency)]
-public class Plugin : BaseUnityPlugin
+public class TechtonicaVR : BaseUnityPlugin
 {
 	public static new ManualLogSource Logger;
 
