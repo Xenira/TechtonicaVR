@@ -1,12 +1,15 @@
 using System.Collections;
 using System.IO;
 using BepInEx;
+using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.Assets;
 
 class AssetLoader
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<AssetLoader>();
+
 	private const string assetPath = "techtonica_vr/assets";
 
 	public static GameObject LeftHandBase;
@@ -45,7 +48,7 @@ class AssetLoader
 			return asset;
 		else
 		{
-			Plugin.Logger.LogError($"Failed to load asset {prefabName}");
+			Logger.LogError($"Failed to load asset {prefabName}");
 			return null;
 		}
 
@@ -57,7 +60,7 @@ class AssetLoader
 				AssetBundle.LoadFromFile(GetAssetPath(assetName));
 		if (bundle == null)
 		{
-			Plugin.Logger.LogError($"Failed to load AssetBundle {assetName}");
+			Logger.LogError($"Failed to load AssetBundle {assetName}");
 			return null;
 		}
 

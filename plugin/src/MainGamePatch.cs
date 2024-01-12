@@ -3,6 +3,7 @@ using TechtonicaVR.Patches;
 using TechtonicaVR.Patches.MainGame.Player;
 using TechtonicaVR.Patches.MainGame.UI;
 using TechtonicaVR.Patches.Universal;
+using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR;
@@ -15,6 +16,7 @@ public interface IPatch
 
 public class MainGamePatch : MonoBehaviour
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<MainGamePatch>();
 
 	private IPatch[] playerSpringPatches = [
 			new LeftHandAttachPatch(),
@@ -43,7 +45,9 @@ public class MainGamePatch : MonoBehaviour
 				new ExecuteAfterPatch(new DisableByNamePatch("Astronaut_LP_ArmsTorso"), playerSpringPatches),
 						new NotificationCanvasPatche(),
 						new ToolbarUiPatch(),
+						new PrimaryToolbarPatch(),
 						new QuestTaskListPatch(),
+						new SecondaryToolbarPatch(),
 						new DialoguePopupPatch(),
 						new DisableComponentPatch<OutlinePostProcess>(),
 						new CursorCanvasPatch(),
@@ -52,9 +56,12 @@ public class MainGamePatch : MonoBehaviour
 						new MapPatch(),
 						new CraftingQueuePatch(),
 						new PlayerArrowPatch(),
+						new PlayerInventoryUIPatch(),
+						new StorageInventoryUIPatch(),
+						new IaCMenuPatch(),
 				]).ToArray();
 
-		Plugin.Logger.LogDebug("Hello World!");
+		Logger.LogDebug("Hello World!");
 	}
 
 	void Update()

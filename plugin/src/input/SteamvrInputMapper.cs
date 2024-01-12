@@ -1,3 +1,4 @@
+using TechtonicaVR.Util;
 using UnityEngine;
 using Valve.VR;
 
@@ -5,6 +6,8 @@ namespace TechtonicaVR.Input;
 
 public static class SteamVRInputMapper
 {
+	private static PluginLogger Logger = new PluginLogger(typeof(SteamVRInputMapper));
+
 	public static Vector2 MoveAxes { get; private set; }
 	public static Vector2 UIAxesPrimary { get; private set; }
 	public static Vector2 UIAxesSecondary { get; private set; }
@@ -19,8 +22,8 @@ public static class SteamVRInputMapper
 	/// </summary>
 	public static Button Sprint = new Button(SteamVR_Actions._default.Sprint);
 	public static Button Jump = new Button(SteamVR_Actions._default.Jump);
-	public static Button Interact = new Button(SteamVR_Actions._default.Interact);
-	public static Button Use = new Button(SteamVR_Actions._default.Use);
+	public static Button Interact = new Button(SteamVR_Actions._default.Interact, InputState.Default);
+	public static Button Use = new Button(SteamVR_Actions._default.Use, InputState.Default);
 	public static Button TechTree = new Button(SteamVR_Actions._default.TechTree);
 	public static Button Inventory = new Button(SteamVR_Actions._default.Inventory);
 	public static Button takeAll = new Button(SteamVR_Actions._default.TakeAll);
@@ -30,8 +33,8 @@ public static class SteamVRInputMapper
 	public static Button transfer = new Button(SteamVR_Actions._default.Transfer);
 	public static Button transferHalf = new Button(SteamVR_Actions._default.TransferHalf);
 	public static Button transferAll = new Button(SteamVR_Actions._default.TransferAll);
-	public static Button UIPageLeft = new Button(SteamVR_Actions._default.UIPageLeft);
-	public static Button UIPageRight = new Button(SteamVR_Actions._default.UIPageRight);
+	public static Button UIPageLeft = new Button(SteamVR_Actions._default.UIPageLeft, InputState.Default);
+	public static Button UIPageRight = new Button(SteamVR_Actions._default.UIPageRight, InputState.Default);
 	public static Button UIPageLeftSecondary = new Button(SteamVR_Actions._default.UIPageLeftSecondary);
 	public static Button UIPageRightSecondary = new Button(SteamVR_Actions._default.UIPageRightSecondary);
 	public static Button UISubmit = new Button(SteamVR_Actions._default.UISubmit);
@@ -40,8 +43,6 @@ public static class SteamVRInputMapper
 	public static Button HotbarSwapItem = new Button(SteamVR_Actions._default.HotbarSwap);
 	public static Button HotbarExitEdit = new Button(SteamVR_Actions._default.ExitHotbarEdit);
 	public static Button HotbarClear = new Button(SteamVR_Actions._default.ClearHotbar);
-	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);
-	public static Button UIShortcut2 = new Button(SteamVR_Actions._default.UIShortcut2);
 	public static Button SonarZoomIn = new Button(SteamVR_Actions._default.SonarZoomIn);
 	public static Button SonarZoomOut = new Button(SteamVR_Actions._default.SonarZoomOut);
 	public static Button PauseMenu = new Button(SteamVR_Actions._default.PauseMenu);
@@ -56,9 +57,15 @@ public static class SteamVRInputMapper
 	public static Button snapTurnRight = new Button(SteamVR_Actions._default.SnapTurnRight);
 	public static Button teleport = new Button(SteamVR_Actions._default.Teleport);
 
+	// UI
+	public static Button UIClick = new Button(SteamVR_Actions.UI.Click, InputState.Ui);
+	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);
+	public static Button UIShortcut2 = new Button(SteamVR_Actions._default.UIShortcut2);
+
 	public static void MapActions()
 	{
-		TechtonicaVR.Plugin.Logger.LogInfo("Mapping SteamVR actions...");
+		Logger.LogInfo("Mapping SteamVR actions...");
+		UIClick.action.actionSet.Activate();
 		SteamVR_Actions._default.Move.AddOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.AddOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickSecondary.AddOnUpdateListener(HandleSteamVRMenuJoystickSecondary, SteamVR_Input_Sources.Any);
@@ -70,7 +77,7 @@ public static class SteamVRInputMapper
 
 	public static void UnmapActions()
 	{
-		TechtonicaVR.Plugin.Logger.LogInfo("Unmapping SteamVR actions...");
+		Logger.LogInfo("Unmapping SteamVR actions...");
 		SteamVR_Actions._default.Move.RemoveOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.RemoveOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickSecondary.RemoveOnUpdateListener(HandleSteamVRMenuJoystickSecondary, SteamVR_Input_Sources.Any);

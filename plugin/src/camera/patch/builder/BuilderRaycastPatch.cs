@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using TechtonicaVR.Input;
+using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.VRCamera.Patch.Builder;
@@ -10,6 +11,8 @@ namespace TechtonicaVR.VRCamera.Patch.Builder;
 [HarmonyPatch]
 public class BuilderRaycastPatch
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<BuilderRaycastPatch>();
+
 	private const int EXPECTED_DECONSTRUCTION_UPDATE_PATCH_COUNT = 3;
 	private const int EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT = 2;
 	private const int EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT = 1;
@@ -74,7 +77,7 @@ public class BuilderRaycastPatch
 
 		if (patchCnt != EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError($"[PlayerBuilder.FreeformUpdatePlacement] Patch count mismatch: {patchCnt} != {EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT}");
+			Logger.LogError($"[PlayerBuilder.FreeformUpdatePlacement] Patch count mismatch: {patchCnt} != {EXPECTED_FREEFORM_UPDATE_PLACEMENT_PATCH_COUNT}");
 		}
 	}
 
@@ -98,7 +101,7 @@ public class BuilderRaycastPatch
 
 		if (patchCnt != EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError($"[PlayerBuilder.HasTargetDeconstructable] Patch count mismatch: {patchCnt} != {EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT}");
+			Logger.LogError($"[PlayerBuilder.HasTargetDeconstructable] Patch count mismatch: {patchCnt} != {EXPECTED_TARGET_DECONSTRUCTABLE_UPDATE_PATCH_COUNT}");
 		}
 	}
 
@@ -122,7 +125,7 @@ public class BuilderRaycastPatch
 
 		if (patchCnt != EXPECTED_TARGET_LOGISTICS_OBJECT_PATCH_COUNT)
 		{
-			Plugin.Logger.LogError($"[PlayerBuilder.CheckTargetLogisticsObject] Patch count mismatch: {patchCnt} != {EXPECTED_TARGET_LOGISTICS_OBJECT_PATCH_COUNT}");
+			Logger.LogError($"[PlayerBuilder.CheckTargetLogisticsObject] Patch count mismatch: {patchCnt} != {EXPECTED_TARGET_LOGISTICS_OBJECT_PATCH_COUNT}");
 		}
 	}
 

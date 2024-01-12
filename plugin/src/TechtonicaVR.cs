@@ -21,7 +21,7 @@ namespace TechtonicaVR;
 [BepInPlugin("de.xenira.techtonica", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Techtonica.exe")]
 [BepInDependency("Tobey.UnityAudio", BepInDependency.DependencyFlags.SoftDependency)]
-public class Plugin : BaseUnityPlugin
+public class TechtonicaVR : BaseUnityPlugin
 {
 	public static new ManualLogSource Logger;
 
@@ -90,7 +90,7 @@ public class Plugin : BaseUnityPlugin
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		// Handle scene change logic here
-		Logger.LogInfo($"Scene {scene.name} loaded!");
+		Logger.LogDebug($"Scene {scene.name} loaded!");
 		if (scene.name == "Main Menu")
 		{
 			Logger.LogInfo("Scene is MainMenu, creating MainMenuPatch...");

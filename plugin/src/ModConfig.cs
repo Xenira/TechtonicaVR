@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BepInEx.Configuration;
 using UnityEngine;
 
@@ -11,6 +10,13 @@ public class ModConfig
 
 	// Input
 	public static ConfigEntry<int> smoothTurnSpeed;
+	public static ConfigEntry<bool> laserUiOnly;
+	public static ConfigEntry<Color> laserColor;
+	public static ConfigEntry<Color> laserClickColor;
+	public static ConfigEntry<Color> laserValidColor;
+	public static ConfigEntry<Color> laserInvalidColor;
+	public static ConfigEntry<float> laserThickness;
+	public static ConfigEntry<float> laserClickThicknessMultiplier;
 
 	// Comfort
 	public static ConfigEntry<float> snapTurnAngle;
@@ -26,6 +32,7 @@ public class ModConfig
 	public static ConfigEntry<float> vignetteFadeSpeed;
 
 	// Buttons
+	public static ConfigEntry<float> clickTime;
 	public static ConfigEntry<float> longPressTime;
 
 	// Graphics
@@ -49,6 +56,13 @@ public class ModConfig
 
 		// Input
 		smoothTurnSpeed = config.Bind("Input", "Smooth Turn Speed", 90, "Speed of smooth turning");
+		laserUiOnly = config.Bind("Input", "Laser UI Only", true, "Only use laser for UI");
+		laserColor = config.Bind("Input", "Laser Color", Color.cyan, "Color of laser");
+		laserClickColor = config.Bind("Input", "Laser Click Color", Color.blue, "Color of laser when clicking");
+		laserValidColor = config.Bind("Input", "Laser Hover Color", Color.green, "Color of laser when hovering");
+		laserInvalidColor = config.Bind("Input", "Laser Invalid Color", Color.red, "Color of laser when hovering over invalid object");
+		laserThickness = config.Bind("Input", "Laser Thickness", 0.002f, "Thickness of laser");
+		laserClickThicknessMultiplier = config.Bind("Input", "Laser Click Thickness Multiplier", 2f, "Thickness multiplier of laser when clicking");
 
 		// Comfort
 		snapTurnAngle = config.Bind("Comfort", "Snap Turn Angle", 30f, "Angle of snap turning");
@@ -64,6 +78,7 @@ public class ModConfig
 		vignetteFadeSpeed = config.Bind("Comfort", "Vignette Fade Speed", 3f, "Fade speed of vignette");
 
 		// Buttons
+		clickTime = config.Bind("Buttons", "Click Time", 0.2f, "Speed for clicking. Higher values make it easier to click");
 		longPressTime = config.Bind("Buttons", "Long Press Time", 1f, "Time to hold button for long press");
 
 		// Graphics
@@ -71,8 +86,8 @@ public class ModConfig
 
 		// UI
 		menuSpawnDistance = config.Bind("UI", "Menu Spawn Distance", 0.8f, "Distance from head to spawn Menus");
-		menuScale = config.Bind("UI", "Menu Scale", new Vector3(0.2f, 0.2f, 0.2f), "Scale of Menus");
-		inventoryAndCraftingMenuScaleOverride = config.Bind("UI", "Inventory and Crafting Menu Scale Override", new Vector3(0.2f, 0.1f, 0.2f), "Scale of Inventory and Crafting Menu. Set to 0 to use Menu Scale");
+		menuScale = config.Bind("UI", "Menu Scale", new Vector3(0.001f, 0.001f, 0.001f), "Scale of Menus");
+		inventoryAndCraftingMenuScaleOverride = config.Bind("UI", "Inventory and Crafting Menu Scale Override", new Vector3(0.001f, 0.0005f, 0.001f), "Scale of Inventory and Crafting Menu. Set to 0 to use Menu Scale");
 		menuDownwardOffset = config.Bind("UI", "Menu Downward Offset", 0.2f, "Offset of Menus from head. Needed, as menus sometimes spawn too high.");
 
 		// Debug
@@ -116,6 +131,11 @@ public class ModConfig
 	public static bool GizmoEnabled()
 	{
 		return debugMode.Value && gizmoEnabled.Value;
+	}
+
+	public static bool DebugEnabled()
+	{
+		return debugMode.Value;
 	}
 
 	public static bool DebugLineEnabled()

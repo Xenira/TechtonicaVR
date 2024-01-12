@@ -71,6 +71,9 @@
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>..\strip-dll\Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\strip-dll\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UIModule">
       <HintPath>..\strip-dll\UnityEngine.UIModule.dll</HintPath>
     </Reference>

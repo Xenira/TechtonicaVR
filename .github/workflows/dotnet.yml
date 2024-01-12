@@ -44,7 +44,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: plugin
-        path: ./plugin/bin/Release/netstandard2.1/techtonica_vr.dll
+        path: |
+          ./plugin/bin/Release/netstandard2.1/techtonica_vr.dll
+          ./plugin/bin/Release/netstandard2.1/techtonica_vr.pdb
+        if-no-files-found: error
 
   package:
     runs-on: ubuntu-latest
@@ -58,12 +61,12 @@ jobs:
       - name: Copy Files
         run: |
           mkdir -p ./artifact/BepInEx/plugins/techtonica_vr/assets && mkdir -p ./artifact/Techtonica_Data
-          cp techtonica_vr.dll ./artifact/BepInEx/plugins
+          cp techtonica_vr.* ./artifact/BepInEx/plugins
           cp -r ./libs/* ./artifact/Techtonica_Data/
           cp -r ./unity/AssetBundles/StandaloneWindows/* ./artifact/BepInEx/plugins/techtonica_vr/assets
           cp {README.adoc,CHANGELOG.md,LICENSE,manifest.json,icon.png} ./artifact/
       - name: Upload Release Asset Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: release-artifact
           path: artifact

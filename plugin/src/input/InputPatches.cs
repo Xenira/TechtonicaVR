@@ -1,6 +1,7 @@
 using System.Linq;
 using HarmonyLib;
 using TechtonicaVR.Assets;
+using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
 using Valve.VR;
@@ -10,6 +11,8 @@ namespace TechtonicaVR.Input;
 [HarmonyPatch]
 class InputPatches
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<InputPatches>();
+
 	[HarmonyPrefix]
 	[HarmonyPatch(typeof(ControlDefines), nameof(ControlDefines.UpdateCurrentController))]
 	static bool GetUseController()
@@ -57,7 +60,7 @@ class InputPatches
 			__result = SteamVRInputMapper.MoveAxes;
 			if (ModConfig.VignetteOnSmoothLocomotion())
 			{
-				Vignette.instance.Show(SteamVRInputMapper.MoveAxes.magnitude);
+				Vignette.instance?.Show(SteamVRInputMapper.MoveAxes.magnitude);
 			}
 			return false;
 		}
@@ -78,7 +81,7 @@ class InputPatches
 		}
 		else
 		{
-			Plugin.Logger.LogDebug($"Unknown Rewired axis action IDs: {xAxisActionId}, {yAxisActionId}. Using default Rewired input.");
+			Logger.LogDebug($"Unknown Rewired axis action IDs: {xAxisActionId}, {yAxisActionId}. Using default Rewired input.");
 			return true;
 		}
 	}
@@ -97,6 +100,11 @@ class InputPatches
 
 	private static void Turn(PlayerFirstPersonController __instance)
 	{
+		if (VRCameraManager.mainCamera == null)
+		{
+			return;
+		}
+
 		if (SteamVRInputMapper.snapTurnLeft.IsReleased())
 		{
 			SnapTurn(__instance, -1);
@@ -112,7 +120,7 @@ class InputPatches
 		var horizontalRotation = SteamVRInputMapper.TurnAxis * Time.deltaTime * ModConfig.smoothTurnSpeed.Value;
 		if (ModConfig.VignetteOnSmoothTurn())
 		{
-			Vignette.instance.Show(Mathf.Abs(SteamVRInputMapper.TurnAxis));
+			Vignette.instance?.Show(Mathf.Abs(SteamVRInputMapper.TurnAxis));
 		}
 		__instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
 	}
@@ -157,7 +165,7 @@ class InputPatches
 	{
 		if (__runOriginal && __result)
 		{
-			Plugin.Logger.LogDebug($"Unknown Rewired button down action ID: {actionId}. Using default Rewired input.");
+			Logger.LogDebug($"Unknown Rewired button down action ID: {actionId}. Using default Rewired input.");
 		}
 	}
 
@@ -181,7 +189,7 @@ class InputPatches
 	{
 		if (__runOriginal && __result)
 		{
-			Plugin.Logger.LogDebug($"Unknown Rewired button up action ID: {actionId}. Using default Rewired input.");
+			Logger.LogDebug($"Unknown Rewired button up action ID: {actionId}. Using default Rewired input.");
 		}
 	}
 
@@ -275,7 +283,7 @@ class InputPatches
 	{
 		if (__runOriginal && __result)
 		{
-			Plugin.Logger.LogDebug($"Unknown Rewired button action ID: {actionId}. Using default Rewired input.");
+			Logger.LogDebug($"Unknown Rewired button action ID: {actionId}. Using default Rewired input.");
 		}
 	}
 

@@ -6,10 +6,13 @@ using TechtonicaVR.Assets;
 using TechtonicaVR.Debug;
 using UnityEngine;
 using Valve.VR;
+using TechtonicaVR.Util;
 
 namespace TechtonicaVR.VRCamera;
 public class VRCameraManager : MonoBehaviour
 {
+	private static PluginLogger Logger = PluginLogger.GetLogger<VRCameraManager>();
+
 	public Transform vrRoot;
 
 	public SteamVR_CameraHelper cameraHelperPrefab;
@@ -32,17 +35,17 @@ public class VRCameraManager : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Plugin.Logger.LogInfo("Destroying vr camera manager...");
+		Logger.LogInfo("Destroying vr camera manager...");
 	}
 
 	private void OnEnable()
 	{
-		Plugin.Logger.LogInfo("Enabling vr camera manager...");
+		Logger.LogInfo("Enabling vr camera manager...");
 	}
 
 	private void OnDisable()
 	{
-		Plugin.Logger.LogInfo("Disabling vr camera manager...");
+		Logger.LogInfo("Disabling vr camera manager...");
 	}
 
 	private void Update()
@@ -61,7 +64,7 @@ public class VRCameraManager : MonoBehaviour
 
 	private void SetupCamera()
 	{
-		Plugin.Logger.LogInfo("Setting up camera...");
+		Logger.LogInfo("Setting up camera...");
 
 		mainCamera.gameObject.AddComponent<SteamVR_Camera>();
 		mainCamera.gameObject.AddComponent<SteamVR_TrackedObject>();
@@ -77,11 +80,6 @@ public class VRCameraManager : MonoBehaviour
 			techCam.camRoot.parent = vrRoot;
 			techCam.camRoot.localPosition = Vector3.zero;
 			mainCamera.transform.parent = techCam.camRoot;
-			foreach (var a in ReInput.mapping.Actions)
-			{
-				Plugin.Logger.LogInfo("Action: " + a.name);
-				Plugin.Logger.LogInfo("  id: " + a.id);
-			}
 
 			StartCoroutine(PatchCoroutine());
 			SpawnHands(techCam.camRoot);
@@ -114,6 +112,10 @@ public class VRCameraManager : MonoBehaviour
 		var rightHandModel = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zero, Quaternion.identity, rightHandObject.transform);
 		rightHandModel.transform.localPosition = new Vector3(0, 0.01f, -0.09f);
 		rightHandModel.transform.localRotation = Quaternion.Euler(358.4256f, 103.2413f, 240.2217f);
+		var rightLaserPointer = rightHandObject.AddComponent<LaserPointer>();
+		rightLaserPointer.inputSource = SteamVR_Input_Sources.RightHand;
+		rightLaserPointer.interactButton = SteamVRInputMapper.UIClick;
+		rightLaserPointer.direction = Vector3.down;
 
 		SteamVRInputMapper.rightHandObject = rightHandObject;
 
