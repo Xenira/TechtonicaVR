@@ -86,6 +86,7 @@ public class LaserPointer : MonoBehaviour
 
 	public virtual void OnPointerIn(PointerEventArgs e)
 	{
+		e.target?.OnEnter();
 		if (PointerIn != null)
 			PointerIn(this, e);
 	}
@@ -99,6 +100,7 @@ public class LaserPointer : MonoBehaviour
 
 	public virtual void OnPointerOut(PointerEventArgs e)
 	{
+		e.target?.OnExit();
 		if (PointerOut != null)
 			PointerOut(this, e);
 	}

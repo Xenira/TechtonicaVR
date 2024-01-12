@@ -10,6 +10,8 @@ public abstract class InteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<InteractableUi>();
 	public List<Interactable> interactable = new List<Interactable>();
+	public UiEnterEvent OnEnterEvent;
+	public UiExitEvent OnExitEvent;
 
 	public Transform transform;
 	protected ScrollRect scrollRect;
@@ -90,10 +92,12 @@ public abstract class InteractableUi
 	public void OnEnter()
 	{
 		Logger.LogDebug($"OnEnter {transform.gameObject.name}");
+		OnEnterEvent?.Invoke();
 	}
 	public void OnExit()
 	{
 		Logger.LogDebug($"OnExit {transform.gameObject.name}");
+		OnExitEvent?.Invoke();
 	}
 	public void OnClick()
 	{
@@ -105,6 +109,9 @@ public abstract class InteractableUi
 		return new Plane(transform.forward, transform.position);
 	}
 }
+
+public delegate void UiEnterEvent();
+public delegate void UiExitEvent();
 
 public class InteractableBuilder
 {

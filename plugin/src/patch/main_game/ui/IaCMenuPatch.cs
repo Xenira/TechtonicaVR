@@ -34,6 +34,11 @@ public class IaCMenuPatch : GameObjectPatch
 
 		var menu = new InventoryInteractableUI(playerInventory.gameObject);
 		menu.transform = inventoryAnchor.transform;
+		menu.OnEnterEvent += () =>
+		{
+			iac.inventoryHasFocus = true;
+			iac.Refresh();
+		};
 
 		return true;
 	}
