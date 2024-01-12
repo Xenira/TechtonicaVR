@@ -35,7 +35,7 @@ public class InventoryInteractableUI : InteractableUi
 			.withDrag(() => draggedResourceInfo ?? slot.resourceType,
 				(ui) => onDrag(slot),
 				(ui, source, target) => onDrop(ui, target, slot),
-				(ui) => onCancelDrag(ui, slot))
+				(ui) => onCancelDrag(slot))
 			.withDrop(onAcceptsDrop, (ui, source) => onReceiveDrop(source, slot))
 			.withHoverEnter((ui) => onHoverEnter(slot))
 			.withHoverExit((ui) => onHoverExit(slot))
@@ -68,6 +68,7 @@ public class InventoryInteractableUI : InteractableUi
 	private void onDrop(InteractableUi ui, Interactable target, InventoryResourceSlotUI sourceSlot)
 	{
 		Logger.LogDebug($"Dropped toolbar slot {sourceSlot.resourceType?.name}");
+		var droppedResourceInfo = draggedResourceInfo;
 		draggedResourceInfo = null;
 
 		if (target == null)
@@ -88,13 +89,18 @@ public class InventoryInteractableUI : InteractableUi
 			targetSlot.mouseLeftClickCallback.Invoke();
 			return;
 		}
-		else
+
+		if (ui is ToolbarInteractableUI)
 		{
-			onCancelDrag(ui, sourceSlot);
+			target.receiveDrop(target.ui, droppedResourceInfo);
+			sourceSlot.mouseLeftClickCallback.Invoke();
+			return;
 		}
+
+		onCancelDrag(sourceSlot);
 	}
 
-	private void onCancelDrag(InteractableUi ui, InventoryResourceSlotUI slot)
+	private void onCancelDrag(InventoryResourceSlotUI slot)
 	{
 		slot.mouseLeftClickCallback.Invoke();
 		draggedResourceInfo = null;
