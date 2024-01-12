@@ -36,7 +36,7 @@ class PrimaryToolbarPatch : GameObjectPatch
 
 	protected override bool Apply(GameObject gameObject)
 	{
-		gameObject.AddComponent<ToolbarInteractableUI>();
+		new ToolbarInteractableUI(gameObject);
 		return true;
 	}
 }
@@ -49,7 +49,7 @@ class SecondaryToolbarPatch : GameObjectPatch
 
 	protected override bool Apply(GameObject gameObject)
 	{
-		gameObject.AddComponent<ToolbarInteractableUI>();
+		new ToolbarInteractableUI(gameObject);
 		return true;
 	}
 }

@@ -90,7 +90,7 @@ public class TechtonicaVR : BaseUnityPlugin
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		// Handle scene change logic here
-		Logger.LogInfo($"Scene {scene.name} loaded!");
+		Logger.LogDebug($"Scene {scene.name} loaded!");
 		if (scene.name == "Main Menu")
 		{
 			Logger.LogInfo("Scene is MainMenu, creating MainMenuPatch...");

@@ -33,8 +33,8 @@ public static class SteamVRInputMapper
 	public static Button transfer = new Button(SteamVR_Actions._default.Transfer);
 	public static Button transferHalf = new Button(SteamVR_Actions._default.TransferHalf);
 	public static Button transferAll = new Button(SteamVR_Actions._default.TransferAll);
-	public static Button UIPageLeft = new Button(SteamVR_Actions._default.UIPageLeft);
-	public static Button UIPageRight = new Button(SteamVR_Actions._default.UIPageRight);
+	public static Button UIPageLeft = new Button(SteamVR_Actions._default.UIPageLeft, InputState.Default);
+	public static Button UIPageRight = new Button(SteamVR_Actions._default.UIPageRight, InputState.Default);
 	public static Button UIPageLeftSecondary = new Button(SteamVR_Actions._default.UIPageLeftSecondary);
 	public static Button UIPageRightSecondary = new Button(SteamVR_Actions._default.UIPageRightSecondary);
 	public static Button UISubmit = new Button(SteamVR_Actions._default.UISubmit);

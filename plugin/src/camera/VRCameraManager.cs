@@ -80,11 +80,6 @@ public class VRCameraManager : MonoBehaviour
 			techCam.camRoot.parent = vrRoot;
 			techCam.camRoot.localPosition = Vector3.zero;
 			mainCamera.transform.parent = techCam.camRoot;
-			foreach (var a in ReInput.mapping.Actions)
-			{
-				Logger.LogInfo("Action: " + a.name);
-				Logger.LogInfo("  id: " + a.id);
-			}
 
 			StartCoroutine(PatchCoroutine());
 			SpawnHands(techCam.camRoot);

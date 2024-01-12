@@ -56,6 +56,9 @@ public class MainGamePatch : MonoBehaviour
 						new MapPatch(),
 						new CraftingQueuePatch(),
 						new PlayerArrowPatch(),
+						new PlayerInventoryUIPatch(),
+						new StorageInventoryUIPatch(),
+						new IaCMenuPatch(),
 				]).ToArray();
 
 		Logger.LogDebug("Hello World!");

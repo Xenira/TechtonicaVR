@@ -9,10 +9,8 @@ public class ToolbarInteractableUI : InteractableUi
 	private static PluginLogger Logger = PluginLogger.GetLogger<ToolbarInteractableUI>();
 	private ResourceInfo draggedResourceInfo;
 
-	new protected void Start()
+	public ToolbarInteractableUI(GameObject gameObject) : base(gameObject)
 	{
-		base.Start();
-
 		var uiSlots = gameObject.GetComponentsInChildren<ToolbarSlotUI>();
 		interactable = uiSlots.Select(getInteractable).ToList();
 	}
@@ -23,15 +21,14 @@ public class ToolbarInteractableUI : InteractableUi
 		var rect = rectTransform.rect;
 		rect.x += rectTransform.localPosition.x;
 		rect.y += rectTransform.localPosition.y;
-		return new Interactable(rect, rectTransform.gameObject,
-			() => draggedResourceInfo ?? getSlotResource(uiSlot),
-			(ui) => onClick(uiSlot),
-			(ui) => onDrag(uiSlot),
-			(ui, source, target) => onDrop(ui, target, uiSlot),
-			(ui) => onCancelDrag(ui, uiSlot),
-			onAcceptsDrop,
-			(ui, source) => onReceiveDrop(source, uiSlot)
-		);
+		return new InteractableBuilder(this, rect, rectTransform.gameObject)
+			.withClick((ui) => onClick(uiSlot))
+			.withDrag(() => draggedResourceInfo ?? getSlotResource(uiSlot),
+				(ui) => onDrag(uiSlot),
+				(ui, source, target) => onDrop(ui, target, uiSlot),
+				(ui) => onCancelDrag(ui, uiSlot))
+			.withDrop(onAcceptsDrop, (ui, source) => onReceiveDrop(source, uiSlot))
+			.build();
 	}
 
 
@@ -54,6 +51,7 @@ public class ToolbarInteractableUI : InteractableUi
 		if (target == null)
 		{
 			setSlot(sourceSlot, null);
+			draggedResourceInfo = null;
 			return;
 		}
 

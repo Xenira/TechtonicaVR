@@ -37,6 +37,7 @@ public class LaserPointer : MonoBehaviour
 	public GameObject dragCanvasObject;
 	Interactable draggedInteractable;
 	InteractableUi previousContact = null;
+	Interactable previousInteractable = null;
 
 	private void Start()
 	{
@@ -91,7 +92,7 @@ public class LaserPointer : MonoBehaviour
 
 	public virtual void OnPointerClick(PointerEventArgs e)
 	{
-		Logger.LogDebug($"OnPointerClick: {e.target.name}");
+		Logger.LogDebug($"OnPointerClick: {e.target.transform.name}");
 		e.interactable?.click(e.target);
 		PointerClick?.Invoke(this, e);
 	}
@@ -104,7 +105,7 @@ public class LaserPointer : MonoBehaviour
 
 	public virtual void OnGrab(PointerEventArgs e)
 	{
-		Logger.LogDebug($"OnGrab: {e.target.name}");
+		Logger.LogDebug($"OnGrab: {e.target.transform.name}");
 		var dragIcon = Instantiate(e.interactable.gameObject).GetComponent<RectTransform>();
 		dragIcon.SetParent(dragCanvasObject.transform, false);
 		dragIcon.localPosition = Vector3.zero;
@@ -119,7 +120,7 @@ public class LaserPointer : MonoBehaviour
 
 	public virtual void OnDrop(PointerEventArgs e)
 	{
-		Logger.LogDebug($"OnDrop: {e.target?.name}");
+		Logger.LogDebug($"OnDrop: {e.target?.transform.name}");
 		dragCanvasObject.transform.DestroyAllChildren();
 		draggedInteractable.drop(e.target, draggedInteractable, e.interactable);
 		draggedInteractable = null;
@@ -130,7 +131,7 @@ public class LaserPointer : MonoBehaviour
 
 	public virtual void OnCancelDrag(PointerEventArgs e)
 	{
-		Logger.LogDebug($"OnCancelDrag: {e.target?.name}");
+		Logger.LogDebug($"OnCancelDrag: {e.target?.transform.name}");
 		dragCanvasObject.transform.DestroyAllChildren();
 		draggedInteractable.cancelDrag(e.target);
 		draggedInteractable = null;
@@ -154,7 +155,7 @@ public class LaserPointer : MonoBehaviour
 		var bHit = hit != null;
 		var interactable = hit?.ui.getInteractable(hit.localPoint) ?? null;
 
-		if (previousContact && previousContact != hit?.ui)
+		if (previousContact != null && previousContact != hit?.ui)
 		{
 			PointerEventArgs args = new PointerEventArgs
 			{
@@ -178,6 +179,18 @@ public class LaserPointer : MonoBehaviour
 			OnPointerIn(argsIn);
 			previousContact = hit.ui;
 		}
+
+		if (previousInteractable != null && previousInteractable != interactable)
+		{
+			previousInteractable.hoverExit(hit?.ui);
+			previousInteractable = null;
+		}
+		if (interactable != null && previousInteractable != interactable)
+		{
+			interactable.hoverEnter(hit?.ui);
+			previousInteractable = interactable;
+		}
+
 		if (!bHit)
 		{
 			previousContact = null;
@@ -225,7 +238,7 @@ public class LaserPointer : MonoBehaviour
 				interactable = interactable
 			};
 
-			if (hit?.ui == null || interactable.acceptsDrop(hit.ui, draggedInteractable))
+			if (hit?.ui == null || (interactable?.acceptsDrop(hit.ui, draggedInteractable) ?? false))
 			{
 				OnDrop(argsDrop);
 			}

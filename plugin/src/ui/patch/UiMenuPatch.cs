@@ -36,9 +36,8 @@ public class UIMenuPatch
 		canvas.transform.SetParent(getWorldAnchor().transform);
 		canvas.transform.localPosition = Vector3.zero;
 		canvas.transform.localRotation = Quaternion.identity;
-		canvas.transform.localScale = Vector3.one;
 
-		if (__instance.name == "Inventory and Crafting Menu" && ModConfig.inventoryAndCraftingMenuScaleOverride.Value != Vector3.zero)
+		if (__instance is InventoryAndCraftingUI)
 		{
 			canvas.transform.localScale = ModConfig.inventoryAndCraftingMenuScaleOverride.Value;
 		}
@@ -149,7 +148,7 @@ public class UIMenuPatch
 	{
 		if (worldAnchor == null)
 		{
-			worldAnchor = new GameObject("World Anchor");
+			worldAnchor = new GameObject("UI World Anchor");
 			Object.DontDestroyOnLoad(worldAnchor);
 			worldAnchor.AddComponent<Gizmo>();
 		}
@@ -159,13 +158,6 @@ public class UIMenuPatch
 
 	private static void setWorldAnchor(Vector3 position, Vector3 camOrigin)
 	{
-		Ray ray = new Ray(camOrigin, position - camOrigin);
-		if (Physics.Raycast(ray, out var hit, ModConfig.menuSpawnDistance.Value))
-		{
-			Logger.LogDebug($"Hit {hit.collider.gameObject.name}");
-			position = hit.point - ray.direction * 0.001f;
-		}
-
 		var anchor = getWorldAnchor();
 		anchor.transform.position = position;
 		anchor.transform.LookAt(2 * anchor.transform.position - camOrigin);
