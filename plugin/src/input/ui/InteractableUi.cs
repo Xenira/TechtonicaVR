@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TechtonicaVR.UI;
 using TechtonicaVR.Util;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public abstract class InteractableUi
 	public List<Interactable> interactable = new List<Interactable>();
 	public UiEnterEvent OnEnterEvent;
 	public UiExitEvent OnExitEvent;
+	public Menu menu;
 
 	public Transform transform;
 	protected ScrollRect scrollRect;
@@ -35,6 +37,11 @@ public abstract class InteractableUi
 	public UiRaycastHit Raycast(Ray ray)
 	{
 		if (!canvas.enabled)
+		{
+			return null;
+		}
+
+		if (menu?.isOpen() == false)
 		{
 			return null;
 		}

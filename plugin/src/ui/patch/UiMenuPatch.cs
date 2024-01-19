@@ -83,6 +83,8 @@ public class UIMenuPatch
 
 		lastPosition = Vector3.zero;
 		lastCamOrigin = Vector3.zero;
+
+		getWorldAnchor().transform.position = Vector3.zero;
 	}
 
 	[HarmonyPatch(typeof(FHG_Utils), nameof(FHG_Utils.ToggleAlpha))]

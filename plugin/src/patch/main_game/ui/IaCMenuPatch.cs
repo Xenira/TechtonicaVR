@@ -1,4 +1,5 @@
 using TechtonicaVR.Input.Ui;
+using TechtonicaVR.UI;
 using TechtonicaVR.Util;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ public class IaCMenuPatch : GameObjectPatch
 
 		var menu = new InventoryInteractableUI(playerInventory.gameObject);
 		menu.transform = inventoryAnchor.transform;
+		menu.menu = new UIMenuWrapper(iac);
 		menu.OnEnterEvent += () =>
 		{
 			iac.inventoryHasFocus = true;

@@ -18,7 +18,7 @@ using UnityEngine.SceneManagement;
 
 namespace TechtonicaVR;
 
-[BepInPlugin("de.xenira.techtonica", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+[BepInPlugin("de.xenira.techtonicavr", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Techtonica.exe")]
 [BepInDependency("Tobey.UnityAudio", BepInDependency.DependencyFlags.SoftDependency)]
 public class TechtonicaVR : BaseUnityPlugin
