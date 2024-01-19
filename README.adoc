@@ -120,10 +120,10 @@ While the mod is in a playable state, it is still in early development. Some fea
 - Enable ik (The game ships with `FinalIK` so it should be possible. Probably just not networked yet.)
 
 == Configuration
-The configuration file is located in `BepInEx/config/de.xenira.techtonica.cfg`. You can edit it using a text editor like Notepad.
+The configuration file is located in `BepInEx/config/de.xenira.techtonicavr.cfg`. You can edit it using a text editor like Notepad.
 
 === Resetting the Configuration
-To reset the configuration, delete the `de.xenira.techtonica.cfg` file in the `BepInEx/config` folder. The mod will create a new configuration file with the default values the next time you run the game.
+To reset the configuration, delete the `de.xenira.techtonicavr.cfg` file in the `BepInEx/config` folder. The mod will create a new configuration file with the default values the next time you run the game.
 
 To reset only a specific section, delete the section from the configuration file. The mod will create a new section with the default values the next time you run the game.
 
@@ -135,6 +135,13 @@ Enabed:: Enables or disables the mod. Default: `true`
 [horizontal]
 .Input
 Smooth Turn Speed:: Speed of smooth turning. Default: `90`
+Laser UI Only:: Only show the laser pointer when pointing at UI elements. Default: `true`
+Laser Color:: Color of the laser pointer. Default: `00FFFFFF` Cyan
+Laser Click Color:: Color of the laser pointer when clicking. Default: `0000FFFF` Blue
+Laser Hover Color:: Color of the laser pointer when hovering over a UI element. Default: `00FF00FF` Green
+Laser Invalid Color:: Color of the laser pointer when pointing at an invalid UI element. Default: `FF0000FF` Red
+Laser Thickness:: Thickness of the laser pointer. Default: `0.002`
+Laser Click Thickness Multiplier:: Thickness multiplier of the laser pointer when clicking. Default: `2`
 
 [horizontal]
 .Comfort
@@ -151,13 +158,14 @@ Vignette Fade Speed:: Animation speed of the vignette. Higher is faster. Default
 
 [horizontal]
 .Buttons
+Click Time:: Time window in seconds for a button press to be considered a click. Higher value makes clicks easier, but delay drag 'n drop. Default: `0.2`
 Long Press Time:: Time in seconds before a button press is considered a long press. Default: `1`
 
 [horizontal]
 .UI
 Menu Spawn Distance:: Distance of the menu from the player. Default: `0.8`
-Menu Scale:: Scale of the menu (X/Y/Z). Default: `{"x":0.2,"y":0.2,"z":0.2}`
-Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting menu (X/Y/Z). This menu has different scaling and needs separate config. Default: `{"x":0.2,"y":0.1,"z":0.2}`
+Menu Scale:: Scale of the menu (X/Y/Z). Default: `{"x": 0.001,"y":0.001,"z":0.001}`
+Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting menu (X/Y/Z). This menu has different scaling and needs separate config. Default: `{"x": 0.001,"y":0.0005,"z":0.001}`
 Menu Downward Offset:: Offset of the menu in the downward direction. Default: `0.2`
 
 [horizontal]
