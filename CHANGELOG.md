@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.3.0](https://github.com/Xenira/TechtonicaVR/compare/v0.2.5...v0.3.0) (2024-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **input:** Mod config might need to be deleted after updating, as ui scale changed
+
+### ✨ Features
+
+* **input:** add laserpointer interaction ([#54](https://github.com/Xenira/TechtonicaVR/issues/54)) ([1b8723c](https://github.com/Xenira/TechtonicaVR/commit/1b8723c714731cae0752b96cea6c730774460b55))
+
+
+### 🐛 Bug Fixes
+
+* **input:** hide ui interaction when menu is not open ([#76](https://github.com/Xenira/TechtonicaVR/issues/76)) ([0b5fa2a](https://github.com/Xenira/TechtonicaVR/commit/0b5fa2ab199a50d71d2ec09fc2e960b7fa9a56a1))
+* **ui:** position save icon to be visible ([#59](https://github.com/Xenira/TechtonicaVR/issues/59)) ([1675887](https://github.com/Xenira/TechtonicaVR/commit/1675887599eae30bc362797b87e5dd40e0c242fc))
+
+
+### 📝 Documentation
+
+* **readme:** updated configuration options ([#77](https://github.com/Xenira/TechtonicaVR/issues/77)) ([4d1be8b](https://github.com/Xenira/TechtonicaVR/commit/4d1be8b1c08fb9105858a8f6e660b380bef03191))
+
 ## [0.2.5](https://github.com/Xenira/TechtonicaVR/compare/v0.2.4...v0.2.5) (2023-12-27)
 
 
