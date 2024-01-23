@@ -25,6 +25,12 @@ public class IaCMenuPatch : GameObjectPatch
 			return false;
 		}
 
+		var allButtonMappings = GameObjectFinder.FindChildObjectByName("All Button Mappings", iac.gameObject);
+		if (allButtonMappings != null)
+		{
+			allButtonMappings.SetActive(false);
+		}
+
 		var inventoryAnchor = new GameObject("Inventory UI Anchor");
 		inventoryAnchor.transform.parent = iac.transform;
 		inventoryAnchor.transform.localPosition = new Vector3(-616, -600, 0);
@@ -41,6 +47,8 @@ public class IaCMenuPatch : GameObjectPatch
 			iac.inventoryHasFocus = true;
 			iac.Refresh();
 		};
+
+		allButtonMappings.SetActive(false);
 
 		return true;
 	}

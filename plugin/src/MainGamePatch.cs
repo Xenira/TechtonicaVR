@@ -60,6 +60,7 @@ public class MainGamePatch : MonoBehaviour
 						new StorageInventoryUIPatch(),
 						new IaCMenuPatch(),
 						new SaveNotificationPatch(),
+						new HudPatch(),
 				]).ToArray();
 
 		Logger.LogDebug("Hello World!");

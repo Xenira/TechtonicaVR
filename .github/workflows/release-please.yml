@@ -53,7 +53,7 @@ jobs:
           run: |
             gh release upload ${{ steps.release.outputs.tag_name }} techtonica_vr-${{ steps.release.outputs.tag_name }}.zip --repo Xenira/TechtonicaVR
         - name: Upload to Thunderstore
-          uses: GreenTF/upload-thunderstore-package@v4.1
+          uses: GreenTF/upload-thunderstore-package@v4.3
           if: ${{ steps.release.outputs.release_created }}
           with:
             namespace: "3_141"

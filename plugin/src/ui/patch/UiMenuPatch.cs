@@ -45,6 +45,35 @@ public class UIMenuPatch
 		{
 			canvas.transform.localScale = ModConfig.menuScale.Value;
 		}
+
+		disableButtonPrompts(__instance);
+	}
+
+	private static void disableButtonPrompts(UIMenu __instance)
+	{
+		var mkbButtonPrompts = __instance.gameObject.GetComponentsInChildren<MKBInventoryButtonPrompts>();
+		foreach (var buttonPrompt in mkbButtonPrompts)
+		{
+			buttonPrompt.gameObject.SetActive(false);
+		}
+
+		var controllerButtonPrompts = __instance.gameObject.GetComponentsInChildren<ControllerInventoryButtonPrompts>();
+		foreach (var buttonPrompt in controllerButtonPrompts)
+		{
+			buttonPrompt.gameObject.SetActive(false);
+		}
+
+		var simpleMkbButtonPrompts = GameObjectFinder.FindChildObjectsByName("MKB Inventory Button Prompts", __instance.gameObject);
+		foreach (var buttonPrompt in simpleMkbButtonPrompts)
+		{
+			buttonPrompt.gameObject.SetActive(false);
+		}
+
+		var simpleControllerButtonPrompts = GameObjectFinder.FindChildObjectsByName("Controller Button Prompts", __instance.gameObject);
+		foreach (var buttonPrompt in simpleControllerButtonPrompts)
+		{
+			buttonPrompt.gameObject.SetActive(false);
+		}
 	}
 
 	private static GameObject findTlc(GameObject gameObject)
