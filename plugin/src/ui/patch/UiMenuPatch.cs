@@ -1,5 +1,6 @@
 using HarmonyLib;
 using TechtonicaVR.Debug;
+using TechtonicaVR.Input.Ui.Machine;
 using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
@@ -46,7 +47,20 @@ public class UIMenuPatch
 			canvas.transform.localScale = ModConfig.menuScale.Value;
 		}
 
+		addInteractableUi(__instance);
 		disableButtonPrompts(__instance);
+	}
+
+	private static void addInteractableUi(UIMenu instance)
+	{
+		if (instance is GeneratorUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Content Container", instance.gameObject);
+			new PowerGeneratorInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)
