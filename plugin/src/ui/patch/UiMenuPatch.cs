@@ -4,6 +4,7 @@ using TechtonicaVR.Input.Ui.Machine;
 using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TechtonicaVR.UI.Patch;
 
@@ -44,6 +45,7 @@ public class UIMenuPatch
 		}
 		else
 		{
+			canvas.GetComponent<CanvasScaler>().enabled = false;
 			canvas.transform.localScale = ModConfig.menuScale.Value;
 		}
 
@@ -57,6 +59,14 @@ public class UIMenuPatch
 		{
 			var container = GameObjectFinder.FindChildObjectByName("Content Container", instance.gameObject);
 			new PowerGeneratorInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
+		else if (instance is SmelterUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
+			new SmelterInteractableUi(container)
 			{
 				menu = new UIMenuWrapper(instance)
 			};
@@ -85,6 +95,12 @@ public class UIMenuPatch
 
 		var simpleControllerButtonPrompts = GameObjectFinder.FindChildObjectsByName("Controller Button Prompts", __instance.gameObject);
 		foreach (var buttonPrompt in simpleControllerButtonPrompts)
+		{
+			buttonPrompt.gameObject.SetActive(false);
+		}
+
+		var simpleInventoryButtonPrompts = GameObjectFinder.FindChildObjectsByName("Inventory Button Prompts", __instance.gameObject);
+		foreach (var buttonPrompt in simpleInventoryButtonPrompts)
 		{
 			buttonPrompt.gameObject.SetActive(false);
 		}

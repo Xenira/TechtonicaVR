@@ -16,8 +16,9 @@ public abstract class InteractableUi
 	public Menu menu;
 
 	public Transform transform;
+	public float zIndex = 0;
 	protected ScrollRect scrollRect;
-	private RectTransform rectTransform;
+	protected RectTransform rectTransform;
 	private Canvas canvas;
 
 	public InteractableUi(GameObject gameObject)
@@ -85,7 +86,7 @@ public abstract class InteractableUi
 			}
 
 			var scrollOffset = scrollRect?.m_PrevPosition ?? Vector2.zero;
-			return new UiRaycastHit(this, distance, point, localPoint + scrollOffset);
+			return new UiRaycastHit(this, distance + zIndex, point, localPoint + scrollOffset);
 		}
 
 		return null;
@@ -93,6 +94,7 @@ public abstract class InteractableUi
 
 	public Interactable getInteractable(Vector2 point)
 	{
+		// Logger.LogDebug($"getInteractable {transform.gameObject.name} {point}");
 		return interactable.Where(i => i.isHit(point)).FirstOrDefault();
 	}
 

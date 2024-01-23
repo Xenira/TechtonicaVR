@@ -9,11 +9,16 @@ namespace TechtonicaVR.Input.Ui;
 public class InventoryInteractableUI : InteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<InventoryInteractableUI>();
-	private ResourceInfo draggedResourceInfo;
+	protected ResourceInfo draggedResourceInfo;
 	private int draggedResourceCount;
 	private Transform viewport;
 
 	public InventoryInteractableUI(GameObject gameObject) : base(gameObject)
+	{
+		init();
+	}
+
+	protected virtual void init()
 	{
 		var inv = transform.gameObject.GetComponentInParent<InventoryGridUI>();
 		interactable = inv.ui.slots.Select(getInteractable).ToList();
@@ -42,12 +47,12 @@ public class InventoryInteractableUI : InteractableUi
 			.build();
 	}
 
-	private void onHoverEnter(InventoryResourceSlotUI slot)
+	protected void onHoverEnter(InventoryResourceSlotUI slot)
 	{
 		slot.mouseEnterCallback.Invoke();
 	}
 
-	private void onHoverExit(InventoryResourceSlotUI slot)
+	protected void onHoverExit(InventoryResourceSlotUI slot)
 	{
 		slot.mouseExitCallback.Invoke();
 	}
@@ -57,7 +62,7 @@ public class InventoryInteractableUI : InteractableUi
 		// uiSlot.mouseLeftClickCallback.Invoke();
 	}
 
-	private void onDrag(InventoryResourceSlotUI slot)
+	protected void onDrag(InventoryResourceSlotUI slot)
 	{
 		Logger.LogDebug($"Dragged toolbar slot {slot.resourceType?.name}");
 		draggedResourceInfo = slot.resourceType;
@@ -65,9 +70,9 @@ public class InventoryInteractableUI : InteractableUi
 		slot.mouseLeftClickCallback();
 	}
 
-	private void onDrop(InteractableUi ui, Interactable target, InventoryResourceSlotUI sourceSlot)
+	protected void onDrop(InteractableUi ui, Interactable target, InventoryResourceSlotUI sourceSlot)
 	{
-		Logger.LogDebug($"Dropped toolbar slot {sourceSlot.resourceType?.name}");
+		Logger.LogDebug($"Dropped inventory slot {sourceSlot.resourceType?.name}");
 		var droppedResourceInfo = draggedResourceInfo;
 		draggedResourceInfo = null;
 
@@ -87,6 +92,7 @@ public class InventoryInteractableUI : InteractableUi
 			}
 
 			targetSlot.mouseLeftClickCallback.Invoke();
+			MouseCursorBuffer.instance.TryCancel();
 			return;
 		}
 
@@ -100,13 +106,13 @@ public class InventoryInteractableUI : InteractableUi
 		onCancelDrag(sourceSlot);
 	}
 
-	private void onCancelDrag(InventoryResourceSlotUI slot)
+	protected void onCancelDrag(InventoryResourceSlotUI slot)
 	{
 		slot.mouseLeftClickCallback.Invoke();
 		draggedResourceInfo = null;
 	}
 
-	private void onAcceptsDrop(AcceptDropEventArgs args)
+	protected void onAcceptsDrop(AcceptDropEventArgs args)
 	{
 		if (args.source.ui is not InventoryInteractableUI)
 		{
@@ -122,8 +128,9 @@ public class InventoryInteractableUI : InteractableUi
 		args.accept |= true;
 	}
 
-	private void onReceiveDrop(object sourceObject, InventoryResourceSlotUI slot)
+	protected void onReceiveDrop(object sourceObject, InventoryResourceSlotUI slot)
 	{
+
 		var resourceInfo = sourceObject as ResourceInfo;
 		if (resourceInfo == null)
 		{
