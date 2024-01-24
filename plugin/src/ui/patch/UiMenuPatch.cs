@@ -71,6 +71,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is DrillUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
+			new DrillInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)

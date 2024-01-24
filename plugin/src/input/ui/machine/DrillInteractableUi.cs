@@ -3,25 +3,22 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class SmelterInteractableUi : InventoryInteractableUI
+public class DrillInteractableUi : InventoryInteractableUI
 {
-	private static PluginLogger Logger = PluginLogger.GetLogger<SmelterInteractableUi>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<DrillInteractableUi>();
 
-	public SmelterInteractableUi(GameObject gameObject) : base(gameObject)
+	public DrillInteractableUi(GameObject gameObject) : base(gameObject)
 	{
 		zIndex = 0.001f;
 
-		var inputResourceSlot = GameObjectFinder.FindChildObjectByName("Input Resource Slot", gameObject)
-			.GetComponent<InventoryResourceSlotUI>();
 		var outputResourceSlot = GameObjectFinder.FindChildObjectByName("Output Resource Slot", gameObject)
 			.GetComponent<InventoryResourceSlotUI>();
 		var fuelResourceSlot = GameObjectFinder.FindChildObjectByName("Fuel Resource Slot", gameObject)
 			.GetComponent<InventoryResourceSlotUI>();
 
 		interactable = [
-			getInteractable(inputResourceSlot),
 			getInteractable(outputResourceSlot),
-			getInteractable(fuelResourceSlot),
+			getInteractable(fuelResourceSlot, new Vector2(0, 95)),
 		];
 		Logger.LogDebug($"Interactable: {rectTransform.rect}");
 	}
@@ -30,7 +27,7 @@ public class SmelterInteractableUi : InventoryInteractableUI
 	{
 	}
 
-	private Interactable getInteractable(InventoryResourceSlotUI slot)
+	private Interactable getInteractable(InventoryResourceSlotUI slot, Vector2 offset = default)
 	{
 		var rectTransform = slot.GetComponent<RectTransform>();
 		var rect = rectTransform.rect;
@@ -40,9 +37,9 @@ public class SmelterInteractableUi : InventoryInteractableUI
 		var relativeLocalPosition = rectTransform.localPosition;
 		rectTransform.parent = originalParent;
 
-		rect.x += relativeLocalPosition.x;
-		rect.y += relativeLocalPosition.y;
-		Logger.LogDebug($"Slot rect: {slot} {rect} {rectTransform.localPosition}");
+		rect.x += relativeLocalPosition.x + offset.x;
+		rect.y += relativeLocalPosition.y + offset.y;
+		Logger.LogDebug($"Slot rect: {slot} {rect} {relativeLocalPosition} {rectTransform.localPosition}");
 
 		return new InteractableBuilder(this, rect, rectTransform.gameObject)
 			.withDrag(() => draggedResourceInfo ?? slot.resourceType,
