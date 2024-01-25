@@ -94,7 +94,7 @@ public abstract class InteractableUi
 
 	public Interactable getInteractable(Vector2 point)
 	{
-		// Logger.LogDebug($"getInteractable {transform.gameObject.name} {point}");
+		Logger.LogDebug($"getInteractable {transform.gameObject.name} {point}");
 		return interactable.Where(i => i.isHit(point)).FirstOrDefault();
 	}
 
