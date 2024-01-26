@@ -4,13 +4,14 @@ using System.Linq;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class FilterInserterInteractableUi : InteractableUi
+public class RecipePickerInteractableUi : InteractableUi
 {
-	private static PluginLogger Logger = PluginLogger.GetLogger<FilterInserterInteractableUi>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<RecipePickerInteractableUi>();
 
-	public FilterInserterInteractableUi(GameObject gameObject) : base(gameObject)
+	public RecipePickerInteractableUi(GameObject gameObject) : base(gameObject)
 	{
-		getInteractables = () => gameObject.GetComponentsInChildren<ResourceSlotUI>().Select(getInteractable).ToList();
+		zIndex = -0.001f;
+		interactable = gameObject.GetComponentsInChildren<ResourceSlotUI>().Select(getInteractable).ToList();
 	}
 
 	private Interactable getInteractable(ResourceSlotUI slot, int index)
@@ -21,6 +22,7 @@ public class FilterInserterInteractableUi : InteractableUi
 		Logger.LogDebug($"Slot rect: {slot} {rect} {rectTransform.localPosition}");
 
 		return new InteractableBuilder(this, rect, rectTransform.gameObject)
+			.withRecalculate(() => getRect(rectTransform))
 			.withClick((ui) => onClick(slot))
 			.withHoverEnter((ui) => onHoverEnter(slot))
 			.withHoverExit((ui) => onHoverExit(slot))

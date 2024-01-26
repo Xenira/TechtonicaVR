@@ -15,6 +15,7 @@ public abstract class InteractableUi
 	public UiEnterEvent OnEnterEvent;
 	public UiExitEvent OnExitEvent;
 	public Menu menu;
+	public Func<List<Interactable>> getInteractables;
 
 	public Transform transform;
 	public float zIndex = 0;
@@ -99,7 +100,18 @@ public abstract class InteractableUi
 		return interactable.Where(i => i.isHit(point) && i.gameObject.activeInHierarchy).FirstOrDefault();
 	}
 
-	public void RecalculateInteractablePositions()
+	public bool rebuildInteractables()
+	{
+		if (getInteractables == null)
+		{
+			return false;
+		}
+
+		interactable = getInteractables();
+		return true;
+	}
+
+	public void recalculateInteractablePositions()
 	{
 		interactable.ForEach(i => i.recalculate());
 	}
@@ -107,7 +119,13 @@ public abstract class InteractableUi
 	public void OnEnter()
 	{
 		Logger.LogDebug($"OnEnter {transform.gameObject.name}");
-		RecalculateInteractablePositions();
+		AsyncGameObject.Instance.timeoutFrames(() =>
+		{
+			if (!rebuildInteractables())
+			{
+				recalculateInteractablePositions();
+			}
+		}, 1);
 		OnEnterEvent?.Invoke();
 	}
 	public void OnExit()
@@ -127,12 +145,13 @@ public abstract class InteractableUi
 
 	protected Rect getRect(RectTransform rectTransform)
 	{
-		var rect = rectTransform.rect;
+		var rect = new Rect(rectTransform.rect);
 
 		var relativeLocalPosition = ObjectPosition.addLocalPositions(rectTransform, this.rectTransform);
 
 		rect.x += relativeLocalPosition.x;
 		rect.y += relativeLocalPosition.y;
+		Logger.LogDebug($"getRect {rectTransform.gameObject.name} {rect} {relativeLocalPosition}");
 		return rect;
 	}
 }
