@@ -12,6 +12,6 @@ public class UIMenuWrapper : Menu
 
 	public bool isOpen()
 	{
-		return menu.isOpen;
+		return menu.isOpen && !UIManager.instance.recipePickerUI.myCanvas.enabled;
 	}
 }

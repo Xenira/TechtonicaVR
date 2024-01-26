@@ -18,7 +18,7 @@ public class DrillInteractableUi : InventoryInteractableUI
 
 		interactable = [
 			getInteractable(outputResourceSlot),
-			getInteractable(fuelResourceSlot, new Vector2(0, 95)),
+			getInteractable(fuelResourceSlot),
 		];
 		Logger.LogDebug($"Interactable: {rectTransform.rect}");
 	}
@@ -27,21 +27,14 @@ public class DrillInteractableUi : InventoryInteractableUI
 	{
 	}
 
-	private Interactable getInteractable(InventoryResourceSlotUI slot, Vector2 offset = default)
+	private Interactable getInteractable(InventoryResourceSlotUI slot)
 	{
 		var rectTransform = slot.GetComponent<RectTransform>();
-		var rect = rectTransform.rect;
-
-		var originalParent = rectTransform.parent;
-		rectTransform.parent = this.rectTransform;
-		var relativeLocalPosition = rectTransform.localPosition;
-		rectTransform.parent = originalParent;
-
-		rect.x += relativeLocalPosition.x + offset.x;
-		rect.y += relativeLocalPosition.y + offset.y;
-		Logger.LogDebug($"Slot rect: {slot} {rect} {relativeLocalPosition} {rectTransform.localPosition}");
+		var rect = getRect(rectTransform);
+		Logger.LogDebug($"Slot rect: {slot} {rect} {rectTransform.localPosition}");
 
 		return new InteractableBuilder(this, rect, rectTransform.gameObject)
+			.withRecalculate(() => getRect(rectTransform))
 			.withDrag(() => draggedResourceInfo ?? slot.resourceType,
 				(ui) => onDrag(slot),
 				(ui, source, target) => onDrop(ui, target, slot),

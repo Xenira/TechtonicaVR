@@ -100,6 +100,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is FilterInserterUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Filter Options Container", instance.gameObject);
+			new FilterInserterInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)
@@ -215,6 +223,15 @@ public class UIMenuPatch
 		canvas.transform.SetParent(getWorldAnchor().transform, true);
 		canvas.transform.localPosition = Vector3.zero;
 		canvas.transform.localScale = ModConfig.menuScale.Value;
+
+		AsyncGameObject.Instance.timeoutFrames(() =>
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", __instance.gameObject);
+			new RecipePickerInteractableUi(container)
+			{
+				menu = new RecipePickerMenuWrapper(__instance)
+			};
+		}, 10);
 	}
 
 	private static void destroyBlur(GameObject blur)
