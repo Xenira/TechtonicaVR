@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TechtonicaVR.UI;
@@ -94,13 +95,19 @@ public abstract class InteractableUi
 
 	public Interactable getInteractable(Vector2 point)
 	{
-		Logger.LogDebug($"getInteractable {transform.gameObject.name} {point}");
-		return interactable.Where(i => i.isHit(point)).FirstOrDefault();
+		// Logger.LogDebug($"getInteractable {transform.gameObject.name} {point}");
+		return interactable.Where(i => i.isHit(point) && i.gameObject.activeInHierarchy).FirstOrDefault();
+	}
+
+	public void RecalculateInteractablePositions()
+	{
+		interactable.ForEach(i => i.recalculate());
 	}
 
 	public void OnEnter()
 	{
 		Logger.LogDebug($"OnEnter {transform.gameObject.name}");
+		RecalculateInteractablePositions();
 		OnEnterEvent?.Invoke();
 	}
 	public void OnExit()
@@ -116,6 +123,17 @@ public abstract class InteractableUi
 	private Plane getUiPlane()
 	{
 		return new Plane(transform.forward, transform.position);
+	}
+
+	protected Rect getRect(RectTransform rectTransform)
+	{
+		var rect = rectTransform.rect;
+
+		var relativeLocalPosition = ObjectPosition.addLocalPositions(rectTransform, this.rectTransform);
+
+		rect.x += relativeLocalPosition.x;
+		rect.y += relativeLocalPosition.y;
+		return rect;
 	}
 }
 
@@ -138,6 +156,7 @@ public class InteractableBuilder
 
 	private InteractableIsHitCallback isHitCallback;
 	private InteractableGetObjectCallback getObjectCallback;
+	private Func<Rect> recalculateCallback;
 
 	public InteractableBuilder(InteractableUi ui, Rect rect, GameObject gameObject)
 	{
@@ -148,7 +167,20 @@ public class InteractableBuilder
 
 	public Interactable build()
 	{
-		return new Interactable(ui, rect, gameObject, isHitCallback, getObjectCallback, onClickEvent, onDragEvent, onDropEvent, onCancelDragEvent, onAcceptsDropEvent, onReceiveDropEvent, onHoverEnterEvent, onHoverExitEvent);
+		var interactable = new Interactable(ui, rect, gameObject, isHitCallback, getObjectCallback, onClickEvent, onDragEvent, onDropEvent, onCancelDragEvent, onAcceptsDropEvent, onReceiveDropEvent, onHoverEnterEvent, onHoverExitEvent);
+
+		if (recalculateCallback != null)
+		{
+			interactable.recalculateCallback = recalculateCallback;
+		}
+
+		return interactable;
+	}
+
+	public InteractableBuilder withRecalculate(Func<Rect> recalculateCallback)
+	{
+		this.recalculateCallback = recalculateCallback;
+		return this;
 	}
 
 	public InteractableBuilder withIsHit(InteractableIsHitCallback isHitCallback)
@@ -210,6 +242,7 @@ public class Interactable
 
 	public InteractableIsHitCallback IsHitCallback;
 	public InteractableGetObjectCallback GetObjectCallback;
+	public Func<Rect> recalculateCallback;
 
 	// Clickable, Draggable and Drop Target
 	internal Interactable(InteractableUi ui, Rect rect, GameObject gameObject, InteractableIsHitCallback isHitCallback, InteractableGetObjectCallback getObjectCallback, InteractableClickEvent onClick, InteractableDragEvent onDrag, InteractableDropEvent onDrop, InteractableCancelDragEvent onCancelDrag, InteractableAcceptsDropEvent onAcceptsDrop, InteractableReceiveDropEvent onReceiveDrop, InteractableHoverEnterEvent onHoverEnter, InteractableHoverExitEvent onHoverExit)
@@ -228,6 +261,14 @@ public class Interactable
 
 		IsHitCallback = isHitCallback;
 		GetObjectCallback = getObjectCallback;
+	}
+
+	public void recalculate()
+	{
+		if (recalculateCallback != null)
+		{
+			rect = recalculateCallback();
+		}
 	}
 
 	public bool isHit(Vector2 point)
