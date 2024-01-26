@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.4.0](https://github.com/Xenira/TechtonicaVR/compare/v0.3.0...v0.4.0) (2024-01-26)
+
+
+### ✨ Features
+
+* **input:** add interaction to assembler ([#89](https://github.com/Xenira/TechtonicaVR/issues/89)) ([f235fc0](https://github.com/Xenira/TechtonicaVR/commit/f235fc0640d6ba092a3d12231b035dccf1f4ccf1))
+* **input:** add interaction to drill ([#85](https://github.com/Xenira/TechtonicaVR/issues/85)) ([9bdd6ff](https://github.com/Xenira/TechtonicaVR/commit/9bdd6ff5a2a366b08dc0bbc82d0e00cb25847f57))
+* **input:** add interaction to filter inserter ([#86](https://github.com/Xenira/TechtonicaVR/issues/86)) ([0231e33](https://github.com/Xenira/TechtonicaVR/commit/0231e33594ef9479d7abca3133f749abaf35b0ca))
+* **input:** add interaction to power generator ([#82](https://github.com/Xenira/TechtonicaVR/issues/82)) ([0c0b978](https://github.com/Xenira/TechtonicaVR/commit/0c0b978879562ff2680acc14723b11fa1f5e992d))
+* **input:** add interaction to recipe picker ([#92](https://github.com/Xenira/TechtonicaVR/issues/92)) ([30115bc](https://github.com/Xenira/TechtonicaVR/commit/30115bc4c2301252f7f3c288e543af3af0c2357a))
+* **input:** add interaction to smelter menu ([#84](https://github.com/Xenira/TechtonicaVR/issues/84)) ([2016a51](https://github.com/Xenira/TechtonicaVR/commit/2016a510e1a8d45f2e9f3dc3a8e1928240bdb180))
+* **input:** add interaction to thresher ([#88](https://github.com/Xenira/TechtonicaVR/issues/88)) ([54fb1ad](https://github.com/Xenira/TechtonicaVR/commit/54fb1ad10451920aecbd3c2a022948dca186033a))
+
+
+### 🐛 Bug Fixes
+
+* **ui:** remove button prompts ([#80](https://github.com/Xenira/TechtonicaVR/issues/80)) ([b9e9605](https://github.com/Xenira/TechtonicaVR/commit/b9e9605bdb118c214d968b7b3c00d785be96d4c7))
+
 ## [0.3.0](https://github.com/Xenira/TechtonicaVR/compare/v0.2.5...v0.3.0) (2024-01-19)
 
 
