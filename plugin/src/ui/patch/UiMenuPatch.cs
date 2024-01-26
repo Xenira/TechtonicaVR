@@ -49,7 +49,7 @@ public class UIMenuPatch
 			canvas.transform.localScale = ModConfig.menuScale.Value;
 		}
 
-		addInteractableUi(__instance);
+		AsyncGameObject.Instance.timeoutFrames(() => addInteractableUi(__instance), 1);
 		disableButtonPrompts(__instance);
 	}
 
@@ -83,6 +83,19 @@ public class UIMenuPatch
 		{
 			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
 			new ThresherInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
+		else if (instance is AssemblerUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
+			var sidebar = GameObjectFinder.FindChildObjectByName("visible sidebar area", instance.gameObject);
+			new AssemblerInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+			new AssemblerRecipeSelectInteractableUi(sidebar)
 			{
 				menu = new UIMenuWrapper(instance)
 			};
