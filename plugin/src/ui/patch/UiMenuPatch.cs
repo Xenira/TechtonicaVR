@@ -79,6 +79,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is ThresherUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
+			new ThresherInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)
