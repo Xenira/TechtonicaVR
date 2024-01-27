@@ -22,7 +22,7 @@ jobs:
             config-file: release-please-config.json
         - name: Download release artifact
           if: ${{ steps.release.outputs.release_created }}
-          uses: dawidd6/action-download-artifact@v2
+          uses: dawidd6/action-download-artifact@v3
           with:
             workflow: "dotnet.yml"
             name: release-artifact
