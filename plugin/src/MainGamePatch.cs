@@ -61,6 +61,7 @@ public class MainGamePatch : MonoBehaviour
 						new IaCMenuPatch(),
 						new SaveNotificationPatch(),
 						new HudPatch(),
+						new ProductionTerminalPatch(),
 				]).ToArray();
 
 		Logger.LogDebug("Hello World!");
