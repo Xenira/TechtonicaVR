@@ -13,7 +13,6 @@ public class ThresherInteractableUi : InventoryInteractableUI
 		zIndex = 0.001f;
 
 		interactable = gameObject.GetComponentsInChildren<InventoryResourceSlotUI>().Select(getInteractable).ToList();
-		Logger.LogDebug($"Interactable: {rectTransform.rect}");
 	}
 
 	protected override void init()

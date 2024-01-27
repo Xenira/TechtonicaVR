@@ -176,6 +176,7 @@ public class InteractableBuilder
 	private InteractableIsHitCallback isHitCallback;
 	private InteractableGetObjectCallback getObjectCallback;
 	private Func<Rect> recalculateCallback;
+	private Func<bool> isClickableCallback;
 
 	public InteractableBuilder(InteractableUi ui, Rect rect, GameObject gameObject)
 	{
@@ -186,12 +187,11 @@ public class InteractableBuilder
 
 	public Interactable build()
 	{
-		var interactable = new Interactable(ui, rect, gameObject, isHitCallback, getObjectCallback, onClickEvent, onDragEvent, onDropEvent, onCancelDragEvent, onAcceptsDropEvent, onReceiveDropEvent, onHoverEnterEvent, onHoverExitEvent);
-
-		if (recalculateCallback != null)
+		var interactable = new Interactable(ui, rect, gameObject, isHitCallback, getObjectCallback, onClickEvent, onDragEvent, onDropEvent, onCancelDragEvent, onAcceptsDropEvent, onReceiveDropEvent, onHoverEnterEvent, onHoverExitEvent)
 		{
-			interactable.recalculateCallback = recalculateCallback;
-		}
+			recalculateCallback = recalculateCallback,
+			isClickableCallback = isClickableCallback
+		};
 
 		return interactable;
 	}
@@ -208,9 +208,10 @@ public class InteractableBuilder
 		return this;
 	}
 
-	public InteractableBuilder withClick(InteractableClickEvent onClick)
+	public InteractableBuilder withClick(InteractableClickEvent onClick, Func<bool> isClickableCallback = null)
 	{
 		onClickEvent = onClick;
+		this.isClickableCallback = isClickableCallback ?? (() => true);
 		return this;
 	}
 
@@ -262,6 +263,7 @@ public class Interactable
 	public InteractableIsHitCallback IsHitCallback;
 	public InteractableGetObjectCallback GetObjectCallback;
 	public Func<Rect> recalculateCallback;
+	public Func<bool> isClickableCallback;
 
 	// Clickable, Draggable and Drop Target
 	internal Interactable(InteractableUi ui, Rect rect, GameObject gameObject, InteractableIsHitCallback isHitCallback, InteractableGetObjectCallback getObjectCallback, InteractableClickEvent onClick, InteractableDragEvent onDrag, InteractableDropEvent onDrop, InteractableCancelDragEvent onCancelDrag, InteractableAcceptsDropEvent onAcceptsDrop, InteractableReceiveDropEvent onReceiveDrop, InteractableHoverEnterEvent onHoverEnter, InteractableHoverExitEvent onHoverExit)
@@ -302,7 +304,7 @@ public class Interactable
 
 	public bool isClickable()
 	{
-		return OnClick != null;
+		return OnClick != null && isClickableCallback?.Invoke() != false;
 	}
 
 	public void hoverEnter(InteractableUi ui)
@@ -320,6 +322,12 @@ public class Interactable
 	public void click(InteractableUi ui)
 	{
 		Logger.LogDebug($"click {ui.transform.gameObject.name}");
+		if (!isClickable())
+		{
+			Logger.LogDebug($"click {ui.transform.gameObject.name} not clickable");
+			return;
+		}
+
 		OnClick?.Invoke(ui);
 	}
 
