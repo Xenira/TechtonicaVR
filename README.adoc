@@ -1,6 +1,6 @@
 = Techtonica VR Mod
 // x-release-please-start-version
-v.0.4.0
+v.0.5.0
 // x-release-please-end
 :toclevels: 2
 :sectnums:
@@ -59,7 +59,7 @@ You can install the mod from https://thunderstore.io/c/techtonica/p/3_141/Techto
 
 === VR Mod
 // x-release-please-start-version
-. Download the latest release (v0.4.0) of this mod from the https://github.com/{repo}/releases[Releases] page.
+. Download the latest release (v0.5.0) of this mod from the https://github.com/{repo}/releases[Releases] page.
 // x-release-please-end
 . Extract the downloaded archive.
 . Copy the `BepInEx` and `Techtonica_Data` folders to the `Techtonica` folder in `steamapps/common` directory.
