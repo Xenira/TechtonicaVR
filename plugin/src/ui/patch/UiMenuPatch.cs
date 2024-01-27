@@ -108,6 +108,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is PlanterUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Content Container", instance.gameObject);
+			new PlanterInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)

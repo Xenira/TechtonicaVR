@@ -15,18 +15,19 @@ jobs:
     release-please:
       runs-on: ubuntu-latest
       steps:
+        - name: Download release artifact
+          if: ${{ steps.release.outputs.release_created }}
+          uses: actions/download-artifact@v4
+          with:
+            name: release-artifact
+            path: artifact
+            run-id: ${{ github.event.workflow_run.id }}
+            github-token: ${{ secrets.DEPENDENCY_TOKEN }}
         - id: release
           uses: google-github-actions/release-please-action@v4
           with:
             token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
             config-file: release-please-config.json
-        - name: Download release artifact
-          if: ${{ steps.release.outputs.release_created }}
-          uses: dawidd6/action-download-artifact@v3
-          with:
-            workflow: "dotnet.yml"
-            name: release-artifact
-            skip_unpack: true
         - name: Download Tobey.UnityAudio
           if: ${{ steps.release.outputs.release_created }}
           uses: dsaltares/fetch-gh-release-asset@1.1.1
@@ -38,8 +39,6 @@ jobs:
         - name: Zip release artifact
           if: ${{ steps.release.outputs.release_created }}
           run: |
-            mkdir artifact
-            unzip release-artifact.zip -d ./artifact/
             cd artifact && npx downdoc README.adoc && zip -r techtonica_vr-${{ steps.release.outputs.tag_name }}-thunderstore.zip ./ && cd ..
             mv artifact/techtonica_vr-${{ steps.release.outputs.tag_name }}-thunderstore.zip .
             rm artifact/README.md
