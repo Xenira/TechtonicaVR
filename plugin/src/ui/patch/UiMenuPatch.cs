@@ -124,6 +124,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is ProductionTerminalMenu)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
+			new ProductionTerminalInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)
