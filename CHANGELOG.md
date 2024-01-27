@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.5.0](https://github.com/Xenira/TechtonicaVR/compare/v0.4.0...v0.5.0) (2024-01-27)
+
+
+### ✨ Features
+
+* **input:** add interaction to planter ([#103](https://github.com/Xenira/TechtonicaVR/issues/103)) ([85ed0ff](https://github.com/Xenira/TechtonicaVR/commit/85ed0ffa6c4c57f87f1fa4b829c29eaa4a3d05b3))
+* **input:** add interaction to production terminal ([#105](https://github.com/Xenira/TechtonicaVR/issues/105)) ([b24b093](https://github.com/Xenira/TechtonicaVR/commit/b24b093aca4db490d138e5887409cd9b68c4a3c9))
+* **input:** add interaction to resource gate ([#104](https://github.com/Xenira/TechtonicaVR/issues/104)) ([4c867f5](https://github.com/Xenira/TechtonicaVR/commit/4c867f53b2e2d36d0cf6658197e2c2a426b646c4))
+
+
+### 🐛 Bug Fixes
+
+* **ui:** make tier upgrade screen visible again ([#107](https://github.com/Xenira/TechtonicaVR/issues/107)) ([147013e](https://github.com/Xenira/TechtonicaVR/commit/147013e9dd1fb57361fea2001956cc04464001aa))
+
+
+### 👷 Build System
+
+* **deps:** bump actions/checkout from 3 to 4 ([#100](https://github.com/Xenira/TechtonicaVR/issues/100)) ([292b565](https://github.com/Xenira/TechtonicaVR/commit/292b565a65b3997cfb90af79878df2b8dcdde78b))
+* **deps:** bump actions/setup-dotnet from 3 to 4 ([#96](https://github.com/Xenira/TechtonicaVR/issues/96)) ([0118158](https://github.com/Xenira/TechtonicaVR/commit/01181582a78d7cc1d1a10babc175b0799345501b))
+* **deps:** bump actions/upload-artifact from 3 to 4 ([#97](https://github.com/Xenira/TechtonicaVR/issues/97)) ([ada64f0](https://github.com/Xenira/TechtonicaVR/commit/ada64f074241e85a77cdfde4b3f56931983e668b))
+* **deps:** bump dawidd6/action-download-artifact from 2 to 3 ([#99](https://github.com/Xenira/TechtonicaVR/issues/99)) ([3b5f745](https://github.com/Xenira/TechtonicaVR/commit/3b5f7453ff0d3cc9d4f34d0ffeae5382e346a5ee))
+* **deps:** bump Microsoft.NETFramework.ReferenceAssemblies in /plugin ([#101](https://github.com/Xenira/TechtonicaVR/issues/101)) ([afc09c8](https://github.com/Xenira/TechtonicaVR/commit/afc09c83422543fb84ab35106028dfe664c94790))
+
 ## [0.4.0](https://github.com/Xenira/TechtonicaVR/compare/v0.3.0...v0.4.0) (2024-01-26)
 
 
