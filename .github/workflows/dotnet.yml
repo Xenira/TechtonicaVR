@@ -66,7 +66,7 @@ jobs:
           cp -r ./unity/AssetBundles/StandaloneWindows/* ./artifact/BepInEx/plugins/techtonica_vr/assets
           cp {README.adoc,CHANGELOG.md,LICENSE,manifest.json,icon.png} ./artifact/
       - name: Upload Release Asset Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-artifact
           path: artifact
