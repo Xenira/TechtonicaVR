@@ -13,8 +13,6 @@ public class AssemblerInteractableUi : InventoryInteractableUI
 		zIndex = 0.001f;
 
 		interactable = GameObjectFinder.FindChildObjectByName("Container", gameObject).GetComponentsInChildren<InventoryResourceSlotUI>().Select(getInteractable).ToList();
-
-		Logger.LogDebug($"Interactable: {rectTransform.rect}");
 	}
 
 

@@ -16,7 +16,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Download release artifact
-          if: ${{ steps.release.outputs.release_created }}
           uses: actions/download-artifact@v4
           with:
             name: release-artifact
