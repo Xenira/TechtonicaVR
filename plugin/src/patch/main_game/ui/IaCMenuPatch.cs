@@ -48,8 +48,6 @@ public class IaCMenuPatch : GameObjectPatch
 			iac.Refresh();
 		};
 
-		allButtonMappings.SetActive(false);
-
 		return true;
 	}
 }
