@@ -1,4 +1,5 @@
 using TechtonicaVR.Util;
+using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;
 
@@ -12,7 +13,16 @@ public class HudPatch : GameComponentPatch<HUD>
 			return false;
 		}
 
+		var encumbranceCanvas = GameObjectFinder.FindChildObjectByName("Encumbered Warning", component.gameObject);
+		if (encumbranceCanvas == null)
+		{
+			return false;
+		}
+
 		buttonMappingsCanvas.SetActive(false);
+
+		encumbranceCanvas.transform.localPosition = new Vector3(-200, 250, -500);
+
 		return true;
 	}
 }
