@@ -19,6 +19,12 @@ public class IaCMenuPatch : GameObjectPatch
 			return false;
 		}
 
+		var craftingCanvas = GameObjectFinder.FindChildObjectByName("Crafting Canvas", gameObject);
+		if (craftingCanvas == null)
+		{
+			return false;
+		}
+
 		var iac = GameObject.FindObjectOfType<InventoryAndCraftingUI>();
 		if (iac == null)
 		{
@@ -45,6 +51,22 @@ public class IaCMenuPatch : GameObjectPatch
 		menu.OnEnterEvent += () =>
 		{
 			iac.inventoryHasFocus = true;
+			iac.Refresh();
+		};
+
+		var craftingAnchor = new GameObject("Crafting UI Anchor");
+		craftingAnchor.transform.parent = iac.transform;
+		craftingAnchor.transform.localPosition = new Vector3(1065, 1270, 0);
+		craftingAnchor.transform.localRotation = Quaternion.identity;
+		craftingAnchor.transform.localScale = new Vector3(1.1f, 2.35f, 1);
+
+		var craftingObject = gameObject.GetComponentInChildren<RecipePageUI>().gameObject;
+		var crafting = new CraftingInteractableUI(craftingObject);
+		crafting.transform = craftingAnchor.transform;
+		crafting.menu = new UIMenuWrapper(iac);
+		crafting.OnEnterEvent += () =>
+		{
+			iac.inventoryHasFocus = false;
 			iac.Refresh();
 		};
 
