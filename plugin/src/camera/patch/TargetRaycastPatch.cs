@@ -9,8 +9,35 @@ namespace TechtonicaVR.VRCamera.Patch;
 public class TargetRaycastPatch
 {
 
-	public static Transform cursorTlc;
-	public static Transform inspectorTlc;
+	private static Canvas cursorCanvas;
+	private static Transform _cursorTlc;
+	public static Transform cursorTlc
+	{
+		get => _cursorTlc;
+		set
+		{
+			_cursorTlc = value;
+			if (value != null)
+			{
+				cursorCanvas = value.GetComponentInParent<Canvas>();
+			}
+		}
+	}
+
+	private static Canvas inspectorCanvas;
+	private static Transform _inspectorTlc;
+	public static Transform inspectorTlc
+	{
+		get => _inspectorTlc;
+		set
+		{
+			_inspectorTlc = value;
+			if (value != null)
+			{
+				inspectorCanvas = value.GetComponentInParent<Canvas>();
+			}
+		}
+	}
 
 	[HarmonyPrefix]
 	[HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.UpdateAimingRaycasts))]
@@ -49,7 +76,15 @@ public class TargetRaycastPatch
 	[HarmonyPatch(typeof(CursorDotUI), nameof(PlayerFirstPersonController.LateUpdate))]
 	public static void LateUpdatePostfix(CursorDotUI __instance)
 	{
-		if (!Player.instance.fpcontroller.hasCamHit || VRCameraManager.mainCamera == null)
+		if (!Player.instance.fpcontroller.hasCamHit || VRCameraManager.mainCamera == null || cursorCanvas == null || inspectorCanvas == null)
+		{
+			return;
+		}
+
+		var anyMenuOpen = UIManager.instance.anyMenuOpen;
+		cursorCanvas.enabled = !anyMenuOpen;
+		inspectorCanvas.enabled = !anyMenuOpen;
+		if (anyMenuOpen)
 		{
 			return;
 		}
