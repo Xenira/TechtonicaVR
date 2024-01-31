@@ -14,14 +14,11 @@ public class PowerGeneratorInteractableUi : InteractableUi
 
 		var button = GameObjectFinder.FindChildObjectByName("Controller Activate Crank CG", gameObject);
 		var rectTransform = button.GetComponent<RectTransform>();
-		var rect = rectTransform.rect;
-
-		Logger.LogDebug($"Button rect: {rect} {rectTransform.localPosition}");
-		rect.x += rectTransform.localPosition.x;
-		rect.y = 260; // TODO: Find a way to get this value dynamically
+		var rect = getRect(rectTransform);
 
 		interactable = [
 			new InteractableBuilder(this, rect, button)
+				.withRecalculate(() => getRect(rectTransform))
 				.withClick((ui) => onClick())
 				.build()
 		];

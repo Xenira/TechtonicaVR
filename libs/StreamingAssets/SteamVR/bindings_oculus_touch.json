@@ -412,6 +412,16 @@
               "output": "/actions/ui/in/click"
             }
           }
+        },
+        {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/ui/in/click"
+            }
+          }
         }
       ],
       "skeleton": []

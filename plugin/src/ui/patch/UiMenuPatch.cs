@@ -49,7 +49,7 @@ public class UIMenuPatch
 			canvas.transform.localScale = ModConfig.menuScale.Value;
 		}
 
-		AsyncGameObject.Instance.timeoutFrames(() => addInteractableUi(__instance), 1);
+		AsyncGameObject.TimeoutFrames(() => addInteractableUi(__instance), 1);
 		disableButtonPrompts(__instance);
 	}
 
@@ -248,7 +248,7 @@ public class UIMenuPatch
 		canvas.transform.localPosition = Vector3.zero;
 		canvas.transform.localScale = ModConfig.menuScale.Value;
 
-		AsyncGameObject.Instance.timeoutFrames(() =>
+		AsyncGameObject.TimeoutFrames(() =>
 		{
 			var container = GameObjectFinder.FindChildObjectByName("Container", __instance.gameObject);
 			new RecipePickerInteractableUi(container)

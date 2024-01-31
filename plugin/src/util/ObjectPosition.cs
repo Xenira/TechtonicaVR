@@ -12,7 +12,7 @@ public class ObjectPosition
 		while (transform.parent != null && transform.parent != stopAt)
 		{
 			transform = transform.parent;
-			Logger.LogDebug($"Adding {transform.localPosition} from {transform.gameObject.name} to {position}");
+			Logger.LogTrace($"Adding {transform.localPosition} from {transform.gameObject.name} to {position}");
 			position += transform.localPosition;
 		}
 		return position;
@@ -24,7 +24,7 @@ public class ObjectPosition
 		while (transform.transform.parent != null && stopAt > 0)
 		{
 			transform = transform.parent;
-			Logger.LogDebug($"Adding {transform.localPosition} from {transform.gameObject.name} to {position}");
+			Logger.LogTrace($"Adding {transform.localPosition} from {transform.gameObject.name} to {position}");
 			position += transform.localPosition;
 			stopAt--;
 		}

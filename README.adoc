@@ -37,7 +37,12 @@ image:https://img.shields.io/github/license/{repo}["License", link="https://gith
 
 This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
 
-CAUTION: This mod is still in early development and *will* contain bugs. Use at your own risk. Only tested with the Valve Index / Pimax Crystal and Knuckles controllers.
+****
+I spent way over 100 hours of my free time on this mod.
+If you enjoy it, please consider supporting me on https://liberapay.com/rip3.141[Liberapay] ❤️
+
+image:https://liberapay.com/assets/widgets/donate.svg["Donate using Liberapay", link="https://liberapay.com/rip3.141"]
+****
 
 ifdef::env-github[]
 toc::[]
@@ -180,6 +185,10 @@ If you encounter any issues while using this mod, please check the BepInEx conso
 [qanda]
 Why is my framerate locked to 60fps?::
 The game is locked to x fps when running in Windowed mode. This is based on the refresh rate of your monitor. To unlock the framerate, switch to fullscreen mode. (For now)
+I am experiencing periodic stuttering / freezes. What can I do?::
+This is most likely caused by autosave. Try setting the autosave interval to a higher value using the https://thunderstore.io/c/techtonica/p/UnFoundBug/AutoSaveConfig/[AutoSaveConfig] mod.
+The games performance is bad. What can I do?::
+Try lowering the graphics settings. VR is very demanding and the game is not optimized for VR. While I am working on improving the performance, there is only so much I can do.
 Does this mod work with Gamepass?::
 Yes, the mod needs to be installed in `Gamepass/Techtonica/Content`.
 // AI generated below :P
