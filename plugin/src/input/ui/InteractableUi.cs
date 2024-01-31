@@ -19,7 +19,27 @@ public abstract class InteractableUi
 
 	public Transform transform;
 	public float zIndex = 0;
-	protected ScrollRect scrollRect;
+
+	protected Rect? viewportRect;
+	private ScrollRect _scrollRect;
+	private ScrollRect scrollRect
+	{
+		get => _scrollRect;
+		set
+		{
+			_scrollRect = value;
+			if (value != null)
+			{
+				value.onValueChanged.AddListener((v) => refresh());
+				viewportRect = getRect(value.viewport);
+			}
+			else
+			{
+				viewportRect = null;
+			}
+		}
+	}
+
 	protected RectTransform rectTransform;
 	private Canvas canvas;
 
@@ -33,6 +53,8 @@ public abstract class InteractableUi
 			return;
 		}
 		canvas = gameObject.GetComponentInParent<Canvas>();
+
+		scrollRect = gameObject.GetComponentInChildren<ScrollRect>();
 
 		LaserPointer.interactables.Add(this);
 	}
@@ -61,37 +83,47 @@ public abstract class InteractableUi
 				return null;
 			}
 
-			if (scrollRect != null)
+			if (viewportRect?.Contains(localPoint) == true)
 			{
-				if (scrollRect.verticalScrollbar)
-				{
-					if (localPoint.x < localRect.x + 12)
-					{
-						scrollRect.verticalScrollbar.value += scrollRect.verticalScrollbar.stepSize;
-					}
-					else if (localPoint.x > localRect.width - 12)
-					{
-						scrollRect.verticalScrollbar.value -= scrollRect.verticalScrollbar.stepSize;
-					}
-				}
-				if (scrollRect.horizontalScrollbar)
-				{
-					if (localPoint.y < localRect.y + 12)
-					{
-						scrollRect.horizontalScrollbar.value -= scrollRect.horizontalScrollbar.stepSize;
-					}
-					else if (localPoint.y > localRect.height - 12)
-					{
-						scrollRect.horizontalScrollbar.value += scrollRect.horizontalScrollbar.stepSize;
-					}
-				}
+				Scroll(localPoint);
 			}
 
-			var scrollOffset = scrollRect?.m_PrevPosition ?? Vector2.zero;
-			return new UiRaycastHit(this, distance + zIndex, point, localPoint + scrollOffset);
+			return new UiRaycastHit(this, distance + zIndex, point, localPoint);
 		}
 
 		return null;
+	}
+
+	private void Scroll(Vector2 localPoint)
+	{
+		var viewportPoint = new Vector2(localPoint.x - viewportRect.Value.x, localPoint.y - viewportRect.Value.y);
+		var yPercent = viewportPoint.y / viewportRect.Value.height;
+
+		var scrollSpeed = 0.125f;
+		var deadzone = 0.35f;
+		float scrollAmount;
+		if (yPercent < 0.5f - deadzone)
+		{
+			if (scrollRect.verticalNormalizedPosition <= 0f)
+			{
+				return;
+			}
+			scrollAmount = (yPercent - (0.5f - deadzone)) * scrollSpeed;
+		}
+		else if (yPercent > 0.5f + deadzone)
+		{
+			if (scrollRect.verticalNormalizedPosition >= 1f)
+			{
+				return;
+			}
+			scrollAmount = (yPercent - (0.5f + deadzone)) * scrollSpeed;
+		}
+		else
+		{
+			return;
+		}
+
+		scrollRect.verticalNormalizedPosition += scrollAmount;
 	}
 
 	public Interactable getInteractable(Vector2 point)
@@ -111,6 +143,17 @@ public abstract class InteractableUi
 		return true;
 	}
 
+	public void refresh()
+	{
+		AsyncGameObject.TimeoutFrames(() =>
+				{
+					if (!rebuildInteractables())
+					{
+						recalculateInteractablePositions();
+					}
+				}, 1);
+	}
+
 	public void recalculateInteractablePositions()
 	{
 		interactable.ForEach(i => i.recalculate());
@@ -119,13 +162,16 @@ public abstract class InteractableUi
 	public void OnEnter()
 	{
 		Logger.LogDebug($"OnEnter {transform.gameObject.name}");
-		AsyncGameObject.Instance.timeoutFrames(() =>
-		{
-			if (!rebuildInteractables())
-			{
-				recalculateInteractablePositions();
-			}
-		}, 1);
+
+		refresh();
+		AsyncGameObject.TimeoutFrames(() =>
+						{
+							if (scrollRect != null)
+							{
+								viewportRect = getRect(scrollRect.viewport);
+							}
+						}, 1);
+
 		OnEnterEvent?.Invoke();
 	}
 	public void OnExit()
@@ -151,7 +197,7 @@ public abstract class InteractableUi
 
 		rect.x += relativeLocalPosition.x;
 		rect.y += relativeLocalPosition.y;
-		Logger.LogDebug($"getRect {rectTransform.gameObject.name} {rect} {relativeLocalPosition}");
+		Logger.LogTrace($"getRect {rectTransform.gameObject.name} {rect} {relativeLocalPosition}");
 		return rect;
 	}
 }

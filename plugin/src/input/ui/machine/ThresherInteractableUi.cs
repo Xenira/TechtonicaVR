@@ -22,18 +22,10 @@ public class ThresherInteractableUi : InventoryInteractableUI
 	private Interactable getInteractable(InventoryResourceSlotUI slot)
 	{
 		var rectTransform = slot.GetComponent<RectTransform>();
-		var rect = rectTransform.rect;
-
-		var originalParent = rectTransform.parent;
-		rectTransform.parent = this.rectTransform;
-		var relativeLocalPosition = rectTransform.localPosition;
-		rectTransform.parent = originalParent;
-
-		rect.x += relativeLocalPosition.x;
-		rect.y += relativeLocalPosition.y;
-		Logger.LogDebug($"Slot rect: {slot} {rect} {rectTransform.localPosition}");
+		var rect = getRect(rectTransform);
 
 		return new InteractableBuilder(this, rect, rectTransform.gameObject)
+			.withRecalculate(() => getRect(rectTransform))
 			.withDrag(() => draggedResourceInfo ?? slot.resourceType,
 				(ui) => onDrag(slot),
 				(ui, source, target) => onDrop(ui, target, slot),

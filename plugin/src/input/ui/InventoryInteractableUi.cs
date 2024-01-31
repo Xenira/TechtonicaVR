@@ -11,7 +11,7 @@ public class InventoryInteractableUI : InteractableUi
 	private static PluginLogger Logger = PluginLogger.GetLogger<InventoryInteractableUI>();
 	protected ResourceInfo draggedResourceInfo;
 	private int draggedResourceCount;
-	private Transform viewport;
+	private InventoryGridUI inv;
 
 	public InventoryInteractableUI(GameObject gameObject) : base(gameObject)
 	{
@@ -20,23 +20,17 @@ public class InventoryInteractableUI : InteractableUi
 
 	protected virtual void init()
 	{
-		var inv = transform.gameObject.GetComponentInParent<InventoryGridUI>();
-		interactable = inv.ui.slots.Select(getInteractable).ToList();
-		scrollRect = inv.GetComponent<ScrollRect>();
+		inv = transform.gameObject.GetComponentInParent<InventoryGridUI>();
+		getInteractables = () => inv.ui.slots.Select(getInteractable).ToList();
 	}
 
 	private Interactable getInteractable(InventoryResourceSlotUI slot, int index)
 	{
 		var rectTransform = slot.GetComponent<RectTransform>();
-		var rect = rectTransform.rect;
-		viewport = rectTransform.gameObject.GetComponentInParent<CanvasRenderer>().transform;
-
-		rect.x += rectTransform.localPosition.x;
-		rect.y += rectTransform.localPosition.y;
+		var rect = getRect(rectTransform);
 
 		return new InteractableBuilder(this, rect, rectTransform.gameObject)
-			// .withClick((ui) => onClick(uiSlot))
-			.withIsHit((point) => rect.Contains(point - rectTransform.parent.parent.localPosition.ToVector2() - rectTransform.parent.parent.parent.localPosition.ToVector2()))
+			.withRecalculate(() => getRect(rectTransform))
 			.withDrag(() => draggedResourceInfo ?? slot.resourceType,
 				(ui) => onDrag(slot),
 				(ui, source, target) => onDrop(ui, target, slot),

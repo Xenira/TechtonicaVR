@@ -1,3 +1,4 @@
+using System;
 using TechtonicaVR.Util;
 using UnityEngine;
 using Valve.VR;
@@ -11,7 +12,6 @@ public static class SteamVRInputMapper
 	public static Vector2 MoveAxes { get; private set; }
 	public static Vector2 UIAxesPrimary { get; private set; }
 	public static Vector2 UIAxesSecondary { get; private set; }
-
 	public static float TurnAxis { get; private set; }
 
 	public static GameObject leftHandObject;

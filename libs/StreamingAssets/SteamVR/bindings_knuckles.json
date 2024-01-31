@@ -94,7 +94,7 @@
           "parameters": {
             "force_hold_threshold": "0.02",
             "force_release_threshold": "0.01",
-            "value_hold_threshold": "1.05"
+            "value_hold_threshold": "1.3"
           },
           "inputs": {
             "grab": {
@@ -425,6 +425,16 @@
       "sources": [
         {
           "path": "/user/hand/right/input/trigger",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/ui/in/click"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/trigger",
           "mode": "button",
           "parameters": {},
           "inputs": {

@@ -39,4 +39,13 @@ public class PluginLogger
 	{
 		TechtonicaVR.Logger.LogError($"[{prefix}] {message}");
 	}
+
+	internal void LogTrace(string v)
+	{
+		if (!ModConfig.DebugEnabled())
+		{
+			return;
+		}
+		TechtonicaVR.Logger.LogDebug($"[{prefix}] {v}");
+	}
 }
