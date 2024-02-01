@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.6.0](https://github.com/Xenira/TechtonicaVR/compare/v0.5.0...v0.6.0) (2024-02-01)
+
+
+### ✨ Features
+
+* **input:** add interaction to crafting menu ([#111](https://github.com/Xenira/TechtonicaVR/issues/111)) ([02e48d8](https://github.com/Xenira/TechtonicaVR/commit/02e48d829cf8843c009a9e25149587765da8de77))
+* **input:** add interaction to tech tree ([#121](https://github.com/Xenira/TechtonicaVR/issues/121)) ([519cf9e](https://github.com/Xenira/TechtonicaVR/commit/519cf9eaad7e29b97c1f36e67ff12b6e17cc2806))
+* **input:** add interaction to transit depot ([#119](https://github.com/Xenira/TechtonicaVR/issues/119)) ([a58f9ec](https://github.com/Xenira/TechtonicaVR/commit/a58f9ec6f7dbce1b7b10ca21147bdd67d58900cc))
+
+
+### 🐛 Bug Fixes
+
+* **input:** fix scroll views ([#118](https://github.com/Xenira/TechtonicaVR/issues/118)) ([2b6c228](https://github.com/Xenira/TechtonicaVR/commit/2b6c22806e4ceb757218663616a8d8d3b7996517))
+* **ui:** disable cursor and hologram when menus are open ([#115](https://github.com/Xenira/TechtonicaVR/issues/115)) ([a1e753c](https://github.com/Xenira/TechtonicaVR/commit/a1e753c5e939c50dd573f3f14c01dc8e722324d2))
+* **ui:** made encumbrance warning visible ([#108](https://github.com/Xenira/TechtonicaVR/issues/108)) ([1a79ec9](https://github.com/Xenira/TechtonicaVR/commit/1a79ec9f6d84dbd90a4644120dce01125f2a0173))
+
 ## [0.5.0](https://github.com/Xenira/TechtonicaVR/compare/v0.4.0...v0.5.0) (2024-01-27)
 
 
