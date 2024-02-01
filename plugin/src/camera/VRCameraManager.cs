@@ -1,7 +1,5 @@
 using System.Collections;
-using FluffyUnderware.DevTools.Extensions;
 using TechtonicaVR.Input;
-using Rewired;
 using TechtonicaVR.Assets;
 using TechtonicaVR.Debug;
 using UnityEngine;

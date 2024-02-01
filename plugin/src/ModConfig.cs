@@ -43,6 +43,8 @@ public class ModConfig
 	public static ConfigEntry<Vector3> menuScale;
 	public static ConfigEntry<Vector3> inventoryAndCraftingMenuScaleOverride;
 	public static ConfigEntry<float> menuDownwardOffset;
+	public static ConfigEntry<float> menuScrollSpeed;
+	public static ConfigEntry<float> menuScrollDeadzone;
 
 	// Debug
 	private static ConfigEntry<bool> debugMode;
@@ -89,6 +91,8 @@ public class ModConfig
 		menuScale = config.Bind("UI", "Menu Scale", new Vector3(0.001f, 0.001f, 0.001f), "Scale of Menus");
 		inventoryAndCraftingMenuScaleOverride = config.Bind("UI", "Inventory and Crafting Menu Scale Override", new Vector3(0.001f, 0.0005f, 0.001f), "Scale of Inventory and Crafting Menu. Set to 0 to use Menu Scale");
 		menuDownwardOffset = config.Bind("UI", "Menu Downward Offset", 0.2f, "Offset of Menus from head. Needed, as menus sometimes spawn too high.");
+		menuScrollSpeed = config.Bind("UI", "Menu Scroll Speed", 0.125f, "Speed of scrolling in menus");
+		menuScrollDeadzone = config.Bind("UI", "Menu Scroll Deadzone", 0.35f, "Deadzone of scrolling in menus");
 
 		// Debug
 		debugMode = config.Bind("Debug", "Debug Mode", false, "Enable debug mode");

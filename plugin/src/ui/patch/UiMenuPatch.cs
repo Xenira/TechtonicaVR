@@ -132,6 +132,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is TransitDepotUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Transit Depot Container ", instance.gameObject);
+			new TransitDepotInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)
