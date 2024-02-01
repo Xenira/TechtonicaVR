@@ -12,7 +12,7 @@ public class PlayerInventoryUIPatch : GameComponentPatch<PlayerInventoryUI>
 			return false;
 		}
 
-		new InventoryInteractableUI(playerInventory.gameObject);
+		new InventoryInteractableUi(playerInventory.gameObject);
 
 		return true;
 	}

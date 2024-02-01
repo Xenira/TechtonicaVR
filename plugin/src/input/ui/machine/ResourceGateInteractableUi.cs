@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class ResourceGateInteractableUi : InventoryInteractableUI
+public class ResourceGateInteractableUi : InventoryInteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<ResourceGateInteractableUi>();
 

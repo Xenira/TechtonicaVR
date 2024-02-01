@@ -37,12 +37,24 @@ image:https://img.shields.io/github/license/{repo}["License", link="https://gith
 
 This is a mod for the game https://store.steampowered.com/app/1457320/Techtonica/[Techtonica] that adds VR support.
 
+ifdef::env-github[]
+____
+endif::[]
+ifndef::env-github[]
 ****
-I spent way over 100 hours of my free time on this mod.
+endif::[]
+I spent countless hours of my free time on this mod.
 If you enjoy it, please consider supporting me on https://liberapay.com/rip3.141[Liberapay] ❤️
+ifndef::env-thunderstore[]
 
-image:https://liberapay.com/assets/widgets/donate.svg["Donate using Liberapay", link="https://liberapay.com/rip3.141"]
+image::https://liberapay.com/assets/widgets/donate.svg["Donate using Liberapay", link="https://liberapay.com/rip3.141"]
+endif::[]
+ifdef::env-github[]
+____
+endif::[]
+ifndef::env-github[]
 ****
+endif::[]
 
 ifdef::env-github[]
 toc::[]
@@ -170,6 +182,8 @@ Menu Spawn Distance:: Distance of the menu from the player. Default: `0.8`
 Menu Scale:: Scale of the menu (X/Y/Z). Default: `{"x": 0.001,"y":0.001,"z":0.001}`
 Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting menu (X/Y/Z). This menu has different scaling and needs separate config. Default: `{"x": 0.001,"y":0.0005,"z":0.001}`
 Menu Downward Offset:: Offset of the menu in the downward direction. Default: `0.2`
+Menu Scroll Speed:: Speed of scrolling through menus by moving the cursor to the edge. Speed increases when nearer to the edge. Default: `0.125`
+Menu Scroll Deadzone:: Deadzone for scrolling through menus by moving the cursor to the edge. In percent from the center. Effectively the size of the region not triggering scrolling. Default: `0.35`
 
 [horizontal]
 .Debug

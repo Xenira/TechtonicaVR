@@ -45,7 +45,7 @@ public class IaCMenuPatch : GameObjectPatch
 
 		var playerInventory = inventoryCanvas.GetComponentInChildren<InventoryGridUI>();
 
-		var menu = new InventoryInteractableUI(playerInventory.gameObject);
+		var menu = new InventoryInteractableUi(playerInventory.gameObject);
 		menu.transform = inventoryAnchor.transform;
 		menu.menu = new UIMenuWrapper(iac);
 		menu.OnEnterEvent += () =>
@@ -61,7 +61,7 @@ public class IaCMenuPatch : GameObjectPatch
 		craftingAnchor.transform.localScale = new Vector3(1.1f, 2.35f, 1);
 
 		var craftingObject = gameObject.GetComponentInChildren<RecipePageUI>().gameObject;
-		var crafting = new CraftingInteractableUI(craftingObject);
+		var crafting = new CraftingInteractableUi(craftingObject);
 		crafting.transform = craftingAnchor.transform;
 		crafting.menu = new UIMenuWrapper(iac);
 		crafting.OnEnterEvent += () =>

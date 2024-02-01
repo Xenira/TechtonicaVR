@@ -91,6 +91,18 @@ public class LaserPointer : MonoBehaviour
 			PointerIn(this, e);
 	}
 
+	public virtual void OnMouseDown(PointerEventArgs e)
+	{
+		Logger.LogDebug($"OnMouseDown: {e.target.transform.name}");
+		e.interactable?.mouseDown();
+	}
+
+	public virtual void OnMouseUp(PointerEventArgs e)
+	{
+		Logger.LogDebug($"OnMouseUp: {e.target.transform.name}");
+		e.interactable?.mouseUp();
+	}
+
 	public virtual void OnPointerClick(PointerEventArgs e)
 	{
 		Logger.LogDebug($"OnPointerClick: {e.target.transform.name}");
@@ -258,6 +270,30 @@ public class LaserPointer : MonoBehaviour
 		if (interactable == null)
 		{
 			return;
+		}
+
+		if (interactButton.IsPressed())
+		{
+			PointerEventArgs argsDown = new PointerEventArgs
+			{
+				distance = hit.distance,
+				flags = 0,
+				target = hit.ui,
+				interactable = interactable
+			};
+			OnMouseDown(argsDown);
+		}
+
+		if (interactButton.IsReleased())
+		{
+			PointerEventArgs argsUp = new PointerEventArgs
+			{
+				distance = hit.distance,
+				flags = 0,
+				target = hit.ui,
+				interactable = interactable
+			};
+			OnMouseUp(argsUp);
 		}
 
 		var isDraggable = interactable.isDraggable();
