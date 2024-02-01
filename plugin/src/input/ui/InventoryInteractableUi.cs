@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui;
 
-public class InventoryInteractableUI : InteractableUi
+public class InventoryInteractableUi : InteractableUi
 {
-	private static PluginLogger Logger = PluginLogger.GetLogger<InventoryInteractableUI>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<InventoryInteractableUi>();
 	protected ResourceInfo draggedResourceInfo;
 	private int draggedResourceCount;
 
-	public InventoryInteractableUI(GameObject gameObject) : base(gameObject)
+	public InventoryInteractableUi(GameObject gameObject) : base(gameObject)
 	{
 		init();
 	}
@@ -73,7 +73,7 @@ public class InventoryInteractableUI : InteractableUi
 			return;
 		}
 
-		if (ui is InventoryInteractableUI)
+		if (ui is InventoryInteractableUi)
 		{
 			var targetSlot = target.gameObject.GetComponent<InventoryResourceSlotUI>();
 			if (targetSlot == null)
@@ -87,7 +87,7 @@ public class InventoryInteractableUI : InteractableUi
 			return;
 		}
 
-		if (ui is ToolbarInteractableUI)
+		if (ui is ToolbarInteractableUi)
 		{
 			target.receiveDrop(target.ui, droppedResourceInfo);
 			sourceSlot.mouseLeftClickCallback.Invoke();
@@ -105,7 +105,7 @@ public class InventoryInteractableUI : InteractableUi
 
 	protected void onAcceptsDrop(AcceptDropEventArgs args)
 	{
-		if (args.source.ui is not InventoryInteractableUI)
+		if (args.source.ui is not InventoryInteractableUi)
 		{
 			return;
 		}

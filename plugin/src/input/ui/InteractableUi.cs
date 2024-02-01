@@ -207,6 +207,8 @@ public class InteractableBuilder
 	private InteractableReceiveDropEvent onReceiveDropEvent;
 	private InteractableHoverEnterEvent onHoverEnterEvent;
 	private InteractableHoverExitEvent onHoverExitEvent;
+	private Action onMouseDownEvent;
+	private Action onMouseUpEvent;
 
 	private InteractableIsHitCallback isHitCallback;
 	private InteractableGetObjectCallback getObjectCallback;
@@ -226,8 +228,17 @@ public class InteractableBuilder
 		{
 			recalculateCallback = recalculateCallback,
 			isClickableCallback = isClickableCallback,
-			mask = mask
+			mask = mask,
 		};
+
+		if (onMouseDownEvent != null)
+		{
+			interactable.OnMouseDown += onMouseDownEvent;
+		}
+		if (onMouseUpEvent != null)
+		{
+			interactable.OnMouseUp += onMouseUpEvent;
+		}
 
 		return interactable;
 	}
@@ -247,6 +258,18 @@ public class InteractableBuilder
 	public InteractableBuilder withMask(RectTransform mask)
 	{
 		this.mask = mask;
+		return this;
+	}
+
+	public InteractableBuilder withMouseDown(Action onMouseDown)
+	{
+		onMouseDownEvent = onMouseDown;
+		return this;
+	}
+
+	public InteractableBuilder withMouseUp(Action onMouseUp)
+	{
+		onMouseUpEvent = onMouseUp;
 		return this;
 	}
 
@@ -294,6 +317,8 @@ public class Interactable
 	public Rect rect;
 	public RectTransform mask;
 	public GameObject gameObject;
+	public event Action OnMouseDown;
+	public event Action OnMouseUp;
 	public event InteractableClickEvent OnClick;
 	public event InteractableDragEvent OnDrag;
 	public event InteractableDropEvent OnDrop;
@@ -368,7 +393,20 @@ public class Interactable
 	public void hoverExit(InteractableUi ui)
 	{
 		Logger.LogDebug($"hoverExit {ui?.transform.gameObject.name}");
+		OnMouseUp?.Invoke();
 		OnHoverExit?.Invoke(ui);
+	}
+
+	public void mouseDown()
+	{
+		Logger.LogDebug($"mouseDown {gameObject.name}");
+		OnMouseDown?.Invoke();
+	}
+
+	public void mouseUp()
+	{
+		Logger.LogDebug($"mouseUp {gameObject.name}");
+		OnMouseUp?.Invoke();
 	}
 
 	public void click(InteractableUi ui)

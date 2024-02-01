@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class ThresherInteractableUi : InventoryInteractableUI
+public class ThresherInteractableUi : InventoryInteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<ThresherInteractableUi>();
 

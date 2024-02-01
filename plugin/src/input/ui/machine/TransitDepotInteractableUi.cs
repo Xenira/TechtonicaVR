@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class TransitDepotInteractableUi : InventoryInteractableUI
+public class TransitDepotInteractableUi : InventoryInteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<TransitDepotInteractableUi>();
 

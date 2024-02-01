@@ -1,5 +1,6 @@
 using HarmonyLib;
 using TechtonicaVR.Debug;
+using TechtonicaVR.Input.Ui;
 using TechtonicaVR.Input.Ui.Machine;
 using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
@@ -136,6 +137,14 @@ public class UIMenuPatch
 		{
 			var container = GameObjectFinder.FindChildObjectByName("Transit Depot Container ", instance.gameObject);
 			new TransitDepotInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
+		else if (instance is TechTreeUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Main Tech Tree Container", instance.gameObject);
+			new TechTreeInteractableUi(instance as TechTreeUI, container)
 			{
 				menu = new UIMenuWrapper(instance)
 			};

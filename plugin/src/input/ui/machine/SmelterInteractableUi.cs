@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class SmelterInteractableUi : InventoryInteractableUI
+public class SmelterInteractableUi : InventoryInteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<SmelterInteractableUi>();
 

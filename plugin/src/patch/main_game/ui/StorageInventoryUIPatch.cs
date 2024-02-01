@@ -17,7 +17,7 @@ public class StorageInventoryUIPatch : GameObjectPatch
 			return false;
 		}
 
-		new InventoryInteractableUI(storageInventory.gameObject);
+		new InventoryInteractableUi(storageInventory.gameObject);
 
 		return true;
 	}

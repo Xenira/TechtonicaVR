@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui;
 
-public class ToolbarInteractableUI : InteractableUi
+public class ToolbarInteractableUi : InteractableUi
 {
-	private static PluginLogger Logger = PluginLogger.GetLogger<ToolbarInteractableUI>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<ToolbarInteractableUi>();
 	private ResourceInfo draggedResourceInfo;
 
-	public ToolbarInteractableUI(GameObject gameObject) : base(gameObject)
+	public ToolbarInteractableUi(GameObject gameObject) : base(gameObject)
 	{
 		var uiSlots = gameObject.GetComponentsInChildren<ToolbarSlotUI>();
 		interactable = uiSlots.Select(getInteractable).ToList();
@@ -56,7 +56,7 @@ public class ToolbarInteractableUI : InteractableUi
 		}
 
 		ResourceInfo targetResourceInfo = null;
-		if (ui is ToolbarInteractableUI)
+		if (ui is ToolbarInteractableUi)
 		{
 			var targetSlot = target.gameObject.GetComponent<ToolbarSlotUI>();
 			if (targetSlot == null)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class PlanterInteractableUi : InventoryInteractableUI
+public class PlanterInteractableUi : InventoryInteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<PlanterInteractableUi>();
 

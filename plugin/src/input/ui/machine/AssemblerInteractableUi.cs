@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui.Machine;
 
-public class AssemblerInteractableUi : InventoryInteractableUI
+public class AssemblerInteractableUi : InventoryInteractableUi
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<AssemblerInteractableUi>();
 
@@ -20,7 +20,7 @@ public class AssemblerInteractableUi : InventoryInteractableUI
 	}
 }
 
-public class AssemblerRecipeSelectInteractableUi : InventoryInteractableUI
+public class AssemblerRecipeSelectInteractableUi : InventoryInteractableUi
 {
 	public AssemblerRecipeSelectInteractableUi(GameObject gameObject) : base(gameObject)
 	{

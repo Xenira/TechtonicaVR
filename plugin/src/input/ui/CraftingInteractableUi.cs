@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui;
 
-public class CraftingInteractableUI : InteractableUi
+public class CraftingInteractableUi : InteractableUi
 {
-	private static PluginLogger Logger = PluginLogger.GetLogger<CraftingInteractableUI>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<CraftingInteractableUi>();
 
 	private RecipePageUI recipePage;
 	private Transform tabsTransform;
 
-	public CraftingInteractableUI(GameObject gameObject) : base(gameObject)
+	public CraftingInteractableUi(GameObject gameObject) : base(gameObject)
 	{
 		tabsTransform = GameObjectFinder.FindChildObjectByName("Tabs", gameObject).transform;
 		recipePage = gameObject.GetComponent<RecipePageUI>();
