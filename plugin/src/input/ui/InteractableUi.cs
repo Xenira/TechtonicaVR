@@ -20,28 +20,14 @@ public abstract class InteractableUi
 	public Transform transform;
 	public float zIndex = 0;
 
-	protected Rect? viewportRect;
-	private ScrollRect _scrollRect;
-	private ScrollRect scrollRect
-	{
-		get => _scrollRect;
-		set
-		{
-			_scrollRect = value;
-			if (value != null)
-			{
-				value.onValueChanged.AddListener((v) => refresh());
-				viewportRect = getRect(value.viewport);
-			}
-			else
-			{
-				viewportRect = null;
-			}
-		}
-	}
+	private Dictionary<ScrollRect, Rect> scrollRects = new Dictionary<ScrollRect, Rect>();
 
 	protected RectTransform rectTransform;
 	private Canvas canvas;
+
+	// Config options
+	private float scrollSpeed = ModConfig.menuScrollSpeed.Value;
+	private float deadzone = ModConfig.menuScrollDeadzone.Value;
 
 	public InteractableUi(GameObject gameObject)
 	{
@@ -54,9 +40,16 @@ public abstract class InteractableUi
 		}
 		canvas = gameObject.GetComponentInParent<Canvas>();
 
-		scrollRect = gameObject.GetComponentInChildren<ScrollRect>();
+		gameObject.GetComponentsInChildren<ScrollRect>().ForEach(addScrollRect);
 
 		LaserPointer.interactables.Add(this);
+	}
+
+	private void addScrollRect(ScrollRect scrollRect)
+	{
+		scrollRect.onValueChanged.AddListener((v) => refresh());
+		var viewportRect = getRect(scrollRect.viewport);
+		this.scrollRects.Add(scrollRect, viewportRect);
 	}
 
 	public UiRaycastHit Raycast(Ray ray)
@@ -83,10 +76,7 @@ public abstract class InteractableUi
 				return null;
 			}
 
-			if (viewportRect?.Contains(localPoint) == true)
-			{
-				Scroll(localPoint);
-			}
+			scrollRects.Where(s => s.Value.Contains(localPoint)).ForEach(s => Scroll(s.Key, s.Value, localPoint));
 
 			return new UiRaycastHit(this, distance + zIndex, point, localPoint);
 		}
@@ -94,13 +84,11 @@ public abstract class InteractableUi
 		return null;
 	}
 
-	private void Scroll(Vector2 localPoint)
+	private void Scroll(ScrollRect scrollRect, Rect viewportRect, Vector2 localPoint)
 	{
-		var viewportPoint = new Vector2(localPoint.x - viewportRect.Value.x, localPoint.y - viewportRect.Value.y);
-		var yPercent = viewportPoint.y / viewportRect.Value.height;
+		var yPercent = Mathf.Clamp01(Mathf.Abs(localPoint.y - viewportRect.y) / viewportRect.height);
 
-		var scrollSpeed = 0.125f;
-		var deadzone = 0.35f;
+
 		float scrollAmount;
 		if (yPercent < 0.5f - deadzone)
 		{
@@ -165,12 +153,12 @@ public abstract class InteractableUi
 
 		refresh();
 		AsyncGameObject.TimeoutFrames(() =>
-						{
-							if (scrollRect != null)
-							{
-								viewportRect = getRect(scrollRect.viewport);
-							}
-						}, 1);
+		{
+			foreach (var scrollRect in scrollRects.Keys.ToList())
+			{
+				scrollRects[scrollRect] = getRect(scrollRect.viewport);
+			}
+		}, 1);
 
 		OnEnterEvent?.Invoke();
 	}
@@ -189,7 +177,7 @@ public abstract class InteractableUi
 		return new Plane(transform.forward, transform.position);
 	}
 
-	protected Rect getRect(RectTransform rectTransform)
+	public Rect getRect(RectTransform rectTransform)
 	{
 		var rect = new Rect(rectTransform.rect);
 
@@ -209,6 +197,7 @@ public class InteractableBuilder
 {
 	private InteractableUi ui;
 	private Rect rect;
+	private RectTransform mask;
 	private GameObject gameObject;
 	private InteractableClickEvent onClickEvent;
 	private InteractableDragEvent onDragEvent;
@@ -236,7 +225,8 @@ public class InteractableBuilder
 		var interactable = new Interactable(ui, rect, gameObject, isHitCallback, getObjectCallback, onClickEvent, onDragEvent, onDropEvent, onCancelDragEvent, onAcceptsDropEvent, onReceiveDropEvent, onHoverEnterEvent, onHoverExitEvent)
 		{
 			recalculateCallback = recalculateCallback,
-			isClickableCallback = isClickableCallback
+			isClickableCallback = isClickableCallback,
+			mask = mask
 		};
 
 		return interactable;
@@ -251,6 +241,12 @@ public class InteractableBuilder
 	public InteractableBuilder withIsHit(InteractableIsHitCallback isHitCallback)
 	{
 		this.isHitCallback = isHitCallback;
+		return this;
+	}
+
+	public InteractableBuilder withMask(RectTransform mask)
+	{
+		this.mask = mask;
 		return this;
 	}
 
@@ -296,6 +292,7 @@ public class Interactable
 
 	public InteractableUi ui;
 	public Rect rect;
+	public RectTransform mask;
 	public GameObject gameObject;
 	public event InteractableClickEvent OnClick;
 	public event InteractableDragEvent OnDrag;
@@ -343,6 +340,15 @@ public class Interactable
 		if (IsHitCallback != null)
 		{
 			return IsHitCallback(point);
+		}
+
+		if (mask != null)
+		{
+			var maskRect = ui.getRect(mask);
+			if (!maskRect.Contains(point))
+			{
+				return false;
+			}
 		}
 
 		return rect.Contains(point);

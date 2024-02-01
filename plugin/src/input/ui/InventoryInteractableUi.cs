@@ -1,8 +1,6 @@
 using System.Linq;
-using FluffyUnderware.DevTools.Extensions;
 using TechtonicaVR.Util;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TechtonicaVR.Input.Ui;
 
@@ -11,7 +9,6 @@ public class InventoryInteractableUI : InteractableUi
 	private static PluginLogger Logger = PluginLogger.GetLogger<InventoryInteractableUI>();
 	protected ResourceInfo draggedResourceInfo;
 	private int draggedResourceCount;
-	private InventoryGridUI inv;
 
 	public InventoryInteractableUI(GameObject gameObject) : base(gameObject)
 	{
@@ -20,11 +17,11 @@ public class InventoryInteractableUI : InteractableUi
 
 	protected virtual void init()
 	{
-		inv = transform.gameObject.GetComponentInParent<InventoryGridUI>();
+		var inv = transform.gameObject.GetComponentInParent<InventoryGridUI>();
 		getInteractables = () => inv.ui.slots.Select(getInteractable).ToList();
 	}
 
-	private Interactable getInteractable(InventoryResourceSlotUI slot, int index)
+	protected Interactable getInteractable(InventoryResourceSlotUI slot, int index)
 	{
 		var rectTransform = slot.GetComponent<RectTransform>();
 		var rect = getRect(rectTransform);
@@ -43,12 +40,12 @@ public class InventoryInteractableUI : InteractableUi
 
 	protected void onHoverEnter(InventoryResourceSlotUI slot)
 	{
-		slot.mouseEnterCallback.Invoke();
+		slot.mouseEnterCallback?.Invoke();
 	}
 
 	protected void onHoverExit(InventoryResourceSlotUI slot)
 	{
-		slot.mouseExitCallback.Invoke();
+		slot.mouseExitCallback?.Invoke();
 	}
 
 	private void onClick(InventoryResourceSlotUI slot)
