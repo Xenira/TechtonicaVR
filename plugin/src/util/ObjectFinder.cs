@@ -55,6 +55,11 @@ public class GameObjectFinder
 		return obj;
 	}
 
+	public static GameObject FindChildObjectByName(string name, Transform parent)
+	{
+		return FindChildObjectByName(name, parent.gameObject);
+	}
+
 	public static IEnumerable<GameObject> FindSiblingChildObjectsByName(string name, GameObject sibling)
 	{
 		if (sibling.transform.parent == null)
