@@ -11,6 +11,7 @@ public class PlayerArrowPatch : GameObjectPatch
 	protected override bool Apply(GameObject gameObject)
 	{
 		gameObject.transform.parent = VRCameraManager.mainCamera.transform;
+		gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 		return true;
 	}
 }
