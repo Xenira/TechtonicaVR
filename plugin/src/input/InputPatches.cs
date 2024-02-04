@@ -90,7 +90,7 @@ class InputPatches
 	[HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.Move))]
 	static void Move(PlayerFirstPersonController __instance)
 	{
-		if (!__instance.m_IsGrounded || InputHandler.instance.playerInputBlocked || InputHandler.instance.playerInputBlockedOverride && VRCameraManager.mainCamera != null)
+		if ((!__instance.m_IsGrounded && !__instance.hoverPackActive) || InputHandler.instance.playerInputBlocked || InputHandler.instance.playerInputBlockedOverride && VRCameraManager.mainCamera != null)
 		{
 			return;
 		}
