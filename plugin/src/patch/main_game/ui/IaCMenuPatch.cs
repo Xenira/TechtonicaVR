@@ -1,6 +1,7 @@
+using PiUtils.Patches;
+using PiUtils.Util;
 using TechtonicaVR.Input.Ui;
 using TechtonicaVR.UI;
-using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;

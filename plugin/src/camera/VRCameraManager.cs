@@ -1,10 +1,10 @@
 using System.Collections;
 using TechtonicaVR.Input;
 using TechtonicaVR.Assets;
-using TechtonicaVR.Debug;
 using UnityEngine;
 using Valve.VR;
-using TechtonicaVR.Util;
+using PiUtils.Util;
+using PiUtils.Debug;
 
 namespace TechtonicaVR.VRCamera;
 public class VRCameraManager : MonoBehaviour
@@ -12,16 +12,22 @@ public class VRCameraManager : MonoBehaviour
 	private static PluginLogger Logger = PluginLogger.GetLogger<VRCameraManager>();
 
 	public Transform vrRoot;
+	public Transform camRoot;
+	public GameObject rightHandObject;
+	public GameObject rightHandModel;
+	public GameObject leftHandObject;
+	public GameObject leftHandModel;
 
 	public SteamVR_CameraHelper cameraHelperPrefab;
 
 	private SteamVR_CameraHelper cameraHelper;
 
 	public static Camera mainCamera;
+	public static VRCameraManager instance;
 
 	public static VRCameraManager Create()
 	{
-		var instance = new GameObject(nameof(VRCameraManager)).AddComponent<VRCameraManager>();
+		instance = new GameObject(nameof(VRCameraManager)).AddComponent<VRCameraManager>();
 
 		return instance;
 	}
@@ -73,7 +79,8 @@ public class VRCameraManager : MonoBehaviour
 		if (PlayerFirstPersonController.instance != null)
 		{
 			vrRoot = PlayerFirstPersonController.instance.transform;
-			techCam.camRoot = new GameObject("CamRoot").transform;
+			camRoot = new GameObject("CamRoot").transform;
+			techCam.camRoot = camRoot;
 
 			techCam.camRoot.parent = vrRoot;
 			techCam.camRoot.localPosition = Vector3.zero;
@@ -103,11 +110,11 @@ public class VRCameraManager : MonoBehaviour
 
 	private void SpawnHands(Transform vrRoot)
 	{
-		var rightHandObject = new GameObject("RightHand");
+		rightHandObject = new GameObject("RightHand");
 		rightHandObject.AddComponent<Gizmo>();
 
 		rightHandObject.transform.parent = vrRoot;
-		var rightHandModel = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zero, Quaternion.identity, rightHandObject.transform);
+		rightHandModel = GameObject.Instantiate(AssetLoader.RightHandBase, Vector3.zero, Quaternion.identity, rightHandObject.transform);
 		rightHandModel.transform.localPosition = new Vector3(0, 0.01f, -0.09f);
 		rightHandModel.transform.localRotation = Quaternion.Euler(358.4256f, 103.2413f, 240.2217f);
 		var rightLaserPointer = rightHandObject.AddComponent<LaserPointer>();
@@ -117,11 +124,11 @@ public class VRCameraManager : MonoBehaviour
 
 		SteamVRInputMapper.rightHandObject = rightHandObject;
 
-		var leftHandObject = new GameObject("LeftHand");
+		leftHandObject = new GameObject("LeftHand");
 		leftHandObject.AddComponent<Gizmo>();
 
 		leftHandObject.transform.parent = vrRoot;
-		var leftHandModel = GameObject.Instantiate(AssetLoader.LeftHandBase, Vector3.zero, Quaternion.identity, leftHandObject.transform);
+		leftHandModel = GameObject.Instantiate(AssetLoader.LeftHandBase, Vector3.zero, Quaternion.identity, leftHandObject.transform);
 		leftHandModel.transform.localPosition = new Vector3(0, 0.01f, -0.09f);
 		leftHandModel.transform.localRotation = Quaternion.Euler(335.2912f, 256.7355f, 116.7813f);
 

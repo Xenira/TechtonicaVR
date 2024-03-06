@@ -1,7 +1,7 @@
 using System.Linq;
 using HarmonyLib;
+using PiUtils.Util;
 using TechtonicaVR.Assets;
-using TechtonicaVR.Util;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
 using Valve.VR;

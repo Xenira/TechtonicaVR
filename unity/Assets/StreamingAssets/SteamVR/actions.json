@@ -212,6 +212,10 @@
     {
       "name": "/actions/UI/in/Click",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/IK/in/Calibrate",
+      "type": "boolean"
     }
   ],
   "action_sets": [
@@ -221,6 +225,10 @@
     },
     {
       "name": "/actions/UI",
+      "usage": "leftright"
+    },
+    {
+      "name": "/actions/IK",
       "usage": "leftright"
     }
   ],

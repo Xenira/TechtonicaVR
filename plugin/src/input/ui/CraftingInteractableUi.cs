@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using TechtonicaVR.Util;
+using PiUtils.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.Input.Ui;

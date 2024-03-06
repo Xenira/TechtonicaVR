@@ -1,5 +1,4 @@
-using System;
-using TechtonicaVR.Util;
+using PiUtils.Util;
 using UnityEngine;
 using Valve.VR;
 
@@ -20,7 +19,7 @@ public static class SteamVRInputMapper
 	/// <summary>
 	/// (current state, previous state)
 	/// </summary>
-	public static Button Sprint = new Button(SteamVR_Actions._default.Sprint);
+	public static Button Sprint = new Button(SteamVR_Actions.default_Sprint);
 	public static Button Jump = new Button(SteamVR_Actions._default.Jump);
 	public static Button Interact = new Button(SteamVR_Actions._default.Interact, InputState.Default);
 	public static Button Use = new Button(SteamVR_Actions._default.Use, InputState.Default);
@@ -62,10 +61,15 @@ public static class SteamVRInputMapper
 	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);
 	public static Button UIShortcut2 = new Button(SteamVR_Actions._default.UIShortcut2);
 
+	// IK
+	public static Button IKCalibrate = new Button(SteamVR_Actions.IK.Calibrate);
+	public static Button Grab = new Button(SteamVR_Actions._default.GrabGrip);
+
 	public static void MapActions()
 	{
 		Logger.LogInfo("Mapping SteamVR actions...");
 		UIClick.action.actionSet.Activate();
+		IKCalibrate.action.actionSet.Activate();
 		SteamVR_Actions._default.Move.AddOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.AddOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickSecondary.AddOnUpdateListener(HandleSteamVRMenuJoystickSecondary, SteamVR_Input_Sources.Any);

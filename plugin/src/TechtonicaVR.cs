@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using BepInEx;
-using BepInEx.Logging;
 using Unity.XR.OpenVR;
 using Valve.VR;
 using System.Reflection;
@@ -15,16 +14,17 @@ using TechtonicaVR.Util;
 using TechtonicaVR.Input;
 using TechtonicaVR.Assets;
 using UnityEngine.SceneManagement;
+using PiUtils.Util;
 
 namespace TechtonicaVR;
 
 [BepInPlugin("de.xenira.techtonicavr", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Techtonica.exe")]
+[BepInDependency("de.xenira.pi_utils")]
 [BepInDependency("Tobey.UnityAudio", BepInDependency.DependencyFlags.SoftDependency)]
 public class TechtonicaVR : BaseUnityPlugin
 {
-	public static new ManualLogSource Logger;
-
+	private static PluginLogger Logger;
 	public static string gameExePath = Process.GetCurrentProcess().MainModule.FileName;
 	public static string gamePath = Path.GetDirectoryName(gameExePath);
 	public static string HMDModel = "";
@@ -49,20 +49,16 @@ public class TechtonicaVR : BaseUnityPlugin
 
 	private void Awake()
 	{
-		// Plugin startup logic
-		Logger = base.Logger;
-		Logger.LogInfo($"Loading plugin {MyPluginInfo.PLUGIN_GUID} version {MyPluginInfo.PLUGIN_VERSION}...");
+		Logger = PluginLogger.GetLogger<TechtonicaVR>();
 
-		Logger.LogInfo("TechtonicaVR Mod Copyright (C) 2023 Xenira");
-		Logger.LogInfo("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation.");
-		Logger.LogInfo("This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.");
-		Logger.LogInfo("You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.");
+		Logger.LogInfo($"Loading plugin {MyPluginInfo.PLUGIN_GUID} version {MyPluginInfo.PLUGIN_VERSION}...");
+		License.LogLicense(Logger, "xenira", MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_VERSION);
 
 		ModConfig.Init(Config);
 
 		if (!ModConfig.ModEnabled())
 		{
-			Logger.LogInfo("Mod is disabled, skipping...");
+			TechtonicaVR.Logger.LogInfo("Mod is disabled, skipping...");
 			return;
 		}
 
@@ -81,7 +77,7 @@ public class TechtonicaVR : BaseUnityPlugin
 
 		StartCoroutine(AssetLoader.Load());
 
-		Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+		TechtonicaVR.Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
 
 		// Add listener for scene change
 		SceneManager.sceneLoaded += OnSceneLoaded;

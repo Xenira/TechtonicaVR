@@ -5,26 +5,29 @@ using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;
 
-class OmniseekerPatch : GameComponentPatch<OmniseekerUI>
+class CompassPatch : GameComponentPatch<CompassUI>
 
 {
-	protected override bool Apply(OmniseekerUI component)
+	protected override bool Apply(CompassUI component)
 	{
-		var tlc = component.transform;
+		var tlc = component.gameObject.transform.GetChild(0);
 		if (tlc == null)
 		{
 			return false;
 		}
 
 		var trackedCanvas = tlc.gameObject.AddComponent<HandTrackedCanvas>();
-		trackedCanvas.hand = SteamVRInputMapper.rightHandObject.GetComponentInChildren<Scanner>()?.transform;
-		trackedCanvas.showDirection = (Vector3.forward + Vector3.left).normalized;
+		trackedCanvas.hand = SteamVRInputMapper.rightHandObject.transform;
+		trackedCanvas.showDirection = Vector3.right;
 		trackedCanvas.offset = new Vector3(0.08f, -0.03f, -0.1f);
 		trackedCanvas.showDistance = 0.3f;
 		trackedCanvas.rectTransform = tlc.GetChild(0).GetComponent<RectTransform>();
-		trackedCanvas.transformOverride = new Vector3(100, 450, 550);
 
 		tlc.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
+		for (int i = 0; i < tlc.childCount; i++)
+		{
+			tlc.GetChild(i).localPosition = Vector3.zero;
+		}
 
 		return true;
 	}
