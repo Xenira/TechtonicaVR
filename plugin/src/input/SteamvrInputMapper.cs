@@ -56,6 +56,8 @@ public static class SteamVRInputMapper
 	public static Button snapTurnRight = new Button(SteamVR_Actions._default.SnapTurnRight);
 	public static Button teleport = new Button(SteamVR_Actions._default.Teleport);
 
+	public static Button Variant = new Button(SteamVR_Actions._default.Variant);
+
 	// UI
 	public static Button UIClick = new Button(SteamVR_Actions.UI.Click, InputState.Ui);
 	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);

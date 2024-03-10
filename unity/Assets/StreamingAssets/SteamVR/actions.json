@@ -206,6 +206,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/Variant",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -338,7 +342,9 @@
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/in/SonarZoomIn": "Map Zoom In",
       "/actions/default/in/SonarZoomOut": "Map Zoom Out",
-      "/actions/UI/in/Click": "Click"
+      "/actions/UI/in/Click": "Click",
+      "/actions/default/in/variant": "Variant",
+      "/actions/default/in/Variant": "Variant"
     }
   ]
 }

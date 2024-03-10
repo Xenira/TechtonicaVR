@@ -115,6 +115,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_SonarZoomOut;
         
+        private static SteamVR_Action_Boolean p_default_Variant;
+        
         private static SteamVR_Action_Vibration p_default_Haptic;
         
         private static SteamVR_Action_Boolean p_uI_Click;
@@ -513,6 +515,14 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean default_Variant
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_Variant.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration default_Haptic
         {
             get
@@ -589,6 +599,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Teleport,
                     SteamVR_Actions.default_SonarZoomIn,
                     SteamVR_Actions.default_SonarZoomOut,
+                    SteamVR_Actions.default_Variant,
                     SteamVR_Actions.default_Haptic,
                     SteamVR_Actions.uI_Click,
                     SteamVR_Actions.iK_Calibrate};
@@ -642,6 +653,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Teleport,
                     SteamVR_Actions.default_SonarZoomIn,
                     SteamVR_Actions.default_SonarZoomOut,
+                    SteamVR_Actions.default_Variant,
                     SteamVR_Actions.uI_Click,
                     SteamVR_Actions.iK_Calibrate};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
@@ -692,6 +704,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Teleport,
                     SteamVR_Actions.default_SonarZoomIn,
                     SteamVR_Actions.default_SonarZoomOut,
+                    SteamVR_Actions.default_Variant,
                     SteamVR_Actions.uI_Click,
                     SteamVR_Actions.iK_Calibrate};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
@@ -751,6 +764,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_Teleport,
                     SteamVR_Actions.default_SonarZoomIn,
                     SteamVR_Actions.default_SonarZoomOut,
+                    SteamVR_Actions.default_Variant,
                     SteamVR_Actions.uI_Click,
                     SteamVR_Actions.iK_Calibrate};
         }
@@ -806,6 +820,7 @@ namespace Valve.VR
             SteamVR_Actions.p_default_Teleport = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/Teleport")));
             SteamVR_Actions.p_default_SonarZoomIn = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SonarZoomIn")));
             SteamVR_Actions.p_default_SonarZoomOut = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SonarZoomOut")));
+            SteamVR_Actions.p_default_Variant = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/Variant")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
             SteamVR_Actions.p_uI_Click = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/UI/in/Click")));
             SteamVR_Actions.p_iK_Calibrate = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/IK/in/Calibrate")));
