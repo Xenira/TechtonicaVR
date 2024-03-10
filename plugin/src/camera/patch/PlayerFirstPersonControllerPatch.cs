@@ -17,7 +17,7 @@ class PlayerFirstPersonControllerPatch
 	[HarmonyPatch(typeof(PlayerFirstPersonController), nameof(PlayerFirstPersonController.UpdateThirdPersonView))]
 	public static bool UpdateThirdPersonView()
 	{
-		if (Player.instance.networkedPlayer)
+		if (Player.instance.networkedPlayer && VRCameraManager.mainCamera != null)
 		{
 			Player.instance.networkedPlayer.display.transform.position = Player.instance.transform.position;
 			Player.instance.networkedPlayer.display.transform.rotation = Quaternion.Euler(0f, VRCameraManager.mainCamera.transform.rotation.eulerAngles.y, 0f);
