@@ -391,6 +391,8 @@ class InputPatches
 				return SteamVRInputMapper.TechTree;
 			case RewiredConsts.Action.Pause:
 				return SteamVRInputMapper.PauseMenu;
+			case RewiredConsts.Action.Swap_Variation:
+				return SteamVRInputMapper.Variant;
 			default:
 				// Plugin.Logger.LogDebug($"Unknown Rewired button action ID: {actionId}. Using default Rewired input.");
 				return null;
@@ -430,7 +432,8 @@ class InputPatches
 			SteamVRInputMapper.UIShortcut2,
 			SteamVRInputMapper.SonarZoomIn,
 			SteamVRInputMapper.SonarZoomOut,
-			SteamVRInputMapper.PauseMenu
+			SteamVRInputMapper.PauseMenu,
+			SteamVRInputMapper.Variant,
 		];
 	}
 }
