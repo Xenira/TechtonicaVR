@@ -15,6 +15,7 @@ env:
   MOD_NAME: "techtonica_vr"
   PI_UTILS_VERSION: "0.2.0"
   TTIK_VERSION: "0.1.4"
+  TOBEY_UNITY_AUDIO_VERSION: "2.0.2"
 
 jobs:
     release-please:
@@ -39,7 +40,7 @@ jobs:
           with:
             repo: "toebeann/Tobey.UnityAudio"
             file: "Tobey.UnityAudio.zip"
-            version: "tags/v2.0.2"
+            version: "tags/v${{ env.TOBEY_UNITY_AUDIO_VERSION }}"
             token: ${{ secrets.DEPENDENCY_TOKEN }}
         - name: Download PiUtils
           if: ${{ steps.release.outputs.release_created }}
