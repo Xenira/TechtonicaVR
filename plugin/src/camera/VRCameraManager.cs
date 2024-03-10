@@ -13,16 +13,17 @@ public class VRCameraManager : MonoBehaviour
 
 	public Transform vrRoot;
 	public Transform camRoot;
-	public GameObject rightHandObject;
-	public GameObject rightHandModel;
-	public GameObject leftHandObject;
-	public GameObject leftHandModel;
+	public static GameObject rightHandObject;
+	public static GameObject rightHandModel;
+	public static GameObject leftHandObject;
+	public static GameObject leftHandModel;
 
 	public SteamVR_CameraHelper cameraHelperPrefab;
 
 	private SteamVR_CameraHelper cameraHelper;
 
 	public static Camera mainCamera;
+	public static bool mainGameLoaded = false;
 	public static VRCameraManager instance;
 
 	public static VRCameraManager Create()
@@ -73,8 +74,6 @@ public class VRCameraManager : MonoBehaviour
 		mainCamera.gameObject.AddComponent<SteamVR_Camera>();
 		mainCamera.gameObject.AddComponent<SteamVR_TrackedObject>();
 		var techCam = mainCamera.gameObject.AddComponent<TechMainCamera>();
-		HmdMatrix44_t leftEyeMatrix = OpenVR.System.GetProjectionMatrix(EVREye.Eye_Left, mainCamera.nearClipPlane, mainCamera.farClipPlane);
-		HmdMatrix44_t rightEyeMatrix = OpenVR.System.GetProjectionMatrix(EVREye.Eye_Right, mainCamera.nearClipPlane, mainCamera.farClipPlane);
 
 		if (PlayerFirstPersonController.instance != null)
 		{
@@ -95,6 +94,7 @@ public class VRCameraManager : MonoBehaviour
 				Vignette.Create();
 			}
 			Teleport.Create().transform.parent = mainCamera.transform;
+			mainGameLoaded = true;
 		}
 
 		FindObjectsOfType<Headlamp>().ForEach(h => h.transform.parent = mainCamera.transform);

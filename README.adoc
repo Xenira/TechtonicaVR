@@ -82,11 +82,17 @@ You can install the mod from https://thunderstore.io/c/techtonica/p/3_141/Techto
 . Copy the `BepInEx` and `Techtonica_Data` folders to the `Techtonica` folder in `steamapps/common` directory.
 . Run the game. The mod should be loaded automatically by BepInEx.
 
-=== Audio Fix
-Teleport and Snap turn have audio cues that are not played unless https://github.com/toebeann/Tobey.UnityAudio[Tobey.UnityAudio] is installed. You can install it from https://thunderstore.io/package/toebeann/TobeyUnityAudio/[Thunderstore] or the https://github.com/toebeann/Tobey.UnityAudio/releases[GitHub Releases] page.
+=== Dependencies
+The github release bundles the dependencies with the mod. The thunderstore release does not include the dependencies. You need to install them separately or use a mod manager that can install dependencies.
 
-- The GitHub release of the VR mod includes the audio fix so you don't need to install it separately.
-- The thunderstore release does not include the audio fix unless you install it using a mod manager that installs dependencies.
+==== TTIK (Required)
+This mod requires the https://github.com/Xenira/TTIK[TTIK] mod to be installed. This mod adds inverse kinematics (IK) to the game. This is required to render the player's body in VR. It also allows both VR and non-VR players to see the player's body movements. When playing co-op, the host needs to have this mod installed. For other non-VR players the mod is optional.
+
+==== PiUtils (Required)
+This mod requires the https://github.com/Xenira/PiUtils[PiUtils] mod to be installed. This mod provides some utility functions that are used by the VR mod.
+
+==== Audio Fix (Optional)
+Teleport and Snap turn have audio cues that are not played unless https://github.com/toebeann/Tobey.UnityAudio[Tobey.UnityAudio] is installed. You can install it from https://thunderstore.io/package/toebeann/TobeyUnityAudio/[Thunderstore] or the https://github.com/toebeann/Tobey.UnityAudio/releases[GitHub Releases] page.
 
 To manually install the UnityAudio extract the `BepInEx` folder from the downloaded archive into the game's installation directory.
 
@@ -96,7 +102,6 @@ To disable the mod change the `Enabled` under `[General]` value in the `de.xenir
 === Uninstalling the Mod
 To uninstall the mod remove the mod's files from the `BepInEx/plugins` folder. This should be the following files:
 
-- `techtonica_vr.dll`
 - 'techtonica_vr' folder
 
 If you installed the audio fix, remove the `BepInEx/patches/Tobey/UnityAudio` and `BepInEx/plugin/Tobey/UnityAudio` folder from the game's installation directory.
@@ -184,6 +189,10 @@ Inventory and Crafting Menu Scale Override:: Scale of the inventory and crafting
 Menu Downward Offset:: Offset of the menu in the downward direction. Default: `0.2`
 Menu Scroll Speed:: Speed of scrolling through menus by moving the cursor to the edge. Speed increases when nearer to the edge. Default: `0.125`
 Menu Scroll Deadzone:: Deadzone for scrolling through menus by moving the cursor to the edge. In percent from the center. Effectively the size of the region not triggering scrolling. Default: `0.35`
+
+[horizontal]
+.Graphics
+Display Body:: Enables or disables rendering of the player's body. When false only hands are rendered. Default: `true`
 
 [horizontal]
 .Debug
