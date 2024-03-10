@@ -1,18 +1,12 @@
 using System.Linq;
-using TechtonicaVR.Patches;
+using PiUtils.Patches;
+using PiUtils.Patches.Universal;
+using PiUtils.Util;
 using TechtonicaVR.Patches.MainGame.Player;
 using TechtonicaVR.Patches.MainGame.UI;
-using TechtonicaVR.Patches.Universal;
-using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR;
-
-public interface IPatch
-{
-	bool Apply();
-	bool IsApplied();
-}
 
 public class MainGamePatch : MonoBehaviour
 {

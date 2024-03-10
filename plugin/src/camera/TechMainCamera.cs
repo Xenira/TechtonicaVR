@@ -1,4 +1,4 @@
-using TechtonicaVR.Util;
+using PiUtils.Util;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -7,6 +7,7 @@ namespace TechtonicaVR.VRCamera;
 public class TechMainCamera : MonoBehaviour
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<TechMainCamera>();
+	public static TechMainCamera instance;
 
 	public Transform camRoot;
 	private PostProcessLayer postProcessLayer;
@@ -21,6 +22,8 @@ public class TechMainCamera : MonoBehaviour
 		{
 			postProcessLayer.enabled = false;
 		}
+
+		instance = this;
 	}
 
 	private void Update()

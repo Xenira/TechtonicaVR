@@ -3,7 +3,7 @@ using Valve.VR;
 using System.Collections.Generic;
 using TechtonicaVR.Input.Ui;
 using System.Linq;
-using TechtonicaVR.Util;
+using PiUtils.Util;
 
 namespace TechtonicaVR.Input;
 public class LaserPointer : MonoBehaviour

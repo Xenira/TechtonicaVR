@@ -3,7 +3,10 @@ set -e
 
 # Copy the vr dlls to the libs folder
 echo "Copying the vr dlls to the libs folder..."
-rm -rf libs
+rm -rf libs/Managed
+rm -rf libs/Plugins
+rm -rf libs/StreamingAssets
+rm -rf libs/UnitySubsystems
 mkdir -p libs/Managed
 cp -r unity/build/unity_Data/Plugins libs
 cp -r unity/build/unity_Data/StreamingAssets libs

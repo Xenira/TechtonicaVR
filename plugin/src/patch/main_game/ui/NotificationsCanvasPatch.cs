@@ -1,14 +1,14 @@
+using PiUtils.Patches;
 using TechtonicaVR.Input;
-using TechtonicaVR.Debug;
 using TechtonicaVR.UI;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;
 
-class QuestTaskListPatch : GameComponentPatch<QuestUI>
+class NotificationCanvasPatche : GameComponentPatch<NotificationUI>
 
 {
-	protected override bool Apply(QuestUI component)
+	protected override bool Apply(NotificationUI component)
 	{
 		var tlc = component.gameObject.transform.GetChild(0);
 		if (tlc == null)
@@ -24,11 +24,10 @@ class QuestTaskListPatch : GameComponentPatch<QuestUI>
 		trackedCanvas.rectTransform = tlc.GetChild(0).GetComponent<RectTransform>();
 
 		tlc.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
-		tlc.GetChild(0).localPosition = Vector3.zero;
-
-		var debugLine = tlc.gameObject.AddComponent<DebugLine>();
-		debugLine.start = trackedCanvas.hand;
-		debugLine.end = tlc;
+		for (int i = 0; i < tlc.childCount; i++)
+		{
+			tlc.GetChild(i).localPosition = Vector3.zero;
+		}
 
 		return true;
 	}

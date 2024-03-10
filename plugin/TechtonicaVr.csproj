@@ -19,19 +19,19 @@
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <PackageReference Include="techtonica-libs" Version="0.3.0-e" />
+    <PackageReference Include="PiUtils" Version="0.*" />
     <!-- <PackageReference Include="UnityEngine.Modules" Version="5.6.0" IncludeAssets="compile" /> -->
   </ItemGroup>
 
+  <!-- Load my libraries from the local file system in Debug mode, and from NuGet in Release mode. -->
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <Reference Include="PiUtils">
+      <HintPath>..\..\PiUtils\plugin\bin\Debug\netstandard2.1\pi_utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\strip-dll\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\strip-dll\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="Rewired_Core">
-      <HintPath>..\strip-dll\Rewired_Core.dll</HintPath>
-    </Reference>
     <Reference Include="SteamVR">
       <HintPath>..\libs\Managed\SteamVR.dll</HintPath>
     </Reference>
@@ -56,29 +56,8 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>..\libs\Managed\UnityEngine.XRModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\strip-dll\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\strip-dll\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SubsystemsModule">
-      <HintPath>..\strip-dll\UnityEngine.SubsystemsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\libs\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>..\strip-dll\Unity.Postprocessing.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\strip-dll\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>..\strip-dll\UnityEngine.UIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\strip-dll\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
       <HintPath>..\strip-dll\UnityEngine.AudioModule.dll</HintPath>

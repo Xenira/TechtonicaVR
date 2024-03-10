@@ -391,6 +391,27 @@
         }
       ]
     },
+    "/actions/ik": {
+      "chords": [
+        {
+          "output": "/actions/ik/in/calibrate",
+          "inputs": [
+            [
+              "/user/hand/left/input/trigger",
+              "click"
+            ],
+            [
+              "/user/hand/right/input/trigger",
+              "click"
+            ]
+          ]
+        }
+      ],
+      "poses": [],
+      "haptics": [],
+      "sources": [],
+      "skeleton": []
+    },
     "/actions/platformer": {
       "chords": [],
       "poses": [],

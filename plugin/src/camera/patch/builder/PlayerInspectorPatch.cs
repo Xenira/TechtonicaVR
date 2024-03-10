@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
+using PiUtils.Util;
 using TechtonicaVR.Input;
-using TechtonicaVR.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.VRCamera.Patch.Builder;
