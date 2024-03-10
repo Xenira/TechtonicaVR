@@ -21,6 +21,7 @@
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
     <PackageReference Include="techtonica-libs" Version="0.3.0-e" />
     <PackageReference Include="PiUtils" Version="0.*" />
+    <PackageReference Include="TTIK" Version="0.*" />
     <!-- <PackageReference Include="UnityEngine.Modules" Version="5.6.0" IncludeAssets="compile" /> -->
   </ItemGroup>
 
@@ -28,6 +29,9 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <Reference Include="PiUtils">
       <HintPath>..\..\PiUtils\plugin\bin\Debug\netstandard2.1\pi_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="TTIK">
+      <HintPath>..\..\TTIK\plugin\bin\Debug\netstandard2.1\ttik.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -37,6 +37,7 @@ public class ModConfig
 
 	// Graphics
 	public static ConfigEntry<int> targetFPS;
+	public static ConfigEntry<bool> displayBody;
 
 	// UI
 	public static ConfigEntry<float> menuSpawnDistance;
@@ -85,6 +86,7 @@ public class ModConfig
 
 		// Graphics
 		targetFPS = config.Bind("Graphics", "Target FPS", 144, "Target FPS. No effect right now, but will be used in the future, once I figure out how to do it");
+		displayBody = config.Bind("Graphics", "Display Body", true, "Display player body. If disabled, only hands are visible. Does not affect other players");
 
 		// UI
 		menuSpawnDistance = config.Bind("UI", "Menu Spawn Distance", 0.8f, "Distance from head to spawn Menus");
