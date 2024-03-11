@@ -35,6 +35,15 @@ public class ToolbarInteractableUi : InteractableUi
 	private void onClick(ToolbarSlotUI uiSlot)
 	{
 		Logger.LogDebug($"Clicked toolbar slot {uiSlot.slotIndex} {uiSlot.primaryToolbar}");
+
+		Player.instance.builder.ExitEyeDropperMode();
+
+		if (isSelected(uiSlot) && !Player.instance.toolbar.IsToolbarHidden)
+		{
+			Player.instance.toolbar.TogglePutAway();
+			return;
+		}
+
 		selectSlot(uiSlot);
 	}
 
@@ -118,6 +127,11 @@ public class ToolbarInteractableUi : InteractableUi
 	private int getToolbarIndex(ToolbarSlotUI slot)
 	{
 		return slot.primaryToolbar ? Player.instance.toolbar.selectedToolbar : Player.instance.toolbar.secondaryToolbar;
+	}
+
+	private bool isSelected(ToolbarSlotUI slot)
+	{
+		return Player.instance.toolbar._primaryToolbarSelected == slot.primaryToolbar && Player.instance.toolbar.selectedIndex == slot.slotIndex;
 	}
 
 	private ResourceInfo getSlotResource(ToolbarSlotUI slot)
