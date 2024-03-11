@@ -1,10 +1,8 @@
 using PiUtils.Objects.Behaviours;
 using PiUtils.Util;
-using TechtonicaVR.Input;
 using TechtonicaVR.VRCamera;
 using TTIK.Network;
 using UnityEngine;
-using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 namespace TechtonicaVR.Ik;
