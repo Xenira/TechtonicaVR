@@ -1,4 +1,7 @@
+using System;
 using PiUtils.Util;
+using TTIK.Ik.FingerTracking;
+using TTIK.Network;
 using UnityEngine;
 using Valve.VR;
 
@@ -82,6 +85,33 @@ public static class SteamVRInputMapper
 
 		SteamVR_Actions._default.PoseLeft.AddOnUpdateListener(SteamVR_Input_Sources.Any, LeftHandUpdate);
 		SteamVR_Actions._default.PoseRight.AddOnUpdateListener(SteamVR_Input_Sources.Any, RightHandUpdate);
+
+		SteamVR_Actions._default.SkeletonLeftHand.AddOnChangeListener(UpdateLeftSkeleton);
+		SteamVR_Actions._default.SkeletonRightHand.AddOnChangeListener(UpdateRightSkeleton);
+	}
+
+	private static void UpdateLeftSkeleton(SteamVR_Action_Skeleton skeleton)
+	{
+		UpdateSkeleton(HandType.Left, skeleton);
+	}
+
+	private static void UpdateRightSkeleton(SteamVR_Action_Skeleton skeleton)
+	{
+		UpdateSkeleton(HandType.Right, skeleton);
+	}
+
+	private static void UpdateSkeleton(HandType left, SteamVR_Action_Skeleton skeleton)
+	{
+		if (NetworkIkPlayer.localInstance == null)
+		{
+			return;
+		}
+
+		var curls = skeleton.GetFingerCurls();
+		for (var i = 0; i < curls.Length; i++)
+		{
+			NetworkIkPlayer.localInstance.UpdateFingerCurl(left, (FingerType)i, curls[i]);
+		}
 	}
 
 	public static void UnmapActions()
@@ -94,6 +124,9 @@ public static class SteamVRInputMapper
 
 		SteamVR_Actions._default.PoseLeft.RemoveOnUpdateListener(SteamVR_Input_Sources.Any, LeftHandUpdate);
 		SteamVR_Actions._default.PoseRight.RemoveOnUpdateListener(SteamVR_Input_Sources.Any, RightHandUpdate);
+
+		SteamVR_Actions._default.SkeletonLeftHand.RemoveOnChangeListener(UpdateLeftSkeleton);
+		SteamVR_Actions._default.SkeletonRightHand.RemoveOnChangeListener(UpdateRightSkeleton);
 	}
 
 	private static void HandleSteamVRMove(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)

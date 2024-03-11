@@ -14,7 +14,7 @@ name: release-please
 env:
   MOD_NAME: "techtonica_vr"
   PI_UTILS_VERSION: "0.2.0"
-  TTIK_VERSION: "0.1.4"
+  TTIK_VERSION: "0.2.0"
   TOBEY_UNITY_AUDIO_VERSION: "2.0.2"
 
 jobs:
