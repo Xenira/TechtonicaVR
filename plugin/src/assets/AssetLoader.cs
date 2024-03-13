@@ -8,7 +8,7 @@ class AssetLoader
 {
 	private static PluginLogger Logger = PluginLogger.GetLogger<AssetLoader>();
 
-	private static PiUtils.Assets.AssetLoader assetLoader = new PiUtils.Assets.AssetLoader("techtonica_vr/assets");
+	public static PiUtils.Assets.AssetLoader assetLoader;
 
 	public static GameObject LeftHandBase;
 	public static GameObject RightHandBase;
