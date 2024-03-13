@@ -157,6 +157,14 @@ public class UIMenuPatch
 				menu = new UIMenuWrapper(instance)
 			};
 		}
+		else if (instance is BlastSmelterUI)
+		{
+			var container = GameObjectFinder.FindChildObjectByName("Container", instance.gameObject);
+			new BlastSmelterInteractableUi(container)
+			{
+				menu = new UIMenuWrapper(instance)
+			};
+		}
 	}
 
 	private static void disableButtonPrompts(UIMenu __instance)
