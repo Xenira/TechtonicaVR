@@ -56,6 +56,8 @@ public class TechtonicaVR : BaseUnityPlugin
 		Logger.LogInfo($"Loading plugin {MyPluginInfo.PLUGIN_GUID} version {MyPluginInfo.PLUGIN_VERSION}...");
 		License.LogLicense(Logger, "xenira", MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_VERSION);
 
+		AssetLoader.assetLoader = new PiUtils.Assets.AssetLoader(Path.Combine(Path.GetDirectoryName(Info.Location), "assets"));
+
 		ModConfig.Init(Config);
 
 		if (!ModConfig.ModEnabled())
