@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.0.0](https://github.com/Xenira/TechtonicaVR/compare/v0.6.0...v1.0.0) (2024-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **ik:** Mod folder structure has changed. Please remove the old mod entirely before installing this version.
+
+### ✨ Features
+
+* **ik:** add ik support ([#133](https://github.com/Xenira/TechtonicaVR/issues/133)) ([f028a00](https://github.com/Xenira/TechtonicaVR/commit/f028a002dc5e789eb8c97d092ac924b954bbe770))
+* **input:** add finger tracking ([#139](https://github.com/Xenira/TechtonicaVR/issues/139)) ([c7b3d39](https://github.com/Xenira/TechtonicaVR/commit/c7b3d39c584ddbc121a4de2eef2b3be3fade4942))
+* **input:** add interaction to blast smelter menu ([#143](https://github.com/Xenira/TechtonicaVR/issues/143)) ([441cd8f](https://github.com/Xenira/TechtonicaVR/commit/441cd8f962ff28b96aeb40205c736348433d78de))
+* **input:** add interaction to elevator ([#126](https://github.com/Xenira/TechtonicaVR/issues/126)) ([d287594](https://github.com/Xenira/TechtonicaVR/commit/d2875940c83071b0c56c4f6c79cb483e4e528396))
+* **input:** add variant button ([#134](https://github.com/Xenira/TechtonicaVR/issues/134)) ([130b7e4](https://github.com/Xenira/TechtonicaVR/commit/130b7e46620b9bf8e2fd5cbfaa238c352845000a))
+* **ui:** add interaction to storage limit ui ([#137](https://github.com/Xenira/TechtonicaVR/issues/137)) ([17ae74e](https://github.com/Xenira/TechtonicaVR/commit/17ae74e22c160a6a633b4293e32d00967ecde1b6))
+
+
+### 🐛 Bug Fixes
+
+* **assets:** set asset path relative to plugin dll ([#145](https://github.com/Xenira/TechtonicaVR/issues/145)) ([85eda34](https://github.com/Xenira/TechtonicaVR/commit/85eda3457e01d977cda3243b49e4dde14b11bd38))
+* **coop:** sync player rotation with headset ([#129](https://github.com/Xenira/TechtonicaVR/issues/129)) ([5133d65](https://github.com/Xenira/TechtonicaVR/commit/5133d651f3580d4b75808dd38d33832a2cb7ee5b))
+* **input:** allow turn with hoverpack ([#125](https://github.com/Xenira/TechtonicaVR/issues/125)) ([9e3e8fd](https://github.com/Xenira/TechtonicaVR/commit/9e3e8fd34f9aad86f3eb9a7fba29376e63c7c18e))
+* **input:** cancel eyedrop when changing toolbar index ([#140](https://github.com/Xenira/TechtonicaVR/issues/140)) ([7f4f7c7](https://github.com/Xenira/TechtonicaVR/commit/7f4f7c7ddbf707c7b2def1d3d158085fa278273a))
+* **input:** change vertical belt targeting to use hand ([#136](https://github.com/Xenira/TechtonicaVR/issues/136)) ([5787234](https://github.com/Xenira/TechtonicaVR/commit/57872346a815b4dff34ade012ccecf156e97cbe8))
+* **ui:** show omniseeker ui ([#123](https://github.com/Xenira/TechtonicaVR/issues/123)) ([3f773bd](https://github.com/Xenira/TechtonicaVR/commit/3f773bd0c58cb8097e4a83857aa58dbe9ff74c09))
+
+
+### ♻️ Code Refactoring
+
+* change to use piutils ([#130](https://github.com/Xenira/TechtonicaVR/issues/130)) ([ae2ae72](https://github.com/Xenira/TechtonicaVR/commit/ae2ae72545d97133f595535a445c19a102fe9980))
+
+
+### 👷 Build System
+
+* **deps:** bump TTIK from 0.2.0 to 0.2.1 in /plugin ([#142](https://github.com/Xenira/TechtonicaVR/issues/142)) ([b805334](https://github.com/Xenira/TechtonicaVR/commit/b805334fc3f8cbbb72091eb803b95d69400e1086))
+* **deps:** bump TTIK from 0.2.1 to 0.2.2 in /plugin ([#146](https://github.com/Xenira/TechtonicaVR/issues/146)) ([6b74837](https://github.com/Xenira/TechtonicaVR/commit/6b74837999548d8942c92010d5bb7315380eb402))
+
 ## [0.6.0](https://github.com/Xenira/TechtonicaVR/compare/v0.5.0...v0.6.0) (2024-02-01)
 
 
