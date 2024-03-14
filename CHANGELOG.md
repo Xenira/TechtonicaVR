@@ -36,6 +36,7 @@
 
 * **deps:** bump TTIK from 0.2.0 to 0.2.1 in /plugin ([#142](https://github.com/Xenira/TechtonicaVR/issues/142)) ([b805334](https://github.com/Xenira/TechtonicaVR/commit/b805334fc3f8cbbb72091eb803b95d69400e1086))
 * **deps:** bump TTIK from 0.2.1 to 0.2.2 in /plugin ([#146](https://github.com/Xenira/TechtonicaVR/issues/146)) ([6b74837](https://github.com/Xenira/TechtonicaVR/commit/6b74837999548d8942c92010d5bb7315380eb402))
+* **deps:** Update packaged TTIK version ([#147](https://github.com/Xenira/TechtonicaVR/issues/147)) ([559c3e5](https://github.com/Xenira/TechtonicaVR/commit/559c3e5afc8c65f2633e522157e3edf0248d4a60))
 
 ## [0.6.0](https://github.com/Xenira/TechtonicaVR/compare/v0.5.0...v0.6.0) (2024-02-01)
 
