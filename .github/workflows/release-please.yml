@@ -14,7 +14,7 @@ name: release-please
 env:
   MOD_NAME: "techtonica_vr"
   PI_UTILS_VERSION: "0.2.0"
-  TTIK_VERSION: "0.2.0"
+  TTIK_VERSION: "0.2.2"
   TOBEY_UNITY_AUDIO_VERSION: "2.0.2"
 
 jobs:
@@ -62,7 +62,7 @@ jobs:
           if: ${{ steps.release.outputs.release_created }}
           run: |
             cd artifact && npx downdoc -a env-github -a env-thunderstore README.adoc && zip -r ${{ env.MOD_NAME }}-${{ steps.release.outputs.tag_name }}-thunderstore.zip ./ && cd ..
-            mv artifact${{ env.MOD_NAME }}-${{ steps.release.outputs.tag_name }}-thunderstore.zip .
+            mv artifact/${{ env.MOD_NAME }}-${{ steps.release.outputs.tag_name }}-thunderstore.zip .
             rm artifact/README.md
             unzip Tobey.UnityAudio.zip -d ./artifact/
             unzip -n pi_utils-v${{ env.PI_UTILS_VERSION }}.zip -d ./artifact/
