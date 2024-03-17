@@ -170,4 +170,9 @@ public static class SteamVRInputMapper
 		rightHandObject.transform.localPosition = fromAction.localPosition;
 		rightHandObject.transform.localRotation = fromAction.localRotation;
 	}
+
+	public static void PlayVibration(SteamVR_Input_Sources input_sources, float amplitude, float? duration = null, float? frequency = null)
+	{
+		SteamVR_Actions._default.Haptic.Execute(0, duration ?? Time.deltaTime, frequency ?? 1f / 60f, amplitude, input_sources);
+	}
 }

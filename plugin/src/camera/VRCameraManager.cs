@@ -5,6 +5,7 @@ using UnityEngine;
 using Valve.VR;
 using PiUtils.Util;
 using PiUtils.Debug;
+using TechtonicaVR.VrPlayer;
 
 namespace TechtonicaVR.VRCamera;
 public class VRCameraManager : MonoBehaviour
@@ -94,10 +95,11 @@ public class VRCameraManager : MonoBehaviour
 				Vignette.Create();
 			}
 			Teleport.Create().transform.parent = mainCamera.transform;
+
+			new GameObject("MainGamePlayer").AddComponent<MainGamePlayer>();
+
 			mainGameLoaded = true;
 		}
-
-		FindObjectsOfType<Headlamp>().ForEach(h => h.transform.parent = mainCamera.transform);
 	}
 
 	IEnumerator PatchCoroutine()

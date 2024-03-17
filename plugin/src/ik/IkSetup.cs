@@ -1,6 +1,7 @@
 using PiUtils.Objects.Behaviours;
 using PiUtils.Util;
 using TechtonicaVR.VRCamera;
+using TechtonicaVR.VrPlayer;
 using TTIK.Network;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -61,6 +62,8 @@ public class IkSetup
 				VRCameraManager.rightHandModel.SetActive(!ModConfig.displayBody.Value);
 
 				instance.avatar.SetActive(ModConfig.displayBody.Value);
+
+				MainGamePlayer.instance?.lightController.SetBackpackLight(GameObjectFinder.FindChildObjectByName("Backpack Spotlight", instance.avatar));
 
 				// SteamVRInputMapper.Grab.ButtonPressed += (object _sender, SteamVR_Input_Sources source) =>
 				// {
