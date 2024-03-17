@@ -57,6 +57,7 @@ public class MainGamePatch : MonoBehaviour
 						new HudPatch(),
 						new ProductionTerminalPatch(),
 						new OmniseekerPatch(),
+						new SystemLogUiPatch(),
 				]).ToArray();
 
 		Logger.LogDebug("Hello World!");
