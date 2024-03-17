@@ -21,8 +21,8 @@ namespace TechtonicaVR;
 
 [BepInPlugin("de.xenira.techtonicavr", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInProcess("Techtonica.exe")]
-[BepInDependency("de.xenira.ttik", "0.2.0")]
-[BepInDependency("de.xenira.pi_utils", "0.2.0")]
+[BepInDependency("de.xenira.ttik", "0.2.2")]
+[BepInDependency("de.xenira.pi_utils", "0.3.0")]
 [BepInDependency("Tobey.UnityAudio", BepInDependency.DependencyFlags.SoftDependency)]
 public class TechtonicaVR : BaseUnityPlugin
 {
