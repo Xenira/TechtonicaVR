@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/Xenira/TechtonicaVR/compare/v1.0.0...v1.1.0) (2024-03-17)
+
+
+### ✨ Features
+
+* **player:** add ability to toggle headlamps ([#151](https://github.com/Xenira/TechtonicaVR/issues/151)) ([c56296a](https://github.com/Xenira/TechtonicaVR/commit/c56296a33d3bb8b39d7185778c032f3049a3f1ee))
+
+
+### 🐛 Bug Fixes
+
+* **ui:** fix notification ui position ([#154](https://github.com/Xenira/TechtonicaVR/issues/154)) ([7f08dfa](https://github.com/Xenira/TechtonicaVR/commit/7f08dfaf95443afeeb691c799455efe30a4f1274))
+
 ## [1.0.0](https://github.com/Xenira/TechtonicaVR/compare/v0.6.0...v1.0.0) (2024-03-13)
 
 
