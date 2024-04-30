@@ -36,7 +36,7 @@ jobs:
             github-token: ${{ secrets.DEPENDENCY_TOKEN }}
         - name: Download Tobey.UnityAudio
           if: ${{ steps.release.outputs.release_created }}
-          uses: dsaltares/fetch-gh-release-asset@1.1.1
+          uses: dsaltares/fetch-gh-release-asset@1.1.2
           with:
             repo: "toebeann/Tobey.UnityAudio"
             file: "Tobey.UnityAudio.zip"
@@ -44,7 +44,7 @@ jobs:
             token: ${{ secrets.DEPENDENCY_TOKEN }}
         - name: Download PiUtils
           if: ${{ steps.release.outputs.release_created }}
-          uses: dsaltares/fetch-gh-release-asset@1.1.1
+          uses: dsaltares/fetch-gh-release-asset@1.1.2
           with:
             repo: "xenira/PiUtils"
             file: "pi_utils-v${{ env.PI_UTILS_VERSION }}.zip"
@@ -52,7 +52,7 @@ jobs:
             token: ${{ secrets.DEPENDENCY_TOKEN }}
         - name: Download TTIK
           if: ${{ steps.release.outputs.release_created }}
-          uses: dsaltares/fetch-gh-release-asset@1.1.1
+          uses: dsaltares/fetch-gh-release-asset@1.1.2
           with:
             repo: "xenira/TTIK"
             file: "ttik-v${{ env.TTIK_VERSION }}.zip"
