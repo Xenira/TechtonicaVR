@@ -1,5 +1,6 @@
 using PiUtils.Objects.Behaviours;
 using PiUtils.Util;
+using PiVrLoader.VRCamera;
 using TechtonicaVR.VRCamera;
 using TechtonicaVR.VrPlayer;
 using TTIK.Network;
@@ -41,7 +42,7 @@ public class IkSetup
 			rightHandTarget.transform.localRotation = Quaternion.Euler(328.5594f, 6.5692f, 279.517f);
 			rightHandGrab = rightHandTarget.AddComponent<Grabable>();
 
-			AsyncGameObject.DelayUntil(() => instance.CmdInitIkPlayer(), () => VRCameraManager.mainGameLoaded);
+			AsyncGameObject.DelayUntil(() => instance.CmdInitIkPlayer(), () => TechCameraManager.mainGameLoaded);
 		};
 		NetworkIkPlayer.OnIkInitialized += (instance) =>
 		{
@@ -49,17 +50,17 @@ public class IkSetup
 			AsyncGameObject.DelayUntil(() =>
 			{
 				headTarget.transform.SetParent(VRCameraManager.mainCamera.transform, false);
-				leftHandTarget.transform.SetParent(VRCameraManager.leftHandObject.transform, false);
-				rightHandTarget.transform.SetParent(VRCameraManager.rightHandObject.transform, false);
+				leftHandTarget.transform.SetParent(TechCameraManager.leftHandObject.transform, false);
+				rightHandTarget.transform.SetParent(TechCameraManager.rightHandObject.transform, false);
 				instance.calibrate(headTarget.transform, leftHandTarget.transform, rightHandTarget.transform);
 				instance.calibrated(null);
-			}, () => VRCameraManager.mainGameLoaded);
+			}, () => TechCameraManager.mainGameLoaded);
 
 			instance.OnCalibrated += () =>
 			{
 				Logger.LogDebug("Ik player calibrated. Starting tracking...");
-				VRCameraManager.leftHandModel.SetActive(!ModConfig.displayBody.Value);
-				VRCameraManager.rightHandModel.SetActive(!ModConfig.displayBody.Value);
+				TechCameraManager.leftHandModel.SetActive(!ModConfig.displayBody.Value);
+				TechCameraManager.rightHandModel.SetActive(!ModConfig.displayBody.Value);
 
 				instance.avatar.SetActive(ModConfig.displayBody.Value);
 

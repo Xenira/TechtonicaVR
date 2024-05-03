@@ -1,5 +1,5 @@
 using PiUtils.Patches;
-using TechtonicaVR.Input;
+using PiVrLoader.Input;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.Player;

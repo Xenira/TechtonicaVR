@@ -6,11 +6,13 @@ using Valve.VR;
 using PiUtils.Util;
 using PiUtils.Debug;
 using TechtonicaVR.VrPlayer;
+using PiVrLoader.VRCamera;
+using PiVrLoader.Input;
 
 namespace TechtonicaVR.VRCamera;
-public class VRCameraManager : MonoBehaviour
+public class TechCameraManager : MonoBehaviour
 {
-	private static PluginLogger Logger = PluginLogger.GetLogger<VRCameraManager>();
+	private static PluginLogger Logger = PluginLogger.GetLogger<TechCameraManager>();
 
 	public Transform vrRoot;
 	public Transform camRoot;
@@ -23,13 +25,18 @@ public class VRCameraManager : MonoBehaviour
 
 	private SteamVR_CameraHelper cameraHelper;
 
-	public static Camera mainCamera;
 	public static bool mainGameLoaded = false;
-	public static VRCameraManager instance;
+	private static TechCameraManager instance;
 
-	public static VRCameraManager Create()
+	public static TechCameraManager Create()
 	{
-		instance = new GameObject(nameof(VRCameraManager)).AddComponent<VRCameraManager>();
+		if (instance != null)
+		{
+			Logger.LogWarning("TechCameraManager already exists, destroying it");
+			Destroy(instance.gameObject);
+		}
+
+		instance = new GameObject(nameof(TechCameraManager)).AddComponent<TechCameraManager>();
 
 		return instance;
 	}
@@ -39,67 +46,41 @@ public class VRCameraManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	private void OnDestroy()
+	private void Awake()
 	{
-		Logger.LogInfo("Destroying vr camera manager...");
-	}
-
-	private void OnEnable()
-	{
-		Logger.LogInfo("Enabling vr camera manager...");
-	}
-
-	private void OnDisable()
-	{
-		Logger.LogInfo("Disabling vr camera manager...");
-	}
-
-	private void Update()
-	{
-		if (Camera.main == null)
-		{
-			return;
-		}
-
-		if (Camera.main != mainCamera)
-		{
-			mainCamera = Camera.main;
-			SetupCamera();
-		}
+		SetupCamera();
 	}
 
 	private void SetupCamera()
 	{
-		Logger.LogInfo("Setting up camera...");
-
-		mainCamera.gameObject.AddComponent<SteamVR_Camera>();
-		mainCamera.gameObject.AddComponent<SteamVR_TrackedObject>();
-		var techCam = mainCamera.gameObject.AddComponent<TechMainCamera>();
-
-		if (PlayerFirstPersonController.instance != null)
+		VrMainCamera.OnMainCameraCreated += (cam) =>
 		{
-			vrRoot = PlayerFirstPersonController.instance.transform;
-			camRoot = new GameObject("CamRoot").transform;
-			techCam.camRoot = camRoot;
-
-			techCam.camRoot.parent = vrRoot;
-			techCam.camRoot.localPosition = Vector3.zero;
-			mainCamera.transform.parent = techCam.camRoot;
-
-			StartCoroutine(PatchCoroutine());
-			SpawnHands(techCam.camRoot);
-			AddAudioSrc(mainCamera);
-
-			if (ModConfig.VignetteEnabled())
+			var techCam = cam.gameObject.AddComponent<TechMainCamera>();
+			if (PlayerFirstPersonController.instance != null)
 			{
-				Vignette.Create();
+				vrRoot = PlayerFirstPersonController.instance.transform;
+				camRoot = new GameObject("CamRoot").transform;
+				techCam.camRoot = camRoot;
+
+				techCam.camRoot.parent = vrRoot;
+				techCam.camRoot.localPosition = Vector3.zero;
+				cam.transform.parent = techCam.camRoot;
+
+				StartCoroutine(PatchCoroutine());
+				SpawnHands(techCam.camRoot);
+				AddAudioSrc(VRCameraManager.mainCamera);
+
+				if (ModConfig.VignetteEnabled())
+				{
+					Vignette.Create();
+				}
+				Teleport.Create(TechInputMapper.teleport, Player.instance.builder.defaultMask).transform.parent = VRCameraManager.mainCamera.transform;
+
+				new GameObject("MainGamePlayer").AddComponent<MainGamePlayer>();
+
+				mainGameLoaded = true;
 			}
-			Teleport.Create().transform.parent = mainCamera.transform;
-
-			new GameObject("MainGamePlayer").AddComponent<MainGamePlayer>();
-
-			mainGameLoaded = true;
-		}
+		};
 	}
 
 	IEnumerator PatchCoroutine()
@@ -121,7 +102,7 @@ public class VRCameraManager : MonoBehaviour
 		rightHandModel.transform.localRotation = Quaternion.Euler(358.4256f, 103.2413f, 240.2217f);
 		var rightLaserPointer = rightHandObject.AddComponent<LaserPointer>();
 		rightLaserPointer.inputSource = SteamVR_Input_Sources.RightHand;
-		rightLaserPointer.interactButton = SteamVRInputMapper.UIClick;
+		rightLaserPointer.interactButton = TechInputMapper.UIClick;
 		rightLaserPointer.direction = Vector3.down;
 
 		SteamVRInputMapper.rightHandObject = rightHandObject;

@@ -1,6 +1,7 @@
 using System.Linq;
 using PiUtils.Objects.Behaviours;
 using PiUtils.Util;
+using PiVrLoader.Input;
 using TechtonicaVR.Input;
 using TechtonicaVR.VRCamera;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class LightController
 	public LightController(Headlamp[] headlamps)
 	{
 
-		SteamVRInputMapper.Use.ButtonReleased += OnUseButtonReleased;
+		TechInputMapper.Use.ButtonReleased += OnUseButtonReleased;
 
 		this.headlamps = headlamps.Where(h => h.enabled).ToArray();
 
@@ -37,7 +38,7 @@ public class LightController
 		interactableObject.transform.localRotation = Quaternion.Euler(337.1403f, 3.5846f, 277.2928f);
 
 		backpackInteractable = interactableObject.AddComponent<Interactable>();
-		backpackInteractable.interactionTransform = VRCameraManager.rightHandObject.transform;
+		backpackInteractable.interactionTransform = TechCameraManager.rightHandObject.transform;
 		backpackInteractable.OnEnter += () => SteamVRInputMapper.PlayVibration(SteamVR_Input_Sources.RightHand, 0.3f);
 
 		headlamps?.ForEach(lamp => lamp.TurnOff());
@@ -93,7 +94,7 @@ public class LightController
 		interactableObject.transform.localRotation = Quaternion.Euler(336.0304f, 355.1733f, 353.0185f);
 
 		var interactable = interactableObject.gameObject.AddComponent<Interactable>();
-		interactable.interactionTransform = VRCameraManager.rightHandObject.transform;
+		interactable.interactionTransform = TechCameraManager.rightHandObject.transform;
 		interactable.OnEnter += () => SteamVRInputMapper.PlayVibration(SteamVR_Input_Sources.RightHand, 0.3f);
 
 		return interactable;

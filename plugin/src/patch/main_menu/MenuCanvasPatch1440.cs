@@ -1,11 +1,13 @@
 using PiUtils.Patches;
+using PiUtils.Util;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainMenu;
 
-public class MenuCanvasPatch : GameObjectPatch
+public class MenuCanvasPatch1440 : GameObjectPatch
 {
-	public MenuCanvasPatch() : base("Canvas")
+	private static PluginLogger Logger = PluginLogger.GetLogger<MenuCanvasPatch1440>();
+	public MenuCanvasPatch1440() : base("Canvas 1440")
 	{
 	}
 
@@ -24,6 +26,8 @@ public class MenuCanvasPatch : GameObjectPatch
 
 		var canvas = gameObject.GetComponent<Canvas>();
 		canvas.renderMode = RenderMode.WorldSpace;
+
+		Logger.LogWarning("MenuCanvasPatch1440 applied");
 
 		return true;
 	}
