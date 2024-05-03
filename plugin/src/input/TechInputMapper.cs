@@ -1,5 +1,5 @@
-using System;
 using PiUtils.Util;
+using PiVrLoader.Input;
 using TTIK.Ik.FingerTracking;
 using TTIK.Network;
 using UnityEngine;
@@ -7,25 +7,21 @@ using Valve.VR;
 
 namespace TechtonicaVR.Input;
 
-public static class SteamVRInputMapper
+public static class TechInputMapper
 {
 	private static PluginLogger Logger = new PluginLogger(typeof(SteamVRInputMapper));
 
-	public static Vector2 MoveAxes { get; private set; }
 	public static Vector2 UIAxesPrimary { get; private set; }
 	public static Vector2 UIAxesSecondary { get; private set; }
-	public static float TurnAxis { get; private set; }
 
-	public static GameObject leftHandObject;
-	public static GameObject rightHandObject;
 
 	/// <summary>
 	/// (current state, previous state)
 	/// </summary>
 	public static Button Sprint = new Button(SteamVR_Actions.default_Sprint);
 	public static Button Jump = new Button(SteamVR_Actions._default.Jump);
-	public static Button Interact = new Button(SteamVR_Actions._default.Interact, InputState.Default);
-	public static Button Use = new Button(SteamVR_Actions._default.Use, InputState.Default);
+	public static Button Interact = new Button(SteamVR_Actions._default.Interact, SteamVRInputMapper.DefaultState);
+	public static Button Use = new Button(SteamVR_Actions._default.Use, SteamVRInputMapper.DefaultState);
 	public static Button TechTree = new Button(SteamVR_Actions._default.TechTree);
 	public static Button Inventory = new Button(SteamVR_Actions._default.Inventory);
 	public static Button takeAll = new Button(SteamVR_Actions._default.TakeAll);
@@ -35,8 +31,8 @@ public static class SteamVRInputMapper
 	public static Button transfer = new Button(SteamVR_Actions._default.Transfer);
 	public static Button transferHalf = new Button(SteamVR_Actions._default.TransferHalf);
 	public static Button transferAll = new Button(SteamVR_Actions._default.TransferAll);
-	public static Button UIPageLeft = new Button(SteamVR_Actions._default.UIPageLeft, InputState.Default);
-	public static Button UIPageRight = new Button(SteamVR_Actions._default.UIPageRight, InputState.Default);
+	public static Button UIPageLeft = new Button(SteamVR_Actions._default.UIPageLeft, SteamVRInputMapper.DefaultState);
+	public static Button UIPageRight = new Button(SteamVR_Actions._default.UIPageRight, SteamVRInputMapper.DefaultState);
 	public static Button UIPageLeftSecondary = new Button(SteamVR_Actions._default.UIPageLeftSecondary);
 	public static Button UIPageRightSecondary = new Button(SteamVR_Actions._default.UIPageRightSecondary);
 	public static Button UISubmit = new Button(SteamVR_Actions._default.UISubmit);
@@ -62,7 +58,7 @@ public static class SteamVRInputMapper
 	public static Button Variant = new Button(SteamVR_Actions._default.Variant);
 
 	// UI
-	public static Button UIClick = new Button(SteamVR_Actions.UI.Click, InputState.Ui);
+	public static Button UIClick = new Button(SteamVR_Actions.UI.Click, SteamVRInputMapper.UiState);
 	public static Button UIShortcut1 = new Button(SteamVR_Actions._default.UIShortcut1);
 	public static Button UIShortcut2 = new Button(SteamVR_Actions._default.UIShortcut2);
 
@@ -76,15 +72,11 @@ public static class SteamVRInputMapper
 	{
 		Logger.LogInfo("Mapping SteamVR actions...");
 		UIClick.action.actionSet.Activate();
+
 		// Not used until we have FBT
 		// IKCalibrate.action.actionSet.Activate();
-		SteamVR_Actions._default.Move.AddOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.AddOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickSecondary.AddOnUpdateListener(HandleSteamVRMenuJoystickSecondary, SteamVR_Input_Sources.Any);
-		SteamVR_Actions._default.SmoothTurn.AddOnUpdateListener(HandleSteamVRSmoothTurn, SteamVR_Input_Sources.Any);
-
-		SteamVR_Actions._default.PoseLeft.AddOnUpdateListener(SteamVR_Input_Sources.Any, LeftHandUpdate);
-		SteamVR_Actions._default.PoseRight.AddOnUpdateListener(SteamVR_Input_Sources.Any, RightHandUpdate);
 
 		SteamVR_Actions._default.SkeletonLeftHand.AddOnChangeListener(UpdateLeftSkeleton);
 		SteamVR_Actions._default.SkeletonRightHand.AddOnChangeListener(UpdateRightSkeleton);
@@ -117,26 +109,11 @@ public static class SteamVRInputMapper
 	public static void UnmapActions()
 	{
 		Logger.LogInfo("Unmapping SteamVR actions...");
-		SteamVR_Actions._default.Move.RemoveOnUpdateListener(HandleSteamVRMove, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickPrimary.RemoveOnUpdateListener(HandleSteamVRMenuJoystickPrimary, SteamVR_Input_Sources.Any);
 		SteamVR_Actions._default.MenuJoystickSecondary.RemoveOnUpdateListener(HandleSteamVRMenuJoystickSecondary, SteamVR_Input_Sources.Any);
-		SteamVR_Actions._default.SmoothTurn.RemoveOnUpdateListener(HandleSteamVRSmoothTurn, SteamVR_Input_Sources.Any);
-
-		SteamVR_Actions._default.PoseLeft.RemoveOnUpdateListener(SteamVR_Input_Sources.Any, LeftHandUpdate);
-		SteamVR_Actions._default.PoseRight.RemoveOnUpdateListener(SteamVR_Input_Sources.Any, RightHandUpdate);
 
 		SteamVR_Actions._default.SkeletonLeftHand.RemoveOnChangeListener(UpdateLeftSkeleton);
 		SteamVR_Actions._default.SkeletonRightHand.RemoveOnChangeListener(UpdateRightSkeleton);
-	}
-
-	private static void HandleSteamVRMove(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
-	{
-		MoveAxes = axis;
-	}
-
-	private static void HandleSteamVRSmoothTurn(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
-	{
-		TurnAxis = axis.x;
 	}
 
 	private static void HandleSteamVRMenuJoystickPrimary(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
@@ -147,32 +124,5 @@ public static class SteamVRInputMapper
 	private static void HandleSteamVRMenuJoystickSecondary(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
 	{
 		UIAxesSecondary = axis;
-	}
-
-	private static void LeftHandUpdate(SteamVR_Action_Pose fromAction, SteamVR_Input_Sources fromSource)
-	{
-		if (leftHandObject == null)
-		{
-			return;
-		}
-
-		leftHandObject.transform.localPosition = fromAction.localPosition;
-		leftHandObject.transform.localRotation = fromAction.localRotation;
-	}
-
-	private static void RightHandUpdate(SteamVR_Action_Pose fromAction, SteamVR_Input_Sources fromSource)
-	{
-		if (rightHandObject == null)
-		{
-			return;
-		}
-
-		rightHandObject.transform.localPosition = fromAction.localPosition;
-		rightHandObject.transform.localRotation = fromAction.localRotation;
-	}
-
-	public static void PlayVibration(SteamVR_Input_Sources input_sources, float amplitude, float? duration = null, float? frequency = null)
-	{
-		SteamVR_Actions._default.Haptic.Execute(0, duration ?? Time.deltaTime, frequency ?? 1f / 60f, amplitude, input_sources);
 	}
 }

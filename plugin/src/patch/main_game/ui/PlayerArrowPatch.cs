@@ -1,5 +1,5 @@
 using PiUtils.Patches;
-using TechtonicaVR.VRCamera;
+using PiVrLoader.VRCamera;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.MainGame.UI;

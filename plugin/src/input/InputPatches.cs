@@ -1,8 +1,8 @@
 using System.Linq;
 using HarmonyLib;
 using PiUtils.Util;
-using TechtonicaVR.Assets;
-using TechtonicaVR.VRCamera;
+using PiVrLoader.Input;
+using PiVrLoader.VRCamera;
 using UnityEngine;
 using Valve.VR;
 
@@ -66,17 +66,17 @@ class InputPatches
 		}
 		else if (xAxisActionId == RewiredConsts.Action.UI_Horizontal_Primary && yAxisActionId == RewiredConsts.Action.UI_Vertical_Primary)
 		{
-			__result = SteamVRInputMapper.UIAxesPrimary;
+			__result = TechInputMapper.UIAxesPrimary;
 			return false;
 		}
 		else if (xAxisActionId == RewiredConsts.Action.UI_Horizontal_Secondary && yAxisActionId == RewiredConsts.Action.UI_Vertical_Secondary)
 		{
-			__result = SteamVRInputMapper.UIAxesSecondary;
+			__result = TechInputMapper.UIAxesSecondary;
 			return false;
 		}
 		else if (xAxisActionId == RewiredConsts.Action.Rotate_Horizontal && yAxisActionId == RewiredConsts.Action.Rotate_Vertical)
 		{
-			__result = SteamVRInputMapper.UIAxesSecondary;
+			__result = TechInputMapper.UIAxesSecondary;
 			return false;
 		}
 		else
@@ -105,15 +105,15 @@ class InputPatches
 			return;
 		}
 
-		if (SteamVRInputMapper.snapTurnLeft.IsReleased())
+		if (TechInputMapper.snapTurnLeft.IsReleased())
 		{
-			SnapTurn(__instance, -1);
+			ExecuteSnapTurn(__instance, -1);
 			return;
 		}
 
-		if (SteamVRInputMapper.snapTurnRight.IsReleased())
+		if (TechInputMapper.snapTurnRight.IsReleased())
 		{
-			SnapTurn(__instance, 1);
+			ExecuteSnapTurn(__instance, 1);
 			return;
 		}
 
@@ -125,24 +125,18 @@ class InputPatches
 		__instance.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
 	}
 
-	private static void SnapTurn(PlayerFirstPersonController __instance, float direction)
+	private static void ExecuteSnapTurn(PlayerFirstPersonController __instance, float direction)
 	{
 		if (ModConfig.VignetteOnSnapTurn())
 		{
-			Vignette.instance.OneShot(() => Turn(__instance, direction * ModConfig.snapTurnAngle.Value));
+			Vignette.instance.OneShot(() => SnapTurn.Turn(__instance.gameObject, direction * ModConfig.snapTurnAngle.Value));
 		}
 		else
 		{
-			Turn(__instance, direction * ModConfig.snapTurnAngle.Value);
+			SnapTurn.Turn(__instance.gameObject, direction * ModConfig.snapTurnAngle.Value);
 		}
 
 		return;
-	}
-
-	private static void Turn(PlayerFirstPersonController fpController, float horizontalRotation)
-	{
-		VRCameraManager.mainCamera.gameObject.GetComponent<AudioSource>().PlayOneShot(AssetLoader.SnapTurn, 0.25f);
-		fpController.gameObject.transform.RotateAround(VRCameraManager.mainCamera.transform.position, Vector3.up, horizontalRotation);
 	}
 
 	[HarmonyPrefix]
@@ -288,9 +282,15 @@ class InputPatches
 	}
 
 	[HarmonyPrefix]
-	[HarmonyPatch(typeof(InputHandler), nameof(InputHandler.AnyKeyPressed), MethodType.Getter)]
+	[HarmonyPatch(typeof(InputHandler), nameof(InputHandler.AnyInputPressed), MethodType.Getter)]
 	static bool AnyKeyPressed(ref bool __result)
 	{
+		if (InputHandler.instance.uiInputBlocked)
+		{
+			__result = false;
+			return false;
+		}
+
 		GetAnyButtonDown(ref __result);
 		return false;
 	}
@@ -324,75 +324,75 @@ class InputPatches
 		switch (actionId)
 		{
 			case RewiredConsts.Action.Jump:
-				return SteamVRInputMapper.Jump;
+				return TechInputMapper.Jump;
 			case RewiredConsts.Action.Use:
-				return SteamVRInputMapper.Use;
+				return TechInputMapper.Use;
 			case RewiredConsts.Action.Interact:
 			case RewiredConsts.Action.MouseLeftClick:
-				return SteamVRInputMapper.Interact;
+				return TechInputMapper.Interact;
 			case RewiredConsts.Action.Sprint:
-				return SteamVRInputMapper.Sprint;
+				return TechInputMapper.Sprint;
 			case RewiredConsts.Action.Rotate_Counterclockwise:
-				return SteamVRInputMapper.rotateLeft;
+				return TechInputMapper.rotateLeft;
 			case RewiredConsts.Action.Rotate_Clockwise:
-				return SteamVRInputMapper.rotateRight;
+				return TechInputMapper.rotateRight;
 			case RewiredConsts.Action.Crafting_Menu:
-				return SteamVRInputMapper.Inventory;
+				return TechInputMapper.Inventory;
 			case RewiredConsts.Action.Toggle_Erase:
-				return SteamVRInputMapper.toggleErase;
+				return TechInputMapper.toggleErase;
 			case RewiredConsts.Action.Cycle_Backward:
-				return SteamVRInputMapper.cycleHotbarLeft;
+				return TechInputMapper.cycleHotbarLeft;
 			case RewiredConsts.Action.UIPageLeft:
-				return SteamVRInputMapper.UIPageLeft;
+				return TechInputMapper.UIPageLeft;
 			case RewiredConsts.Action.UIPageRight:
-				return SteamVRInputMapper.UIPageRight;
+				return TechInputMapper.UIPageRight;
 			case RewiredConsts.Action.UIPageLeftSecondary:
-				return SteamVRInputMapper.UIPageLeftSecondary;
+				return TechInputMapper.UIPageLeftSecondary;
 			case RewiredConsts.Action.UIPageRightSecondary:
-				return SteamVRInputMapper.UIPageRightSecondary;
+				return TechInputMapper.UIPageRightSecondary;
 			case RewiredConsts.Action.UI_Submit:
-				return SteamVRInputMapper.UISubmit;
+				return TechInputMapper.UISubmit;
 			case RewiredConsts.Action.UI_Cancel:
-				return SteamVRInputMapper.UICancel;
+				return TechInputMapper.UICancel;
 			case RewiredConsts.Action.Hotbar_Edit_Single:
-				return SteamVRInputMapper.HotbarEdit;
+				return TechInputMapper.HotbarEdit;
 			case RewiredConsts.Action.Lock_Toolbar:
 			case RewiredConsts.Action.Edit_Shotcut:
-				return SteamVRInputMapper.HotbarSwapItem;
+				return TechInputMapper.HotbarSwapItem;
 			case RewiredConsts.Action.Exit_Hotbar:
-				return SteamVRInputMapper.HotbarExitEdit;
+				return TechInputMapper.HotbarExitEdit;
 			case RewiredConsts.Action.Clear_Shortcut:
-				return SteamVRInputMapper.HotbarClear;
+				return TechInputMapper.HotbarClear;
 			case RewiredConsts.Action.UI_Shortcut_1:
-				return SteamVRInputMapper.UIShortcut1;
+				return TechInputMapper.UIShortcut1;
 			case RewiredConsts.Action.UI_Shortcut_2:
-				return SteamVRInputMapper.UIShortcut2;
+				return TechInputMapper.UIShortcut2;
 			case RewiredConsts.Action.Zoom_In:
-				return SteamVRInputMapper.SonarZoomIn;
+				return TechInputMapper.SonarZoomIn;
 			case RewiredConsts.Action.Zoom_Out:
-				return SteamVRInputMapper.SonarZoomOut;
+				return TechInputMapper.SonarZoomOut;
 			case RewiredConsts.Action.Craft:
-				return SteamVRInputMapper.craft;
+				return TechInputMapper.craft;
 			case RewiredConsts.Action.Craft_Five:
-				return SteamVRInputMapper.craftFive;
+				return TechInputMapper.craftFive;
 			case RewiredConsts.Action.Craft_All:
-				return SteamVRInputMapper.craftAll;
+				return TechInputMapper.craftAll;
 			case RewiredConsts.Action.Transfer:
-				return SteamVRInputMapper.transfer;
+				return TechInputMapper.transfer;
 			case RewiredConsts.Action.Transfer_Half:
-				return SteamVRInputMapper.transferHalf;
+				return TechInputMapper.transferHalf;
 			case RewiredConsts.Action.Transfer_All:
-				return SteamVRInputMapper.transferAll;
+				return TechInputMapper.transferAll;
 			case RewiredConsts.Action.Take_All_Shortcut:
-				return SteamVRInputMapper.takeAll;
+				return TechInputMapper.takeAll;
 			case RewiredConsts.Action.Cycle_Forward:
-				return SteamVRInputMapper.cycleHotbarRight;
+				return TechInputMapper.cycleHotbarRight;
 			case RewiredConsts.Action.KB_TechTree:
-				return SteamVRInputMapper.TechTree;
+				return TechInputMapper.TechTree;
 			case RewiredConsts.Action.Pause:
-				return SteamVRInputMapper.PauseMenu;
+				return TechInputMapper.PauseMenu;
 			case RewiredConsts.Action.Swap_Variation:
-				return SteamVRInputMapper.Variant;
+				return TechInputMapper.Variant;
 			default:
 				// Plugin.Logger.LogDebug($"Unknown Rewired button action ID: {actionId}. Using default Rewired input.");
 				return null;
@@ -402,38 +402,38 @@ class InputPatches
 	private static Button[] AllButtons()
 	{
 		return [
-			SteamVRInputMapper.Jump,
-			SteamVRInputMapper.Interact,
-			SteamVRInputMapper.Sprint,
-			SteamVRInputMapper.Inventory,
-			SteamVRInputMapper.TechTree,
-			SteamVRInputMapper.cycleHotbarLeft,
-			SteamVRInputMapper.takeAll,
-			SteamVRInputMapper.cycleHotbarRight,
-			SteamVRInputMapper.rotateLeft,
-			SteamVRInputMapper.rotateRight,
-			SteamVRInputMapper.UIPageLeft,
-			SteamVRInputMapper.UIPageRight,
-			SteamVRInputMapper.UIPageLeftSecondary,
-			SteamVRInputMapper.UIPageRightSecondary,
-			SteamVRInputMapper.UISubmit,
-			SteamVRInputMapper.UICancel,
-			SteamVRInputMapper.craft,
-			SteamVRInputMapper.craftFive,
-			SteamVRInputMapper.craftAll,
-			SteamVRInputMapper.transfer,
-			SteamVRInputMapper.transferHalf,
-			SteamVRInputMapper.transferAll,
-			SteamVRInputMapper.HotbarEdit,
-			SteamVRInputMapper.HotbarSwapItem,
-			SteamVRInputMapper.HotbarExitEdit,
-			SteamVRInputMapper.HotbarClear,
-			SteamVRInputMapper.UIShortcut1,
-			SteamVRInputMapper.UIShortcut2,
-			SteamVRInputMapper.SonarZoomIn,
-			SteamVRInputMapper.SonarZoomOut,
-			SteamVRInputMapper.PauseMenu,
-			SteamVRInputMapper.Variant,
+			TechInputMapper.Jump,
+			TechInputMapper.Interact,
+			TechInputMapper.Sprint,
+			TechInputMapper.Inventory,
+			TechInputMapper.TechTree,
+			TechInputMapper.cycleHotbarLeft,
+			TechInputMapper.takeAll,
+			TechInputMapper.cycleHotbarRight,
+			TechInputMapper.rotateLeft,
+			TechInputMapper.rotateRight,
+			TechInputMapper.UIPageLeft,
+			TechInputMapper.UIPageRight,
+			TechInputMapper.UIPageLeftSecondary,
+			TechInputMapper.UIPageRightSecondary,
+			TechInputMapper.UISubmit,
+			TechInputMapper.UICancel,
+			TechInputMapper.craft,
+			TechInputMapper.craftFive,
+			TechInputMapper.craftAll,
+			TechInputMapper.transfer,
+			TechInputMapper.transferHalf,
+			TechInputMapper.transferAll,
+			TechInputMapper.HotbarEdit,
+			TechInputMapper.HotbarSwapItem,
+			TechInputMapper.HotbarExitEdit,
+			TechInputMapper.HotbarClear,
+			TechInputMapper.UIShortcut1,
+			TechInputMapper.UIShortcut2,
+			TechInputMapper.SonarZoomIn,
+			TechInputMapper.SonarZoomOut,
+			TechInputMapper.PauseMenu,
+			TechInputMapper.Variant,
 		];
 	}
 }

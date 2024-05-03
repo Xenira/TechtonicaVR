@@ -1,5 +1,5 @@
 using HarmonyLib;
-using TechtonicaVR.Input;
+using PiVrLoader.Input;
 using UnityEngine;
 
 namespace TechtonicaVR.VRCamera.Patch;

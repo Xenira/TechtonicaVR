@@ -13,7 +13,7 @@ public class MainMenuPatch : MonoBehaviour
 	IPatch[] patches = [
 			new CameraOriginPatch(),
 				new SpaceBGCameraPatch(),
-				new MenuCanvasPatch(),
+				new AtLeastOnePatch([new MenuCanvasPatch1080(), new MenuCanvasPatch1440()]),
 		];
 
 	private float startTime = Time.time;
@@ -32,9 +32,7 @@ public class MainMenuPatch : MonoBehaviour
 
 	void Update()
 	{
-		patches = patches.Where(p => !p.Apply()).ToArray();
-
-		if (!patches.Any())
+		if (!patches.Where(p => !p.Apply()).Any())
 		{
 			gameObject.SetActive(false);
 		}

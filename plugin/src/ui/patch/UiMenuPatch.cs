@@ -1,9 +1,9 @@
 using HarmonyLib;
 using PiUtils.Debug;
 using PiUtils.Util;
+using PiVrLoader.VRCamera;
 using TechtonicaVR.Input.Ui;
 using TechtonicaVR.Input.Ui.Machine;
-using TechtonicaVR.VRCamera;
 using UnityEngine;
 using UnityEngine.UI;
 

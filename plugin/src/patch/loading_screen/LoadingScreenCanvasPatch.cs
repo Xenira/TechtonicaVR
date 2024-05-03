@@ -1,17 +1,18 @@
 using PiUtils.Patches;
-using TechtonicaVR.VRCamera;
+using PiVrLoader.VRCamera;
 using UnityEngine;
 
 namespace TechtonicaVR.Patches.LoadingScreen;
 
 public class LoadingScreenCanvasPatch : GameObjectPatch
 {
-	public LoadingScreenCanvasPatch() : base("Canvas")
+	public LoadingScreenCanvasPatch() : base("Black backdrop")
 	{
 	}
 
 	protected override bool Apply(GameObject gameObject)
 	{
+		gameObject = gameObject.transform.parent.gameObject;
 		gameObject.transform.position = new Vector3(0, 0, 0);
 		gameObject.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 

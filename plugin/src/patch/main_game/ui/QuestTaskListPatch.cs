@@ -1,8 +1,8 @@
-using TechtonicaVR.Input;
-using TechtonicaVR.UI;
 using UnityEngine;
 using PiUtils.Patches;
 using PiUtils.Debug;
+using PiVrLoader.Input;
+using PiVrLoader.UI;
 
 namespace TechtonicaVR.Patches.MainGame.UI;
 

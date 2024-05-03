@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using PiUtils.Util;
-using TechtonicaVR.Input;
+using PiVrLoader.Input;
 using UnityEngine;
 
 namespace TechtonicaVR.Util.Patch;
