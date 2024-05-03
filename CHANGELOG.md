@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.0.0](https://github.com/Xenira/TechtonicaVR/compare/v1.1.0...v2.0.0) (2024-05-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **game:** The mod now uses the PiVRLoader mod for most VR stuff. As a consequence you need to re-install the entire mod (preferable on a clean game install). You will need to start the game once before VR works.
+
+### ✨ Features
+
+* **game:** update to 0.4.0-c ([#162](https://github.com/Xenira/TechtonicaVR/issues/162)) ([3846816](https://github.com/Xenira/TechtonicaVR/commit/3846816d4395ea90996573b34f6668d57840a1e3))
+
+
+### 👷 Build System
+
+* **deps:** bump dsaltares/fetch-gh-release-asset from 1.1.1 to 1.1.2 ([#158](https://github.com/Xenira/TechtonicaVR/issues/158)) ([37ce96c](https://github.com/Xenira/TechtonicaVR/commit/37ce96ce1828bc727feffc2b045e1aae4e8d5cdc))
+
 ## [1.1.0](https://github.com/Xenira/TechtonicaVR/compare/v1.0.0...v1.1.0) (2024-03-17)
 
 
