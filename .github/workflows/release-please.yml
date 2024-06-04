@@ -15,6 +15,7 @@ env:
   MOD_NAME: "techtonica_vr"
   PI_UTILS_VERSION: "0.4.0"
   TTIK_VERSION: "0.2.2"
+  PI_VR_LOADER_VERSION: "0.1.1"
   TOBEY_UNITY_AUDIO_VERSION: "2.0.2"
 
 jobs:
@@ -57,6 +58,14 @@ jobs:
             repo: "xenira/TTIK"
             file: "ttik-v${{ env.TTIK_VERSION }}.zip"
             version: "tags/v${{ env.TTIK_VERSION }}"
+            token: ${{ secrets.DEPENDENCY_TOKEN }}
+        - name: Download PiVrLoader
+          if: ${{ steps.release.outputs.release_created }}
+          uses: dsaltares/fetch-gh-release-asset@1.1.2
+          with:
+            repo: "xenira/PiVRLoader"
+            file: "pi_vr_loader-v${{ env.PI_VR_LOADER_VERSION }}.zip"
+            version: "tags/v${{ env.PI_VR_LOADER_VERSION }}"
             token: ${{ secrets.DEPENDENCY_TOKEN }}
         - name: Zip release artifact
           if: ${{ steps.release.outputs.release_created }}
