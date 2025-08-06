@@ -29,7 +29,7 @@ jobs:
             config-file: release-please-config.json
         - name: Download release artifact
           if: ${{ steps.release.outputs.release_created }}
-          uses: actions/download-artifact@v4
+          uses: actions/download-artifact@v5
           with:
             name: release-artifact
             path: artifact
