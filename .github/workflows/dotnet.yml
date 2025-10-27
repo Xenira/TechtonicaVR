@@ -44,7 +44,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: plugin
         path: |
@@ -71,7 +71,7 @@ jobs:
           cp {README.adoc,CHANGELOG.md,LICENSE} ./artifact/BepInEx/plugins/${{ env.MOD_NAME }}
           cp {README.adoc,CHANGELOG.md,LICENSE,manifest.json,icon.png} ./artifact/
       - name: Upload Release Asset Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: release-artifact
           path: artifact
